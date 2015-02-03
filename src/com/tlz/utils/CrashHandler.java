@@ -108,6 +108,20 @@ public class CrashHandler implements UncaughtExceptionHandler {
             Flog.e(e);
         }
 	}
+	public static String getErrorMsg(Exception e)
+	{
+		  Writer writer = new StringWriter();  
+	      PrintWriter printWriter = new PrintWriter(writer);  
+	      e.printStackTrace(printWriter);  
+	      Throwable cause = e.getCause();  
+	      while (cause != null) {  
+	          cause.printStackTrace(printWriter);  
+	          cause = cause.getCause();  
+	      }  
+	      printWriter.close();  
+	      String result = writer.toString();  
+	      return result;
+	}
 	
 	private void exit() {
 		if (DEBUG) Flog.i("exit");

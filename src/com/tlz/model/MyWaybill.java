@@ -1,5 +1,6 @@
 package com.tlz.model;
 
+import com.tlz.utils.Flog;
 import com.tlz.utils.TimeUtils;
 
 
@@ -86,10 +87,12 @@ public class MyWaybill  {
 	
 	public MyWaybill(long time,int curType)
 	{
+		this.time=time;
 		date=TimeUtils.getDateInString(time*1000);
-		year=Integer.parseInt(date.substring(0, 2));
-		month=Integer.parseInt(date.substring(2, 4));
-		day=Integer.parseInt(date.substring(4, 6));
+		Flog.e(date);
+		year=Integer.parseInt(date.substring(0, 4));
+		month=Integer.parseInt(date.substring(4, 6));
+		day=Integer.parseInt(date.substring(6, 8));
 		this.curType=curType;
 	}
 

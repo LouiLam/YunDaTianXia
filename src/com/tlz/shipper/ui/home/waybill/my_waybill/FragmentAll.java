@@ -28,8 +28,8 @@ public class FragmentAll extends ThemeFragment  {
 	public void onCreate(Bundle savedInstanceState) {
 		activity = (ActivityMyWalbill) mActivity;
 		list = new ArrayList<MyWaybill>();
-		list.add(new MyWaybill(1422865096,MyWaybill.TYPE_CONTENT));
-		list.add(new MyWaybill(1422865096,MyWaybill.TYPE_CONTENT));
+		list.add(new MyWaybill(0,MyWaybill.TYPE_CONTENT));
+		list.add(new MyWaybill(0,MyWaybill.TYPE_CONTENT));
 		adapter=new AdapterWaybillList(activity,  list);
 		super.onCreate(savedInstanceState);
 	}

@@ -9,8 +9,8 @@
 *.class
 
 # Generated files
-bin/
 gen/
+bin/
 
 # Gradle files
 .gradle/
@@ -25,4 +25,3 @@ proguard/
 
 # Log Files
 *.log
-

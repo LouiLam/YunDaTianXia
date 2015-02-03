@@ -26,32 +26,35 @@ public class AndroidHttp {
 		return sHttpRequest;
 	}
 	
-	public void doPost(String urlString, HttpCallback callback) {
-		doRequest(Method.POST, urlString, null, null, callback);
-	}
+//	public void doPost(String urlString, HttpCallback callback) {
+//		doRequest(Method.POST, urlString, null, null, callback);
+//	}
+//	
+//	public void doPost(String urlString, Map<String, String> params, HttpCallback callback) {
+//		doRequest(Method.POST, urlString, null, params, callback);
+//	}
+//	public void doPostString(String urlString, Map<String, String> params, HttpCallback callback) {
+//		doRequest(Method.POST, urlString, null, params, callback);
+//	}
+//	
+//	public void doPost(String urlString, String tag, HttpCallback callback) {
+//		doRequest(Method.POST, urlString, tag, null, callback);
+//	}
+//	
+//	public void doPost(String urlString, String tag, Map<String, String> params, HttpCallback callback) {
+//		doRequest(Method.POST, urlString, tag, params, callback);
+//	}
+//	
+//	public void doGet(String urlString, HttpCallback callback) {
+//		doRequest(Method.GET, urlString, null, null, callback);
+//	}
+//	
+//	public void doGet(String urlString, String tag, HttpCallback callback) {
+//		doRequest(Method.GET, urlString, tag, null, callback);
+//	}
 	
-	public void doPost(String urlString, Map<String, String> params, HttpCallback callback) {
-		doRequest(Method.POST, urlString, null, params, callback);
-	}
-	
-	public void doPost(String urlString, String tag, HttpCallback callback) {
-		doRequest(Method.POST, urlString, tag, null, callback);
-	}
-	
-	public void doPost(String urlString, String tag, Map<String, String> params, HttpCallback callback) {
-		doRequest(Method.POST, urlString, tag, params, callback);
-	}
-	
-	public void doGet(String urlString, HttpCallback callback) {
-		doRequest(Method.GET, urlString, null, null, callback);
-	}
-	
-	public void doGet(String urlString, String tag, HttpCallback callback) {
-		doRequest(Method.GET, urlString, tag, null, callback);
-	}
-	
-	public void doRequest(int method, String urlString, String tag, Map<String, String> params, HttpCallback callback) {
-		mExecutor.execute(new LoadInfoThread(method, urlString, tag, params, callback));
+	public void doRequest(String urlString , String params, HttpCallback callback) {
+		mExecutor.execute(new LoadInfoThread( urlString,  params, callback));
 	}
 	
 	public void uploadFile(String urlString, Map<String, String> params, File file, HttpCallback callback) {
@@ -96,14 +99,12 @@ public class AndroidHttp {
 
 		private int mMethod;
 		private String mUrlString;
-		private Map<String, String> mParams;
+		private  String mParams;
 		private String mTag;
 		private HttpCallback mCallback;
 		
-		public LoadInfoThread(int Method, String urlString, String tag, Map<String, String> params, HttpCallback callback) {
-			mMethod = Method;
+		public LoadInfoThread( String urlString, String params, HttpCallback callback) {
 			mUrlString = urlString;
-			mTag = tag;
 			mParams = params;
 			mCallback = callback;
 		}
@@ -111,7 +112,9 @@ public class AndroidHttp {
 		@Override
 		public void run() {
 			Message msg = sMainHandler.obtainMessage();
-			String jsonString = HttpUtils.doRequest(mMethod, mUrlString, mParams);
+//			String jsonString = HttpUtils.doRequest(mMethod, mUrlString, mParams);
+			
+			String jsonString = HttpUtils.doPostString( mUrlString, mParams);
 			msg.obj = new HttpResult(mTag, jsonString, mCallback);
 			msg.sendToTarget();
 		}

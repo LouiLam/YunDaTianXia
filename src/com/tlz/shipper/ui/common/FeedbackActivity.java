@@ -84,42 +84,42 @@ public class FeedbackActivity extends ThemeActivity {
 		tmpMap.put("context", userComment);
 		
 		
-		AndroidHttp.getInstance().doPost(Urls.FEEDBACK_URL,  tmpMap, new AndroidHttp.SimpleHttpCallback() {
-
-			
-//				@Override
-//				public void onRequestSuccess(String tag, String jsonString) {
-//					String srcString = SecurityUtils.DESedeDecrypt(jsonString);
-//					if (JsonUtils.getStatusValue(srcString) == 1) {
-//						setMainTips("感谢您的宝贵意见!");
-//						mEtFeedback.setText("");
-//					} else {
-//						setMainTips("网络失败!");
-//					}
-//				}
-
-
-			@Override
-			public void onRequestFinish(String tag) {
-				super.onRequestFinish(tag);
-				mLoadingDialog.dismiss();
-			}
-
-			@Override
-			public void onRequestSuccess(String tag, String jsonString) {
-				Log.e("ZCL", "FeedbackActivity"+jsonString);
-				ToastUtils.showCrouton(FeedbackActivity.this, getString(R.string.feedback_submit_success));
-//				mInputContact.setText("");
-//				mInputContent.setText("");
-			}
-
-			@Override
-			public void onRequestFailure(String tag, int errorCode) {
-				ToastUtils.showCrouton(FeedbackActivity.this, getString(R.string.feedback_submit_fail));
-			}
-			
-		});
-		
+//		AndroidHttp.getInstance().doPost(Urls.FEEDBACK_URL,  tmpMap, new AndroidHttp.SimpleHttpCallback() {
+//
+//			
+////				@Override
+////				public void onRequestSuccess(String tag, String jsonString) {
+////					String srcString = SecurityUtils.DESedeDecrypt(jsonString);
+////					if (JsonUtils.getStatusValue(srcString) == 1) {
+////						setMainTips("感谢您的宝贵意见!");
+////						mEtFeedback.setText("");
+////					} else {
+////						setMainTips("网络失败!");
+////					}
+////				}
+//
+//
+//			@Override
+//			public void onRequestFinish(String tag) {
+//				super.onRequestFinish(tag);
+//				mLoadingDialog.dismiss();
+//			}
+//
+//			@Override
+//			public void onRequestSuccess(String tag, String jsonString) {
+//				Log.e("ZCL", "FeedbackActivity"+jsonString);
+//				ToastUtils.showCrouton(FeedbackActivity.this, getString(R.string.feedback_submit_success));
+////				mInputContact.setText("");
+////				mInputContent.setText("");
+//			}
+//
+//			@Override
+//			public void onRequestFailure(String tag, int errorCode) {
+//				ToastUtils.showCrouton(FeedbackActivity.this, getString(R.string.feedback_submit_fail));
+//			}
+//			
+//		});
+//		
 	}
 
 }

@@ -3,18 +3,20 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:baselineAligned="false"
+       android:background="@color/transparent"
     android:orientation="horizontal" >
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/line"
         android:scaleType="center"
-        android:src="@drawable/icon_waybill_circle"
-        android:background="@drawable/line" />
-<TextView 
+        android:src="@drawable/icon_waybill_circle_small" />
+
+    <TextView
+       android:id="@id/year"
         style="@style/zhuangchefahuo"
-        android:id="@id/yearMonthDay"
         android:layout_gravity="center_vertical"
-    />
+        android:background="@color/grey" />
 
 </LinearLayout>

@@ -30,6 +30,9 @@ public class FragmentWait extends ThemeFragment  {
 		list = new ArrayList<MyWaybill>();
 		list.add(new MyWaybill(1422865096,MyWaybill.TYPE_CONTENT));
 		list.add(new MyWaybill(1422865096,MyWaybill.TYPE_CONTENT));
+		
+		list.add(new MyWaybill(1420865096,MyWaybill.TYPE_CONTENT));
+		list.add(new MyWaybill(1420865096,MyWaybill.TYPE_CONTENT));
 		adapter=new AdapterWaybillList(activity,  list);
 		super.onCreate(savedInstanceState);
 	}

@@ -103,7 +103,7 @@
  <!-- |* 13日12月 装车发货 -->
     <style name="zhuangchefahuo" parent="ZhangAnMan">
         <item name="android:text">13日12月 装车发货</item>
-        <item name="android:textColor">@color/grey</item>
+        <item name="android:textColor">@color/text_hint</item>
         <item name="android:textSize">13sp</item>
     </style>
 </resources>

@@ -92,7 +92,7 @@ public class TimeUtils {
     }
     
     public static String getDateInString(long timeInMillis) {
-    	return getTime(timeInMillis, DATE_FORMAT_DATE);
+    	return getTime(timeInMillis, DATE_FORMAT_DATE_STRING);
     }
     
     public static String getTimeInString(long timeInMillis) {

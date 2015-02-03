@@ -1,5 +1,8 @@
 package com.tlz.shipper.ui.home;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,18 +43,21 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
+import com.tlz.model.Myself;
 import com.tlz.model.User;
 import com.tlz.shipper.R;
 import com.tlz.shipper.ui.BaseLoadingDialog;
 import com.tlz.shipper.ui.FullScreenDialog;
 import com.tlz.shipper.ui.ThemeActivity;
 import com.tlz.shipper.ui.ViewVisibleListener;
-import com.tlz.shipper.ui.common.FeedbackActivity;
 import com.tlz.shipper.ui.home.waybill.ActivityCreate;
+import com.tlz.utils.AndroidHttp;
+import com.tlz.utils.AndroidHttp.HttpCallback;
+import com.tlz.utils.CrashHandler;
+import com.tlz.utils.DeviceUtils;
 import com.tlz.utils.FaceImageUtils.FaceImageChangeListener;
 import com.tlz.utils.Flog;
 import com.tlz.utils.HandlerMsg;
-import com.tlz.utils.HttpUtils;
 import com.tlz.utils.ToastUtils;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.bean.SocializeEntity;
@@ -74,7 +80,7 @@ import com.umeng.socialize.weixin.media.WeiXinShareContent;
 @SuppressLint("HandlerLeak")
 public class ActivityHome extends ThemeActivity implements OnClickListener,
 		 FaceImageChangeListener {
-	private TextView mErrorNetTips;
+	private TextView mErrorNetTips,mErrorNetTips1;
 	public static final int REQUEST_CODE_QR_CODE = 0;
 	private static final int MAXQUERYSERVERCOUNT = 30;
 
@@ -113,7 +119,7 @@ public class ActivityHome extends ThemeActivity implements OnClickListener,
 	TextView barTitleView;
 	int actionBarHeight;
 	public int operateFlag = -1;
-
+	public static int count111=0;
 	// Knet mKnet;
 
 	@Override
@@ -121,6 +127,7 @@ public class ActivityHome extends ThemeActivity implements OnClickListener,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 		initActionBarNoBackAndTwoPress();
+		count111++;
 		init();
 		boolean isComeFromReg = getIntent().getBooleanExtra("isComeFromReg",
 				false);
@@ -160,8 +167,11 @@ public class ActivityHome extends ThemeActivity implements OnClickListener,
 	private void init() {
 		initViewPager();
 		mErrorNetTips = (TextView) findViewById(R.id.tv_error_net_tips);
+		mErrorNetTips1= (TextView) findViewById(R.id.tv_error_net_tips1);
 		mErrorNetTips.setOnClickListener(this);
 		mErrorNetTips.setVisibility(View.GONE);
+		mErrorNetTips1.setVisibility(View.VISIBLE);
+		mErrorNetTips1.setText("顶部条通过init不可见count次数："+count111);
 		rGroup_Controls = (RadioGroup) findViewById(R.id.rdgr_controls);
 		RadioButton rLinkRadioButton = (RadioButton) rGroup_Controls
 				.getChildAt(MAIN_TAB);
@@ -476,6 +486,8 @@ public class ActivityHome extends ThemeActivity implements OnClickListener,
 		case R.id.action_scan:
 			count = 0;
 			mErrorNetTips.setVisibility(View.GONE);
+			mErrorNetTips1.setVisibility(View.VISIBLE);
+			mErrorNetTips1.setText("顶部条通过点击停止定位不可见");
 			stopTimer();
 //			Intent intent = new Intent();
 //			intent.setClass(this, QRCodeScanningActivity.class);
@@ -645,37 +657,37 @@ public class ActivityHome extends ThemeActivity implements OnClickListener,
 	private CountDownTimer mCutdownTimer = null;
 	private int mRemainderTime = 60;
 	private int count = 0;
-
+	private int body = 0;
 	@Override
 	public boolean handleMessage(Message msg) {
 		switch (msg.what) {
 		case HandlerMsg.LocationSuc:
 			final BDLocation location = (BDLocation) msg.obj;
-
-			new Thread(new Runnable() {
-
+			JSONObject obj = null;
+			try {
+				obj = new JSONObject();
+				obj.put("Cellphone", Myself.UserName);
+				obj.put("SourceId", "233455");
+				obj.put("DeviceCode",DeviceUtils.getIMEI(ActivityHome.this));
+				obj.put("Longitude", location.getLongitude());
+				obj.put("Latitude", location.getLatitude());
+			} catch (Exception e) {
+				mErrorNetTips1.setVisibility(View.VISIBLE);
+				mErrorNetTips1.setText(CrashHandler.getErrorMsg(e));
+			}
+			Flog.e(obj.toString());
+			AndroidHttp.getInstance().doRequest("http://120.24.234.112/service/gps", obj.toString(), new HttpCallback() {
 				@Override
-				public void run() {
-					JSONObject obj = null;
-					try {
-						obj = new JSONObject();
-						obj.put("Cellphone", "13319514500");
-						obj.put("SourceId", "233455");
-						obj.put("DeviceCode", "AEBBF994333");
-						obj.put("Longitude", location.getLongitude());
-						obj.put("Latitude", location.getLatitude());
-					} catch (Exception e) {
-						// TODO: handle exception
-					}
-					Flog.e(obj.toString());
-					String result = HttpUtils.doPostString(
-							"http://120.24.234.112/service/gps", obj.toString());
-					Flog.e(result);
-					count++;
-				}
-			}).start();
+				public void onRequestSuccess(String tag, String jsonString) {handlerResult(jsonString);}
+				@Override
+				public void onRequestFinish(String tag) {}
+				@Override
+				public void onRequestFailure(String tag, int errorCode) {handlerResult(null);}
+			});
 			break;
-
+		case HandlerMsg.LocationFailed:
+			handlerResult(null);
+			break;
 		default:
 			break;
 		}
@@ -684,10 +696,40 @@ public class ActivityHome extends ThemeActivity implements OnClickListener,
 
 	private void startTimer() {
 		initLocation();
+	}
+	private void handlerResult(String jsonString)
+	{
+		mErrorNetTips1.setVisibility(View.GONE);
+		if(jsonString==null)
+		{
+			mRemainderTime = 300;
+		}
+		else
+		{
+			try {
+				JSONObject  objResult=new JSONObject(jsonString);
+				if(objResult.getString("Code").equals("0000"))
+				{
+					body=objResult.getInt("Body");
+				}
+				else
+				{body=0;}
+			} catch (JSONException e) {
+				mErrorNetTips1.setVisibility(View.VISIBLE);
+				mErrorNetTips1.setText(CrashHandler.getErrorMsg(e));
+				body=0;
+			}
+			Flog.e(jsonString);
+			count++;
+			if(body!=0)
+			mRemainderTime = body;
+			else
+			mRemainderTime = 300;
+		}
 		mErrorNetTips.setVisibility(View.VISIBLE);
-		mRemainderTime = 600;
+			
 		if (mCutdownTimer == null) {
-			mCutdownTimer = new CountDownTimer(600 * 1000, 1000) {
+			mCutdownTimer = new CountDownTimer(mRemainderTime * 1000, 1000) {
 
 				@Override
 				public void onTick(long millisUntilFinished) {
@@ -706,8 +748,8 @@ public class ActivityHome extends ThemeActivity implements OnClickListener,
 			};
 			mCutdownTimer.start();
 		}
+	
 	}
-
 	private void stopTimer() {
 
 		if (mCutdownTimer != null) {

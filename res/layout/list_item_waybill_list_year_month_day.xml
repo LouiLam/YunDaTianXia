@@ -3,6 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:baselineAligned="false"
+    android:background="@color/transparent"
     android:orientation="horizontal" >
 
     <ImageView
@@ -10,11 +11,11 @@
         android:layout_height="wrap_content"
         android:background="@drawable/line"
         android:scaleType="center"
-        android:src="@drawable/icon_waybill_circle_small" />
+        android:src="@drawable/icon_waybill_circle" />
 
     <TextView
+        android:id="@id/yearMonthDay"
         style="@style/zhuangchefahuo"
-        android:layout_gravity="center_vertical"
-        android:background="@color/grey" />
+        android:layout_gravity="center_vertical" />
 
 </LinearLayout>

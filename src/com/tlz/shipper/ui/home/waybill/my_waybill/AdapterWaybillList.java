@@ -87,23 +87,19 @@ public class AdapterWaybillList extends BaseAdapter {
 		// 年 title
 		Iterator<Integer> iterYears = dataYears.keySet().iterator();
 		while (iterYears.hasNext()) {
-		
 			Integer keyYears = iterYears.next();
-			
-			MyWaybill bill=	new MyWaybill(2132132132,
-					MyWaybill.TYPE_DATE_YEAR);
-			dataCombined.add(bill);
-			// List<MyWaybill> valYears = dataYears.get(keyYears);
+			MyWaybill bill = dataYears.get(keyYears).get(0);
+			dataCombined.add(new MyWaybill(bill.time, MyWaybill.TYPE_DATE_YEAR));
 			// 年月日 title
-			
+
 			Iterator<String> iterDay = dataDays.keySet().iterator();
 			while (iterDay.hasNext()) {
-			
+
 				String keyDay = iterDay.next();
 				List<MyWaybill> valDay = dataDays.get(keyDay);
-			
-				MyWaybill tmp=	new MyWaybill(2132132132,MyWaybill.TYPE_DATE_SAME_DAY);
-				dataCombined.add(tmp);
+
+				dataCombined.add( new MyWaybill(valDay.get(0).time,
+						MyWaybill.TYPE_DATE_SAME_DAY));
 				// 真实数据
 				for (MyWaybill myWaybill : valDay) {
 					dataCombined.add(myWaybill);
@@ -145,28 +141,40 @@ public class AdapterWaybillList extends BaseAdapter {
 		// ViewHolder viewHolder = null;
 		// Flog.e(data.get(position).date);
 		int type = getItemViewType(position);
-		MyWaybill obj=dataCombined.get(position);
+		MyWaybill obj = dataCombined.get(position);
 		switch (type) {
 		case MyWaybill.TYPE_DATE_SAME_DAY: {
-			ViewHolderYearMonthDay holder = null;
+			ViewHolderDateText holder = null;
 			if (convertView == null) {
-				holder = new ViewHolderYearMonthDay();
+				holder = new ViewHolderDateText();
 				convertView = LayoutInflater.from(mContext).inflate(
-						R.layout.list_item_waybill_list_year, parent, false);
-				holder.yearMonthDay = (TextView) convertView
+						R.layout.list_item_waybill_list_year_month_day, parent,
+						false);
+				holder.text = (TextView) convertView
 						.findViewById(R.id.yearMonthDay);
 				convertView.setTag(holder);
 			} else {
-				holder = (ViewHolderYearMonthDay) convertView.getTag();
+				holder = (ViewHolderDateText) convertView.getTag();
 			}
-			holder.yearMonthDay.setText(String.format("%d日%d月 装车发货", obj.day,obj.month));
-			
+			holder.text.setText(String
+					.format("%d日%d月 装车发货", obj.day, obj.month));
+
 		}
 			break;
-		case MyWaybill.TYPE_DATE_YEAR:
-			convertView = LayoutInflater.from(mContext).inflate(
-					R.layout.list_item_waybill_list_year_month_day, parent,
-					false);
+		case MyWaybill.TYPE_DATE_YEAR: {
+			ViewHolderDateText holder = null;
+			if (convertView == null) {
+				holder = new ViewHolderDateText();
+				convertView = LayoutInflater.from(mContext).inflate(
+						R.layout.list_item_waybill_list_year, parent, false);
+				holder.text = (TextView) convertView.findViewById(R.id.year);
+				convertView.setTag(holder);
+			} else {
+				holder = (ViewHolderDateText) convertView.getTag();
+			}
+			holder.text.setText(String.format("%d年", obj.year));
+
+		}
 			break;
 		case MyWaybill.TYPE_CONTENT: {
 			ViewHolderContent holder = null;
@@ -206,7 +214,7 @@ public class AdapterWaybillList extends BaseAdapter {
 		TextView toCity;
 	}
 
-	static class ViewHolderYearMonthDay {
-		TextView yearMonthDay;
+	static class ViewHolderDateText {
+		TextView text;
 	}
 }
