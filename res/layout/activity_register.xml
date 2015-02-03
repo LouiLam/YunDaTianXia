@@ -1,0 +1,111 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res/com.tlz.shipper"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"   
+        android:paddingLeft="@dimen/main_padding"
+        android:paddingRight="@dimen/main_padding" >
+
+        <FrameLayout
+            android:id="@+id/layout_logo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/tv_error_net_tips"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:background="@color/major_2"
+                android:drawableLeft="@drawable/icon_gzz"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/ic_ie_arrow_normal"
+                android:gravity="center|left"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="@string/net_not_available"
+                android:textColor="@color/white_color"
+                android:textSize="14sp" />
+        </FrameLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/new_blue" />
+
+        <com.tlz.shipper.ui.widget.EditTextBarIconTitleClearText
+            android:id="@+id/register_enterprise_simple_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:right_hint="@string/register_enterprise_simple_name_hint"
+            app:icon_right_background="@drawable/icon_clear_text"
+            app:icon_margin="5dp"
+            app:right_maxLength="@integer/enterprise_simple_name"
+            app:left_text="@string/register_enterprise_simple_name" />
+
+        <com.tlz.shipper.ui.widget.EditTextBarIconTitleBtn
+            android:id="@+id/register_area"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:right_hint="@string/register_area_hint"
+            app:icon_right_background="@drawable/icon_arrow_down"
+            app:left_text="@string/register_area" />
+
+        <com.tlz.shipper.ui.widget.EditTextBarIconTitlePassword
+            android:id="@+id/register_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:maxLength="@integer/user_pwd"
+            app:right_hint="@string/register_pwd_hint"
+            app:icon_background_invisible="@drawable/icon_pwd_invisible"
+            app:icon_background_visible="@drawable/icon_pwd_visible"
+            app:left_text="@string/register_pwd" />
+
+        <com.tlz.shipper.ui.widget.EditTextBarIconTitlePassword
+            android:id="@+id/register_conf_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:maxLength="@integer/user_pwd"
+            app:right_hint="@string/register_conf_pwd_hint"
+            app:icon_background_invisible="@drawable/icon_pwd_invisible"
+            app:icon_background_visible="@drawable/icon_pwd_visible"
+            app:left_text="@string/register_conf_pwd" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginTop="20dp" >
+
+            <TextView
+                android:id="@+id/register_btn_reg"
+                style="@style/MTextViewBtn"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/index_reg" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginTop="20dp" >
+
+            <TextView
+                android:id="@+id/register_btn_agree_protocol"
+                style="@style/MTextView"
+                android:gravity="left"
+                android:singleLine="false"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

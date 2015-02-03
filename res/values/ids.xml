@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="content" type="id"/>
+    <item name="icon" type="id"/>
+    <item name="name" type="id"/>
+    <item name="time" type="id"/>
+    <item name="target" type="id"/>
+    <item name="title" type="id"/>
+    <item name="listView" type="id"/>
+    <!-- ***********************  相对布局借用groupID*********************** -->
+    <item name="group" type="id"/>
+    <!-- ***********************  相对布局借用groupID*********************** -->
+
+
+    <!-- ***********************  运单详情模块 *********************** -->
+    <!-- 装货->运单  城市 -->
+    <item name="loading_city" type="id"/>
+    <!-- 装货->运单   省 市 区 -->
+    <item name="loading_location" type="id"/>
+    <!-- 装货->运单   发货时间 -->
+    <item name="loading_date" type="id"/>
+    <!-- 卸货->运单  城市 -->
+    <item name="unloading_city" type="id"/>
+    <!-- 卸货->运单   省 市 区 -->
+    <item name="unloading_location" type="id"/>
+    <!-- 卸货->运单   发货时间 -->
+    <item name="unloading_date" type="id"/>
+    <!-- 重量，运费，收货单位 -->
+    <item name="weight" type="id"/>
+    <!-- 头像 -->
+    <item name="headicon" type="id"/>
+   <!-- 电话 -->
+    <item name="phone" type="id"/>
+    <!-- ***********************  运单详情模块 *********************** -->
+
+</resources>

@@ -1,0 +1,109 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 发往 -->
+    <style name="CircleArrow" parent="android:Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:background">@drawable/icon_waybill_arrow_yellow</item>
+        <item name="android:text">发往</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:paddingLeft">5sp</item>
+    </style>
+    <!-- 杭州 -->
+    <style name="city" parent="android:Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/red</item>
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:text">杭州</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+    <!-- 浙江 杭州 上城区 -->
+    <style name="location" parent="android:Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:text">浙江 杭州 上城区</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+    <!-- 2014年10月5日 -->
+    <style name="date" parent="android:Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:text">2014年11月10日</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+    <!-- 24吨,协议运费12000元。收货单位：太原神通 -->
+        <style name="weight" parent="android:Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:gravity">left</item>
+        <item name="android:text">24吨,协议运费12000元。收货单位：太原神通啊啊啊啊啊啊啊啊啊啊啊啊</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+    <!-- 待发车 -->
+    <style name="DaiFaChe" parent="android:Widget.TextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text_hint</item>
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:gravity">right</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:text">待发车</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+    <!-- 装车发货/预计到达 -->
+    <style name="tip" parent="android:Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:text">装车发货/预计到达</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+    <!-- 张安满师傅 -->
+    <style name="ZhangAnMan" parent="android:Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text_hint</item>
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:text">张安满师傅</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+    <!-- 车牌号 -->
+    <style name="ChePai" parent="ZhangAnMan">
+        <item name="android:text">湘A-VH016</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+    <!-- 确认发车 -->
+    <style name="QueRenFaChe" parent="ZhangAnMan">
+        <item name="android:text">确认发车</item>
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+ <!-- |* 13日12月 装车发货 -->
+    <style name="zhuangchefahuo" parent="ZhangAnMan">
+        <item name="android:text">13日12月 装车发货</item>
+        <item name="android:textColor">@color/grey</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+</resources>

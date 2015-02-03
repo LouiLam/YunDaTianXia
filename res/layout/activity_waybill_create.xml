@@ -1,0 +1,214 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res/com.tlz.shipper"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/main_padding" >
+
+        <com.tlz.shipper.ui.widget.TextViewBarIcon
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:bar_background="@color/grey"
+            app:left_text="@string/waybill_create_base" />
+
+        <com.tlz.shipper.ui.widget.EditTextBarIconTitleBtn
+            android:id="@+id/waybill_create_loading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:icon_right_background="@drawable/icon_arrow_down"
+            app:left_text="@string/waybill_create_loading"
+            app:right_hint="@string/waybill_create_loading_hint" />
+
+        <com.tlz.shipper.ui.widget.EditTextBarIconTitleBtn
+            android:id="@+id/waybill_create_unloading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:icon_right_background="@drawable/icon_arrow_down"
+            app:left_text="@string/waybill_create_unloading"
+            app:right_hint="@string/waybill_create_unloading_hint" />
+
+        <com.tlz.shipper.ui.widget.EditTextBarIconTitleBtn
+            android:id="@+id/waybill_create_weight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:icon_right_background="@drawable/icon_arrow_down"
+            app:left_text="@string/waybill_create_weight"
+            app:right_hint="@string/waybill_create_weight_hint" />
+
+        <com.tlz.shipper.ui.widget.EditTextBarIconTitleBtn
+            android:id="@+id/waybill_create_date_send"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:icon_right_background="@drawable/icon_arrow_down"
+            app:left_text="@string/waybill_create_date_send"
+            app:right_hint="@string/waybill_create_date_send_hint" />
+
+        <com.tlz.shipper.ui.widget.EditTextBarIconTitleBtn
+            android:id="@+id/waybill_create_date_arrive"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:icon_right_background="@drawable/icon_arrow_down"
+            app:left_text="@string/waybill_create_date_arrive"
+            app:right_hint="@string/waybill_create_date_arrive_hint" />
+
+        <com.tlz.shipper.ui.widget.EditTextBarIconTitleClearText
+            android:id="@+id/waybill_create_costs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:left_text="@string/waybill_create_costs"
+            app:right_hint="@string/waybill_create_costs_hint"
+            app:unit_right_text="元" />
+
+        <com.tlz.shipper.ui.widget.EditTextBarIconTitleClearTextAndRemark
+            android:id="@+id/waybill_create_remarks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:icon_right_background="@drawable/icon_clear_text"
+            app:right_hint="@string/waybill_create_remarks_hint" />
+
+        <com.tlz.shipper.ui.widget.EditTextBarIconTitleBtn
+            android:id="@+id/waybill_create_more_goods_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:icon_right_background="@drawable/icon_arrow_down"
+            app:left_text="@string/waybill_create_more_goods_type"
+            app:right_hint="@string/waybill_create_more_goods_type_hint" />
+
+        <com.tlz.shipper.ui.widget.EditTextBarIconTitleClearText
+            android:id="@+id/waybill_create_more_goods_insurance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:left_text="@string/waybill_create_more_goods_insurance"
+            app:right_hint="@string/waybill_create_more_goods_insurance_hint"
+            app:unit_right_text="元" />
+
+        <com.tlz.shipper.ui.widget.EditTextBarIconTitleClearText
+            android:id="@+id/waybill_create_more_goods_receive"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:icon_right_background="@drawable/icon_clear_text"
+            app:left_text="@string/waybill_create_more_goods_receive"
+            app:right_hint="@string/waybill_create_more_goods_receive_hint" />
+
+        <TextView
+            android:id="@+id/waybill_create_more"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:drawablePadding="10dp"
+            android:drawableRight="@drawable/icon_arrow_down"
+            android:gravity="center_vertical|right"
+            android:text="@string/waybill_create_more"
+            android:textColor="@color/text_dark" />
+
+        <LinearLayout
+            android:id="@+id/tb_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/grey"
+            android:gravity="center_vertical"
+            android:paddingBottom="5dp"
+            android:paddingLeft="@dimen/default_padding0"
+            android:paddingRight="@dimen/default_padding0"
+            android:paddingTop="5dp" >
+
+            <TextView
+                android:id="@+id/tb_left"
+                style="@style/MTextView"
+                android:text="@string/waybill_create_carry"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|right" >
+
+                <TextView
+                    android:id="@+id/tb_queue"
+                    style="@style/MTextView"
+                    android:text="@string/waybill_create_cargo_select"
+                    android:textColor="@color/text_hint"
+                    android:textSize="12sp" />
+
+                <ImageView
+                    android:id="@+id/tb_icon_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/line" />
+
+                <TextView
+                    android:id="@+id/tb_qr"
+                    style="@style/MTextView"
+                    android:text="@string/waybill_create_qr"
+                    android:textColor="@color/text_hint"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <com.tlz.shipper.ui.widget.EditTextBarIconTitleClearText
+            android:id="@+id/waybill_create_phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:icon_right_background="@drawable/icon_clear_text"
+            app:left_text="@string/waybill_create_phone_number"
+            app:right_hint="@string/waybill_create_phone_number_hint" />
+
+        <com.tlz.shipper.ui.widget.EditTextBarIconTitleClearText
+            android:id="@+id/waybill_create_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:icon_right_background="@drawable/icon_clear_text"
+            app:left_text="@string/waybill_create_name"
+            app:right_hint="@string/waybill_create_name_hint" />
+
+        <com.tlz.shipper.ui.widget.EditTextBarIconTitleClearText
+            android:id="@+id/waybill_create_plate_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:icon_right_background="@drawable/icon_clear_text"
+            app:left_text="@string/waybill_create_plate_number"
+            app:right_hint="@string/waybill_create_plate_number_hint" />
+
+        <com.tlz.shipper.ui.widget.EditTextBarIconTitleClearTextAndRemark
+            android:id="@+id/waybill_create_remarks1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:icon_right_background="@drawable/icon_photograph_grey"
+            app:right_hint="@string/waybill_create_remarks_hint" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginTop="20dp" >
+
+            <TextView
+                android:id="@+id/waybill_btn_save"
+                style="@style/MTextViewBtn"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/waybill_create_btn_save" />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

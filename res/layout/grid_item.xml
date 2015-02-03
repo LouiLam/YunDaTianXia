@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="115dp"
+    android:layout_height="115dp" >
+
+    <ImageView
+        android:id="@+id/thumb"
+        android:layout_width="115dp"
+        android:layout_height="115dp"
+        android:background="@color/grey"
+        android:contentDescription="@null"
+        android:scaleType="center"
+        android:src="@drawable/ic_launcher" />
+
+    <ImageView
+        android:id="@+id/selected"
+        android:layout_width="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:layout_height="wrap_content"
+         android:contentDescription="@null"
+        android:visibility="gone"
+        android:background="@drawable/icon_photo_selected" />
+
+</FrameLayout>

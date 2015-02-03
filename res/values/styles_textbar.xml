@@ -1,0 +1,43 @@
+<resources>
+
+  <style name="MTextView" parent="android:Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/default_color_text_dark</item>
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
+    </style>
+   <!-- 输入框前面的文字提示 -->
+    <style name="MEdit_TextView" parent="android:Widget.EditText">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/default_color_text_dark</item>
+        <item name="android:background">@drawable/tb_selector_textfield</item>
+        <item name="android:focusable">false</item>
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <!-- 统一风格输入框 -->
+    <style name="MEdit" parent="android:Widget.EditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/tb_selector_textfield</item>
+        <item name="android:textColor">@color/default_color_text_dark</item>
+        <item name="android:textColorHint">@color/default_color_text_hint</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+     <!-- 输入框下面的文字提示  EditTextBarPureClearText专用-->
+    <style name="MEdit_PureClearText" parent="android:Widget.EditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/default_color_text_dark</item>
+        <item name="android:background">@drawable/input_transparent</item>
+        <item name="android:focusable">false</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:singleLine">false</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+</resources>

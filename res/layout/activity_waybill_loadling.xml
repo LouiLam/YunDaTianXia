@@ -1,0 +1,69 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res/com.tlz.shipper"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <EditText
+            android:id="@+id/loading"
+            style="@style/MEdit"
+            android:layout_width="0dp"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:src="@drawable/icon_yundan_loading_switch" />
+
+        <EditText
+            android:id="@+id/unloading"
+            style="@style/MEdit"
+            android:layout_width="0dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/search"
+        style="@style/MEdit"
+        android:layout_marginTop="10dp"
+        android:hint="@string/waybill_loading_search_hint"
+        android:drawableLeft="@drawable/icon_menu_search" />
+
+    <com.tlz.shipper.ui.widget.TextViewBarIcon
+        android:id="@+id/common_area"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:bar_background="@color/grey"
+        app:left_text="@string/waybill_loading_common_area" />
+
+    <com.tlz.shipper.ui.widget.TextViewBarIcon
+        android:id="@+id/common_area_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:left_text="@string/waybill_loading_common_area_content" />
+
+    <com.tlz.shipper.ui.widget.TextViewBarIcon
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:bar_background="@color/grey"
+        app:left_text="@string/register_area_cur_location_detailed" />
+
+    <ListView
+        android:id="@id/listView"
+        style="@style/MListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
+
+</LinearLayout>

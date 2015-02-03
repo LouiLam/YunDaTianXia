@@ -1,0 +1,56 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" >
+ <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/icon_menu_search"
+        android:title="@string/action_menu_search">
+    </item>
+    <item
+        android:id="@+id/action_more"
+        android:icon="@drawable/icon_menu_more"
+        android:title="@string/action_menu_more">
+        <menu>
+            <item
+                android:id="@+id/action_new_yundan"
+                android:icon="@drawable/icon_actionbar_0"
+                android:orderInCategory="101"
+                android:title="@string/action_bar_new_yundan"/>
+            <item
+                android:id="@+id/action_add_driver"
+                android:icon="@drawable/icon_actionbar_1"
+                android:orderInCategory="101"
+                android:title="@string/action_bar_add_driver"/>
+            <item
+                android:id="@+id/action_scan"
+                android:icon="@drawable/icon_actionbar_2"
+                android:orderInCategory="104"
+                android:title="@string/action_bar_scan"/>
+            <item
+                android:id="@+id/action_feedback"
+                android:icon="@drawable/icon_actionbar_3"
+                android:orderInCategory="105"
+                android:title="@string/action_bar_feedback"/>
+            <!--
+            <item
+                android:id="@+id/action_help"
+                android:icon="@drawable/ic_ab_help_light"
+                android:orderInCategory="105"
+                android:title="@string/action_bar_help"/> 
+            
+            <item
+                android:id="@+id/action_share"
+                android:icon="@drawable/ic_ab_share_light"
+                android:orderInCategory="106"
+                android:title="@string/action_bar_share"/>
+            <item
+                android:id="@+id/action_logout"
+                android:icon="@drawable/ic_ab_logout_light"
+                android:orderInCategory="107"
+                android:title="@string/action_bar_logout"
+                android:visible="false"/>
+            -->
+        </menu>
+    </item>
+   
+
+</menu>

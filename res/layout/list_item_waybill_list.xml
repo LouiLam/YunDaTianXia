@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:baselineAligned="false"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/line" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="15"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical" >
+
+            <TextView style="@style/CircleArrow" />
+
+            <TextView
+                android:id="@id/toCity"
+                style="@style/city"
+                android:layout_marginLeft="3dp" />
+
+            <TextView
+                android:id="@id/time"
+                style="@style/DaiFaChe"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/my_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/icon_yundan_switch" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/icon_waybill_arrow" />
+
+            <TextView
+                android:id="@id/fromCity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/my_switch"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/my_switch"
+                android:text="装:益阳"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@id/toProvinceCityDistrict"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/my_switch"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/my_switch"
+                android:text="卸:湖南怀化会同县"
+                android:textSize="10sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@id/content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/my_switch"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/my_switch"
+            android:text="24吨,运费12000元。收货单位：太原神通"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="6"
+        android:orientation="vertical"
+        android:paddingLeft="10dp" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/logo" />
+
+        <TextView
+            android:id="@id/name"
+            style="@style/ZhangAnMan" />
+
+        <TextView
+            android:id="@id/licensePlate"
+            style="@style/ChePai" />
+
+        <TextView style="@style/QueRenFaChe" />
+    </LinearLayout>
+
+</LinearLayout>

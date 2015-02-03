@@ -1,0 +1,124 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res/com.tlz.shipper"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+         android:padding="@dimen/main_padding" >
+
+        <com.tlz.shipper.ui.widget.TextViewBarIcon
+            android:id="@+id/register_details_logo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon_right_background="@drawable/logo"
+            app:left_text="@string/register_details_logo" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey" />
+
+        <com.tlz.shipper.ui.widget.TextViewBarPure
+            android:id="@+id/register_details_tip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/grey"
+            app:left_text="@string/register_details_tip" />
+
+        <com.tlz.shipper.ui.widget.TextViewBarPure
+            android:id="@+id/register_details_enterprise_simple_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:left_text="@string/register_details_enterprise_simple_name"
+            app:right_text="@string/register_details_default" />
+
+        <com.tlz.shipper.ui.widget.TextViewBarPure
+            android:id="@+id/register_details_enterprise_full_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:left_text="@string/register_details_enterprise_full_name"
+            app:right_text="@string/register_details_default" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey" />
+
+        <com.tlz.shipper.ui.widget.TextViewBarIcon
+            android:id="@+id/register_details_qr_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon_right_background="@drawable/qr_code"
+            app:left_text="@string/register_details_qr_code" />
+
+        <com.tlz.shipper.ui.widget.TextViewBarPure
+            android:id="@+id/register_details_phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:left_text="@string/register_details_phone_number"
+            app:right_text="@string/register_details_default" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey" />
+
+        <com.tlz.shipper.ui.widget.TextViewBarPure
+            android:id="@+id/register_details_contact_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:left_text="@string/register_details_contact_name"
+            app:right_text="@string/register_details_default" />
+
+        <com.tlz.shipper.ui.widget.TextViewBarPure
+            android:id="@+id/register_details_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:left_text="@string/register_details_location"
+            app:right_text="@string/register_details_default" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey" />
+
+        <com.tlz.shipper.ui.widget.TextViewBarPure
+            android:id="@+id/register_details_location_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:left_text="@string/register_details_location_detail"
+            app:right_text="@string/register_details_default" />
+
+        <com.tlz.shipper.ui.widget.TextViewBarPure
+            android:id="@+id/register_details_qualifications"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:left_text="@string/register_details_qualifications"
+            app:right_text="@string/register_details_default" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey" />
+
+        <com.tlz.shipper.ui.widget.TextViewBarPure
+            android:id="@+id/register_details_transport_goods"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:left_text="@string/register_details_transport_goods"
+            app:right_text="@string/register_details_default" />
+
+        <com.tlz.shipper.ui.widget.TextViewBarPure
+            android:id="@+id/register_details_enterprise_introduction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:left_text="@string/register_details_enterprise_introduction"
+            app:right_text="@string/register_details_default" />
+    </LinearLayout>
+
+</ScrollView>

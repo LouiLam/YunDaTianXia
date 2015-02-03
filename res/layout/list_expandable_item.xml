@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/light_grey"
+    android:gravity="center_vertical"
+    android:paddingBottom="@dimen/default_padding0"
+    android:paddingLeft="@dimen/default_padding0"
+    android:paddingRight="@dimen/default_padding0"
+    android:paddingTop="@dimen/default_padding0" >
+
+    <ImageView
+        android:id="@id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/logo"
+        android:contentDescription="@null" />
+
+    <TextView
+        android:id="@id/name"
+        style="@style/MTextView"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@id/icon"
+        android:text="安满师傅"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@id/target"
+        style="@style/MTextView"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@id/name"
+        android:text="往：长沙"
+        android:textColor="@color/text_hint"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@id/content"
+        style="@style/MTextView"
+        android:layout_alignBottom="@id/icon"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@id/icon"
+        android:text="已离开湖南，跑的不晓得哪里去了"
+        android:textColor="@color/text_hint"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@id/time"
+        style="@style/MTextView"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/icon"
+        android:layout_marginLeft="15dp"
+        android:text="今天  11:30"
+        android:textColor="@color/text_hint"
+        android:textSize="13sp" />
+
+</RelativeLayout>

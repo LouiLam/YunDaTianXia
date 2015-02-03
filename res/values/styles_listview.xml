@@ -1,0 +1,29 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="MListView" parent="android:Widget.ListView">
+        <item name="android:cacheColorHint">@null</item>
+        <item name="android:divider">@null</item>
+        <item name="android:scrollbars">none</item>
+    </style>
+
+    <style name="MNewsListView" parent="android:Widget.ListView">
+        <item name="android:cacheColorHint">@null</item>
+         <item name="android:divider">@color/light_grey</item>
+        <item name="android:dividerHeight">2dp</item>
+        <item name="android:scrollbars">none</item>
+    </style>
+    
+    <style name="MExpandableListView" parent="android:Widget.ExpandableListView">
+        <item name="android:cacheColorHint">@null</item>
+        <item name="android:scrollbars">none</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:childDivider">@color/transparent</item>
+        <item name="android:divider">@color/transparent</item>
+        <item name="android:listSelector">@color/transparent</item>
+        <item name="android:childIndicator">@null</item>
+        <item name="android:groupIndicator">@null</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+</resources>

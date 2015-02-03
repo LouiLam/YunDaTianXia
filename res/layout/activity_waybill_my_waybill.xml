@@ -1,0 +1,56 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+ <RadioGroup
+        android:id="@+id/rdgr_controls"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:paddingTop="10dp" >
+
+        <RadioButton
+            android:id="@+id/rdi_yundan"
+            style="@style/Tab.RadioButton.NoButton"
+            android:paddingBottom="5dp"
+            android:paddingTop="6dp"
+            android:text="@string/waybill_myWaybill_tab_wait" >
+        </RadioButton>
+
+        <RadioButton
+            android:id="@+id/rdi_guanche"
+            style="@style/Tab.RadioButton.NoButton"
+            android:paddingBottom="5dp"
+            android:paddingTop="6dp"
+            android:text="@string/waybill_myWaybill_tab_already" >
+        </RadioButton>
+
+        <RadioButton
+            android:id="@+id/rdi_fahuo"
+            style="@style/Tab.RadioButton.NoButton"
+            android:paddingBottom="5dp"
+            android:paddingTop="10dp"
+            android:text="@string/waybill_myWaybill_tab_finished" />
+
+        <RadioButton
+            android:id="@+id/rdi_yingyong"
+            style="@style/Tab.RadioButton.NoButton"
+            android:paddingBottom="5dp"
+            android:paddingTop="6dp"
+            android:text="@string/waybill_myWaybill_tab_all" />
+
+    </RadioGroup>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/tab_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/rdgr_controls"
+         />
+
+   
+
+</RelativeLayout>

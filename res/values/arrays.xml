@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <string-array name="goods">
+        <item>食品</item>
+        <item>设备</item>
+        <item>纺织品</item>
+        <item>药品</item>
+        <item>化工产品</item>
+        <item>矿产</item>
+        <item>农副产品</item>
+        <item>家具建材</item>
+        <item>危险品</item>
+        <item>冷冻品</item>
+        <item>日常用品</item>
+        <item>贵重物品</item>
+        <item>其他</item>
+    </string-array>
+
+    <!-- home->运单 -->
+    <string-array name="yundan_titles">
+        <item>新消息</item>
+        <item>新建运单</item>
+        <item>在途管理</item>
+        <item>我的运单</item>
+        <item>运单统计</item>
+    </string-array>
+    <!-- home->管车 -->
+    <string-array name="mrg_truck_titles">
+        <item>加入新司机</item>
+        <item>车队通信录</item>
+        <item>平台车库</item>
+    </string-array>
+    <!-- home->我 -->
+    <string-array name="me_titles">
+        <item>账户</item>
+        <item>套餐服务</item>
+        <item>我的签约</item>
+        <item>收货方管理</item>
+        <item>设置</item>
+    </string-array>
+    <!-- home->应用 -->
+    <string-array name="apply_titles">
+        <item>车源信息</item>
+        <item>邀请朋友</item>
+        <item>扫一扫</item>
+        <item>身份验证</item>
+        <item>保险</item>
+    </string-array>
+
+</resources>

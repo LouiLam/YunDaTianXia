@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+    <RelativeLayout
+        android:id="@+id/item_right"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:background="@color/red"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:paddingLeft="@dimen/main_padding"
+        android:paddingRight="@dimen/main_padding" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="center"
+            android:src="@drawable/icon_yundan_del_message" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/item_left"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:paddingBottom="@dimen/default_padding0"
+        android:paddingLeft="@dimen/default_padding0"
+        android:paddingRight="@dimen/default_padding0"
+        android:paddingTop="@dimen/default_padding0" >
+
+        <ImageView
+            android:id="@android:id/empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/icon_home_yundan_0"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:id="@android:id/text1"
+            style="@style/MTextView"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@android:id/empty"
+            android:text="安满师傅"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@android:id/text2"
+            style="@style/MTextView"
+            android:layout_alignBottom="@android:id/empty"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@android:id/empty"
+            android:text="已离开湖南，跑的不晓得哪里去了"
+            android:textColorHint="@color/text_hint"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@android:id/title"
+            style="@style/MTextView"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@android:id/empty"
+            android:layout_marginLeft="15dp"
+            android:text="今天  11:30"
+            android:textColorHint="@color/text_hint"
+            android:textSize="13sp" />
+    </RelativeLayout>
+
+</FrameLayout>

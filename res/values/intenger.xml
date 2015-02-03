@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<integer name="enterprise_simple_name">15</integer>
+	<integer name="enterprise_full_name">50</integer>
+	<integer name="user_pwd">12</integer>
+	<integer name="user_phone_number">11</integer>
+	<integer name="user_verify_code">10</integer>
+	<integer name="location_detail">250</integer>
+	
+	
+	<integer name="anim_duration_default">300</integer>
+    <integer name="slide_animation_duration">300</integer>
+    <!--   <integer name="noUpdateNum">3</integer>
+    <integer name="sdCardMode">1</integer>
+    <integer name="default_circle_indicator_orientation">0</integer> -->
+  
+<!--企业简称  30
+企业全称 100
+所在地 ID   5
+详细地址  500
+联系人 50
+联系电话  50
+企业简介  1000
+企业网址  500
+主要运送货品  tinyint
+二维码名片 500
+头像 500
+认证状态 tinyint  -->
+
+
+<!--
+设备服务ID  varchar 60
+会员基本资料ID int
+会员类型        integer(4)
+会员手机号    varchar 20
+登录名           varchar 20
+登录密码        varchar 36
+状态            tinyint
+注册时间  datetime
+账户余额   decimal(9,2)
+在线状态 tinyint
+
+  -->
+</resources>

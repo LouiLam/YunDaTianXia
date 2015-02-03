@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="default_color_text_dark">#232323</color>
+    <color name="default_color_text_hint">#5a5a5a</color>
+    <color name="default_color_grey">#e4e4e4</color>
+    <color name="default_bule">#58A7FF</color>
+
+    <string name="default_text">TextBar</string>
+
+    <dimen name="default_padding0">10dp</dimen>
+    <dimen name="default_drawable_padding0">5dp</dimen>
+    <dimen name="default_icon_margin">5dp</dimen>
+
+    <integer name="maxLength">30</integer>
+
+</resources>

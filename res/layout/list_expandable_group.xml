@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/grey"
+    android:gravity="center_vertical"
+    android:paddingBottom="@dimen/default_padding0"
+    android:paddingLeft="@dimen/default_padding0"
+    android:paddingRight="@dimen/default_padding0"
+    android:paddingTop="@dimen/default_padding0" >
+
+    <ImageView
+        android:id="@id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/icon_home_yundan_0" android:contentDescription="@null"/>
+
+    <TextView
+        android:id="@id/title"
+        style="@style/MTextView"
+        android:layout_marginLeft="15dp"
+        android:text="@string/default_text"
+        android:textSize="15sp" />
+
+</LinearLayout>

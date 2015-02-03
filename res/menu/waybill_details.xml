@@ -1,0 +1,32 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" >
+    <item
+        android:id="@+id/action_more"
+        android:icon="@drawable/icon_menu_waybill_more"
+        android:title="@string/action_menu_more">
+        <menu>
+            <item
+                android:id="@+id/menu_waybill_modify"
+                android:icon="@drawable/icon_menu_waybill_modify"
+                android:orderInCategory="101"
+                android:title=""/>
+            <item
+                android:id="@+id/menu_waybill_location"
+                android:icon="@drawable/icon_menu_waybill_location"
+                android:orderInCategory="101"
+                android:title=""/>
+            <item
+                android:id="@+id/menu_waybill_damaged"
+                android:icon="@drawable/icon_menu_waybill_damaged"
+                android:orderInCategory="104"
+                android:title=""/>
+            <item
+                android:id="@+id/menu_waybill_del"
+                android:icon="@drawable/icon_menu_waybill_del"
+                android:orderInCategory="105"
+                android:title=""/>
+        </menu>
+    </item>
+   
+
+</menu>

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <string name="app_name">运达天下</string>
+    <!-- action bar -->
+    <string name="action_menu_more">更多</string>
+    <string name="action_bar_new_yundan">新建运单</string>
+    <string name="action_bar_add_driver">添加司机</string>
+    <string name="action_bar_scan">停止定位</string><!-- 扫一扫 -->
+    <string name="action_bar_feedback">定时定位</string><!-- 意见反馈 -->
+    <string name="action_menu_search">搜索</string>
+    <!-- 首次注册成功 全屏对话框 -->
+    <string name="dialog_0">恭喜你已成为认证会员</string>
+    <string name="dialog_1">认证会员享受运单在途定位，组建属于企业的车队</string>
+    <string name="dialog_2">企业信息验证</string>
+    <string name="dialog_3">马上体验</string>
+
+    <!-- 引导界面 -->
+    <string name="guide_want_reg">我要注册</string>
+    <!-- index界面 -->
+    <string name="index_reg">注册</string>
+    <string name="index_login">登录</string>
+    <!-- 注册 -->
+    <string name="register_title">填写注册帐号</string>
+    <string name="register_enterprise_simple_name">企业简称</string>
+    <string name="register_enterprise_simple_name_hint">注册后不可修改</string>
+    <string name="register_area">地区</string>
+    <string name="register_area_hint">定位中&#8230;&#8230;&#8230;</string>
+    <string name="register_pwd">密码</string>
+    <string name="register_pwd_hint">6&#8211;12位数字，字母</string> <!-- 6-12 -->
+    <string name="register_conf_pwd">确认密码</string>
+    <string name="register_conf_pwd_hint">请再次输入密码</string>
+    <string name="register_agree_protocol1">点击上面的注册按钮，即表示您同意</string>
+    <string name="register_agree_protocol2">运达天下软件许可及服务协议</string>
+    <!-- 注册->填写详细的企业信息->选择企业所在地 -->
+    <string name="register_area_title">选择企业所在地</string>
+    <string name="register_area_cur_location">当前位置</string>
+    <string name="register_area_cur_location_detailed">全国省/市/镇/区县</string>
+    <!-- 注册->填写详细的企业信息->选择货品类型 -->
+    <string name="register_goods_title">选择货品</string>
+    <string name="register_goods_mygoods">我运输的货物</string>
+    <string name="register_goods_common">常用货品类型</string>
+
+    <!-- 注册 填写手机号 -->
+    <string name="register_phone_number_title">填写手机号</string>
+    <string name="register_phone_number_btn_verify">验证</string>
+    <string name="register_phone_number_tip">请填写企业物流管理员的手机号，管理员将会通过此手机号码登录。</string>
+    <string name="register_phone_number_pn">+86</string>
+    <string name="register_phone_number_pn_hint">您的常用手机号</string>
+    <string name="register_phone_number_verify_code">获取验证码</string>
+    <string name="register_phone_number_verify_code_hint">请填写手机收到的验证码</string>
+    <!-- 注册 填写详细的企业信息 -->
+    <string name="register_details_title">企业信息</string>
+    <string name="register_details_logo">头像（或企业LOGO）</string>
+    <string name="register_details_tip">请填写以下企业的基本信息：</string>
+    <string name="register_details_enterprise_simple_name">企业简称</string>
+    <string name="register_details_enterprise_full_name">企业全称</string>
+    <string name="register_details_qr_code">二维码名片</string>
+    <string name="register_details_phone_number">手机号</string>
+    <string name="register_details_contact_name">联系人姓名</string>
+    <string name="register_details_location">企业所在地</string>
+    <string name="register_details_location_detail">详细地址</string>
+    <string name="register_details_qualifications">企业资质证件</string>
+    <string name="register_details_transport_goods">主要运输货品</string>
+    <string name="register_details_enterprise_introduction">企业简介</string>
+    <string name="register_details_default">未设置</string>
+    <!-- 注册->填写详细的企业信息->头像选择 -->
+    <string name="register_details_image_grid_title">图片相册</string>
+
+    <!-- 注册->填写详细的企业信息->编辑相关信息item -->
+    <string name="register_details_item_full_name_hint_top">填写企业全称</string>
+    <string name="register_details_item_full_name_hint_bottom">展示您的企业全称,为快速走货提供强力保障</string>
+    <string name="register_details_item_title_qr">我的二维码名片</string>
+    <string name="register_details_item_contact_name_hint_top">填写联系人姓名</string>
+    <string name="register_details_item_contact_name_hint_bottom">联系人可以让司机更准确的联系到您</string>
+    <string name="register_details_item_location_detail_hint_top">填写企业详细地址</string>
+    <string name="register_details_item_title_qualifications">上传企业资质证件</string>
+    <string name="register_details_item_enterprise_introduction_hint_top">填写企业简介</string>
+    <!-- 注册错误信息 -->
+    <string name="register_error">注册失败</string>
+    <string name="register_exception">注册异常</string>
+    <!-- 注册多模块按钮 -->
+    <string name="register_save">保存</string>
+    <string name="upload_ok">上传成功</string>
+    <!-- 登录 -->
+    <string name="login_title">登录</string>
+    <string name="login_username_hint">手机号码或公司名称</string>
+    <string name="login_forget_pwd">忘记密码？</string>
+    <string name="login_tip_bottom0">还没有帐号？点这里</string>
+    <string name="login_tip_bottom1">快速注册</string>
+
+    <!-- home->运单 -->
+    <!-- 定位 -->
+    <string name="locationing_error">定位中&#8230;&#8230;&#8230;</string>
+
+    <!-- 运单->新消息 -->
+    <string name="waybill_news_title">新消息</string>
+    <!-- 运单->创建新运单 -->
+    <string name="waybill_create_title">添加新运单</string>
+    <string name="waybill_create_base">基本信息：</string>
+    <string name="waybill_create_loading">装</string>
+    <string name="waybill_create_loading_hint">填写装货地</string>
+    <string name="waybill_create_unloading">卸</string>
+    <string name="waybill_create_unloading_hint">填写卸货地</string>
+    <string name="waybill_create_weight">重量/体积</string>
+    <string name="waybill_create_weight_hint">填写货物重量或体积</string>
+    <string name="waybill_create_date_send">发货日期</string>
+    <string name="waybill_create_date_send_hint">填写货物装车发货日期</string>
+    <string name="waybill_create_date_arrive">计划到达</string>
+    <string name="waybill_create_date_arrive_hint">填写货物预计到达日期</string>
+    <string name="waybill_create_costs">协议运费</string>
+    <string name="waybill_create_costs_hint">填写运费</string>
+    <string name="waybill_create_remarks_hint">备注</string>
+    <string name="waybill_create_more_goods_type">货物类型</string>
+    <string name="waybill_create_more_goods_type_hint">请选择货物类型</string>
+    <string name="waybill_create_more_goods_insurance">货险</string>
+    <string name="waybill_create_more_goods_insurance_hint">请输入货物保险</string>
+    <string name="waybill_create_more_goods_receive">收货单位</string>
+    <string name="waybill_create_more_goods_receive_hint">请输入货物接收单位</string>
+    <string name="waybill_create_more">更多货物信息</string>
+    <string name="waybill_create_carry">承运信息：</string>
+    <string name="waybill_create_cargo_select">车队选择</string>
+    <string name="waybill_create_qr">扫二维码</string>
+    <string name="waybill_create_phone_number">手机号</string>
+    <string name="waybill_create_phone_number_hint">未填写</string>
+    <string name="waybill_create_name">姓名</string>
+    <string name="waybill_create_name_hint">例如：张师傅</string>
+    <string name="waybill_create_plate_number">车牌号</string>
+    <string name="waybill_create_plate_number_hint">例如：湘A-VH016</string>
+    <string name="waybill_create_btn_save">保存运单</string>
+    <!-- 运单->我的运单 -->
+    <string name="waybill_myWaybill_title">我的运单</string>
+    <string name="waybill_myWaybill_tab_wait">待发车</string>
+    <string name="waybill_myWaybill_tab_already">已发车</string>
+    <string name="waybill_myWaybill_tab_finished">已完成</string>
+    <string name="waybill_myWaybill_tab_all">全部</string>
+    <!-- 装/卸货地   控件 -->
+    <string name="waybill_loading_title">填写装/卸货地</string>
+    <string name="waybill_loading_common_area">常用地区</string>
+    <string name="waybill_loading_common_area_content">查询中</string>
+    <string name="waybill_loading_search_hint">城市名称或拼音搜索，例如长沙或CS</string>
+    <!-- 重量/体积/数量 控件 -->
+    <string name="waybill_weight_title">重量/体积/件数</string>
+    <string name="waybill_weight">重量：吨</string>
+    <string name="waybill_weight_hint">请填写货物重量</string>
+    <string name="waybill_volume">体积：立方</string>
+    <string name="waybill_volume_hint">请填写货物体积</string>
+    <string name="waybill_quantity">件数：件</string>
+    <string name="waybill_quantity_hint">请填写货物件数</string>
+    <string name="waybill_weight_btn_save">保存</string>
+
+    <!-- 日历选择控件 -->
+    <string name="waybill_calendar_title">发货日期</string>
+    <string name="waybill_calendar_title1">预计到达日期</string>
+    <string name="waybill_calendar_hint">向下滑动浏览更多日期</string>
+    <string name="waybill_calendar_btn">确定</string>
+    
+    <!-- 意见反馈 -->
+    <string name="feedback_title">意见反馈</string>
+    <string name="feedback_hint_contact">联系方式</string>
+    <string name="feedback_hint_content">谢谢您的宝贵意见，我们会做得更好！</string>
+    <string name="feedback_submit_success">意见已提交,感谢您的宝贵意见!</string>
+    <string name="feedback_submit_fail">提交失败, 可能网络错误了哦!</string>
+     <string name="feedback_btn_submit">提交</string>
+    
+    <string name="syb_system">系统</string>
+    <string name="syb_system_error">服务器处理失败，请稍后重试</string>
+    <string name="register_sended_anthcode">验证码已发送到</string>
+    <string name="register_phone_number">手机号码</string>
+    <string name="write_anthcode">请输入验证码</string>
+    <string name="user_register_send_auth_code">发送验证码</string>
+    <string name="user_register_next_step">下一步</string>
+    <string name="btn_register_resend">发送</string>
+    <string name="btn_register_finish">完成注册</string>
+    <string name="past_due">验证码过期</string>
+    <string name="fill_auth_code">填写验证码</string>
+    <string name="auth_code_success">新手机号验证成功！</string>
+    <string name="set_pwd">设置密码</string>
+    <string name="error_auth_code">验证码不正确，请重新输入！</string>
+    <string name="auth_code_past_due">验证码过期，请重新发送！</string>
+    <string name="has_send_auth_code">新验证号已经发送，请查收！</string>
+    <string name="btn_wait">等待</string>
+    <string name="btn_back">返回</string>
+    <string name="register_msg_due">验证码短信可能会有延时</string>
+    <string name="register_msg_back">确定返回？</string>
+    <string name="reregister_back">确定返回？</string>
+    <string name="reregister_agree">用户进行注册即默认同意快上的</string>
+    <string name="reregister_agree1">《用户条款》</string>
+    <string name="reregister_agree2">及</string>
+    <string name="reregister_agree3">《隐私政策》</string>
+    <string name="no_empty">此处不能为空</string>
+    <string name="error_authode">验证码错误！</string>
+    <string name="format_errors">请输入正确的手机号</string>
+    <string name="empty_list_msg">没有可显示的的热点信息</string>
+    <string name="empty_list_msg_loading" tools:ignore="TypographyEllipsis">正在加载...</string>
+    <string name="login_view_text_null">用户名不能为空</string>
+    <string name="pwd_view_text_null">密码不能为空</string>
+    <string name="passward_length">密码长度不符合要求</string>
+    <string name="net_not_available">当前网络不可用,请检查网络设置</string>
+    <string name="connect_not_available">网络连接超时，请检查网络设置</string>
+
+</resources>

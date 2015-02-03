@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res/com.tlz.shipper"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/main_padding" >
+
+    <com.tlz.shipper.ui.widget.TextViewBarIcon
+        android:id="@+id/me_details_icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:icon_left_background="@drawable/logo" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/grey" />
+
+    <ExpandableListView
+        android:id="@id/listView"
+        style="@style/MExpandableListView"
+        android:dividerHeight="10dp" />
+
+</LinearLayout>
