@@ -14,7 +14,7 @@
             android:id="@id/group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/blue"
+            android:background="@color/waybill_blue_light"
             android:padding="10dp" >
 
             <TextView

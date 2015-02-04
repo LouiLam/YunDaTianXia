@@ -4,7 +4,7 @@
     <style name="CircleArrow" parent="android:Widget.TextView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@android:color/white</item>
         <item name="android:duplicateParentState">true</item>
         <item name="android:gravity">left|center_vertical</item>
         <item name="android:singleLine">true</item>
@@ -17,7 +17,7 @@
     <style name="city" parent="android:Widget.TextView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/red</item>
+        <item name="android:textColor">@color/waybill_red</item>
         <item name="android:duplicateParentState">true</item>
         <item name="android:gravity">center</item>
         <item name="android:singleLine">true</item>
@@ -28,7 +28,7 @@
     <style name="location" parent="android:Widget.TextView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@android:color/white</item>
         <item name="android:duplicateParentState">true</item>
         <item name="android:gravity">center</item>
         <item name="android:singleLine">true</item>
@@ -39,7 +39,7 @@
     <style name="date" parent="android:Widget.TextView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@android:color/white</item>
         <item name="android:duplicateParentState">true</item>
         <item name="android:gravity">center</item>
         <item name="android:singleLine">true</item>
@@ -50,7 +50,7 @@
         <style name="weight" parent="android:Widget.TextView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@android:color/black</item>
         <item name="android:duplicateParentState">true</item>
         <item name="android:gravity">left</item>
         <item name="android:text">24吨,协议运费12000元。收货单位：太原神通啊啊啊啊啊啊啊啊啊啊啊啊</item>
@@ -71,7 +71,7 @@
     <style name="tip" parent="android:Widget.TextView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@android:color/white</item>
         <item name="android:duplicateParentState">true</item>
         <item name="android:gravity">center</item>
         <item name="android:singleLine">true</item>
@@ -97,7 +97,7 @@
     <!-- 确认发车 -->
     <style name="QueRenFaChe" parent="ZhangAnMan">
         <item name="android:text">确认发车</item>
-        <item name="android:textColor">@color/blue</item>
+        <item name="android:textColor">@color/waybill_blue</item>
         <item name="android:textSize">14sp</item>
     </style>
  <!-- |* 13日12月 装车发货 -->

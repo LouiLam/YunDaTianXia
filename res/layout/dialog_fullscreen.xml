@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-            android:background="@color/green_color"
+            android:background="@color/green"
             android:padding="10dp"
             android:text="@string/dialog_0" />
 

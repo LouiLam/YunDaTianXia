@@ -16,7 +16,7 @@
         fillColor="#777777"
         android:paddingBottom="30dp"
         android:paddingTop="5dp"
-        pageColor="@color/white"
+        pageColor="@android:color/white"
         radius="5dp"
         strokeColor="#ebebeb"
         strokeWidth="1dp" />

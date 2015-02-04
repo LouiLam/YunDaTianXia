@@ -4,6 +4,7 @@
         <item name="android:cacheColorHint">@null</item>
         <item name="android:divider">@null</item>
         <item name="android:scrollbars">none</item>
+         <item name="android:listSelector">@android:color/transparent</item>
     </style>
 
     <style name="MNewsListView" parent="android:Widget.ListView">
@@ -18,12 +19,12 @@
         <item name="android:scrollbars">none</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:childDivider">@color/transparent</item>
-        <item name="android:divider">@color/transparent</item>
-        <item name="android:listSelector">@color/transparent</item>
+        <item name="android:childDivider">@android:color/transparent</item>
+        <item name="android:divider">@android:color/transparent</item>
+        <item name="android:listSelector">@android:color/transparent</item>
         <item name="android:childIndicator">@null</item>
         <item name="android:groupIndicator">@null</item>
-        <item name="android:background">@color/white</item>
+        <item name="android:background">@android:color/white</item>
     </style>
 
 </resources>

@@ -64,7 +64,7 @@
         android:id="@+id/item_right"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="@color/red"
+        android:background="@color/waybill_red"
         android:gravity="center_vertical"
         android:paddingLeft="20dp"
         >

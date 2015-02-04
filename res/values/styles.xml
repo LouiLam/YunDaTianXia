@@ -23,7 +23,7 @@
 
     <style name="AcBar_titleStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/white_color</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
     <style name="Lam.Theme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
@@ -36,7 +36,7 @@
 
     <style name="CustomPopupNew" parent="@style/ThemeOverlay.AppCompat.Light">
         <item name="android:colorBackground">@color/huoyuntianxia</item>
-          <item name="android:textColorPrimary">@color/white_color</item>
+          <item name="android:textColorPrimary">@android:color/white</item>
       
     </style>
 

@@ -20,7 +20,7 @@
                 android:id="@+id/tv_error_net_tips"
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
-                android:background="@color/major_2"
+                android:background="@color/waybill_blue"
                 android:drawableLeft="@drawable/icon_gzz"
                 android:drawablePadding="10dp"
                 android:drawableRight="@drawable/ic_ie_arrow_normal"
@@ -28,14 +28,10 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:text="@string/net_not_available"
-                android:textColor="@color/white_color"
+                android:textColor="@android:color/white"
                 android:textSize="14sp" />
         </FrameLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/new_blue" />
 
         <com.tlz.shipper.ui.widget.EditTextBarIconTitleClearText
             android:id="@+id/register_enterprise_simple_name"

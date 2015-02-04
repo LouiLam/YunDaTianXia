@@ -2,11 +2,11 @@
     android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/major_2"
+    android:background="@color/waybill_blue_light"
     android:gravity="center_vertical"
     android:paddingBottom="5dp"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
     android:paddingTop="5dp"
-    android:textColor="@color/white"
+    android:textColor="@android:color/white"
     android:textSize="16sp" />

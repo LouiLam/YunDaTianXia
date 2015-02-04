@@ -16,7 +16,7 @@
                 android:id="@+id/tv_error_tips"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/major_2"
+                android:background="@color/waybill_blue"
                 android:drawableLeft="@drawable/icon_gzz"
                 android:drawablePadding="10dp"
                 android:drawableRight="@drawable/ic_ie_arrow_normal"
@@ -24,7 +24,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:text="@string/net_not_available"
-                android:textColor="@color/white_color"
+                android:textColor="@android:color/white"
                 android:textSize="14sp" />
         </FrameLayout>
     <ImageView
