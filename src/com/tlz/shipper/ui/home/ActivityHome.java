@@ -1,8 +1,5 @@
 package com.tlz.shipper.ui.home;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.Writer;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,16 +11,16 @@ import org.json.JSONObject;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
@@ -42,8 +39,7 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
-import com.baidu.location.BDLocation;
-import com.tlz.model.Myself;
+import com.tlz.model.LocationService;
 import com.tlz.model.User;
 import com.tlz.shipper.R;
 import com.tlz.shipper.ui.BaseLoadingDialog;
@@ -51,13 +47,7 @@ import com.tlz.shipper.ui.FullScreenDialog;
 import com.tlz.shipper.ui.ThemeActivity;
 import com.tlz.shipper.ui.ViewVisibleListener;
 import com.tlz.shipper.ui.home.waybill.ActivityCreate;
-import com.tlz.utils.AndroidHttp;
-import com.tlz.utils.AndroidHttp.HttpCallback;
-import com.tlz.utils.CrashHandler;
-import com.tlz.utils.DeviceUtils;
 import com.tlz.utils.FaceImageUtils.FaceImageChangeListener;
-import com.tlz.utils.Flog;
-import com.tlz.utils.HandlerMsg;
 import com.tlz.utils.ToastUtils;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.bean.SocializeEntity;
@@ -79,55 +69,26 @@ import com.umeng.socialize.weixin.media.WeiXinShareContent;
 
 @SuppressLint("HandlerLeak")
 public class ActivityHome extends ThemeActivity implements OnClickListener,
-		 FaceImageChangeListener {
-	private TextView mErrorNetTips,mErrorNetTips1;
+		FaceImageChangeListener {
+	private TextView mErrorNetTips;
 	public static final int REQUEST_CODE_QR_CODE = 0;
-	private static final int MAXQUERYSERVERCOUNT = 30;
 
-	protected static final int HAS_NEW = 0;
-	protected static final int NO_HAS_NEW = 1;
-	protected static final int TIPS_MSG = 2;
-	protected static final int MSG_UPDATE_TRAFFIC = 3;
-	protected static final int AUTO_LOGIN = 4;
-	protected static final int BING_SUCCESS = 5;
 
-	public static final int REQUESTCODE = 22;
-
-	// private AppUpdateInfo appUpdateInfo;
-	private Context mContext;
-
-	public View bottomView;
 
 	private FragmentPagerAdapterToHome mViewPagerAdapter;
 	private ViewPager mViewPager;
-	public int offset;
-	public int bmpW;
 
-	private CountDownTimer mObtrainTrafficTimer;
-	private int queryServerCount = 0;
-
-	// private KnetListener mAbKnetListener;
-	// private final static String KUAISHANGAPPKEY = "CWX0000ASWERFVUOHSQ";
-
-	// private WifiManager mWifiMgr;
 
 	private BaseLoadingDialog mLoadingDialog;
-
 	private UMSocialService mController;
 
 	private static final int MAIN_TAB = 0;// 主要显示界面
-	TextView barTitleView;
-	int actionBarHeight;
-	public int operateFlag = -1;
-	public static int count111=0;
-	// Knet mKnet;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 		initActionBarNoBackAndTwoPress();
-		count111++;
 		init();
 		boolean isComeFromReg = getIntent().getBooleanExtra("isComeFromReg",
 				false);
@@ -136,13 +97,39 @@ public class ActivityHome extends ThemeActivity implements OnClickListener,
 		}
 		User currentUser = new User();
 		setUser(currentUser);
+		registerBoradcastReceiver();
+		this.startService(new Intent(this, LocationService.class));
 		// setVisible(false);
 	}
-
-	RadioGroup rGroup_Controls;
+	/**
+	 * 定时定位相关 广播的接收处理
+	 */
+	private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver(){  
+        @Override  
+        public void onReceive(Context context, Intent intent) {  
+            String action = intent.getAction();  
+            if(action.equals("ticker.broadcast")){  
+            	mErrorNetTips.setVisibility(View.VISIBLE);
+				mErrorNetTips.setText("离下次获取经纬度的时间还有，" + intent.getIntExtra("mRemainderTime", 0)
+						+ "秒" + ",定位并且发送数据成功次数:" + intent.getIntExtra("count", 0));
+            }  
+        }  
+          
+    };  
+    /**
+	 * 定时定位相关 广播的注册
+	 */
+    public void registerBoradcastReceiver(){  
+        IntentFilter myIntentFilter = new IntentFilter();  
+        myIntentFilter.addAction("ticker.broadcast");  
+        registerReceiver(mBroadcastReceiver, myIntentFilter);  
+    } 
+	
+    	
+    	
+   RadioGroup rGroup_Controls;
 	int mControlsHeight;
 	int mShortAnimTime = 200;
-
 
 	ViewVisibleListener viewVisibleListener;
 
@@ -150,59 +137,16 @@ public class ActivityHome extends ThemeActivity implements OnClickListener,
 		this.viewVisibleListener = viewVisibleListener;
 	}
 
-	public void setCurrTab(int tabIndex) {
-		if (mViewPager != null) {
-
-			mViewPager.setCurrentItem(tabIndex, false);
-
-			if (operateFlag == 0) {
-				// MineFragment mf = (MineFragment)
-				// mViewPagerAdapter.getFragmentByTag(tabIndex);
-				// mf.openDialog();
-				operateFlag = -1;
-			}
-		}
-	}
 
 	private void init() {
 		initViewPager();
 		mErrorNetTips = (TextView) findViewById(R.id.tv_error_net_tips);
-		mErrorNetTips1= (TextView) findViewById(R.id.tv_error_net_tips1);
 		mErrorNetTips.setOnClickListener(this);
 		mErrorNetTips.setVisibility(View.GONE);
-		mErrorNetTips1.setVisibility(View.VISIBLE);
-		mErrorNetTips1.setText("顶部条通过init不可见count次数："+count111);
 		rGroup_Controls = (RadioGroup) findViewById(R.id.rdgr_controls);
 		RadioButton rLinkRadioButton = (RadioButton) rGroup_Controls
 				.getChildAt(MAIN_TAB);
 		rLinkRadioButton.setChecked(true);
-//		if (rLinkRadioButton != null) {
-//			rLinkRadioButton.setOnClickListener(new OnClickListener() {
-//
-//				@Override
-//				public void onClick(View v) {
-//					if (currTab == MAIN_TAB && !tabChanged) {
-//						if (viewVisibleListener != null)
-//							viewVisibleListener.viewVisible();
-//					}
-//					if (currTab == MAIN_TAB)
-//						tabChanged = false;
-//
-//				}
-//			});
-//			// rLinkRadioButton.setOnLongClickListener(new OnLongClickListener()
-//			// {
-//			//
-//			// @Override
-//			// public boolean onLongClick(View v) {
-//			// if (currTab == MAIN_TAB && !tabChanged) {
-//			// Toast.makeText(mContext, "智能联网启动", Toast.LENGTH_SHORT)
-//			// .show();
-//			// }
-//			// return true;
-//			// }
-//			// });
-//		}
 		rGroup_Controls
 				.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 					int tabIndex = MAIN_TAB;
@@ -228,21 +172,12 @@ public class ActivityHome extends ThemeActivity implements OnClickListener,
 						default:
 							break;
 						}
-//						if (currTab == tabIndex) {
-//							if (currTab == MAIN_TAB) {
-//								tabChanged = false;
-//							}
-//							return;
-//						} else {
-//							tabChanged = true;
-//						}
 
 						mViewPager.setCurrentItem(tabIndex, false);
 
 					}
 				});
 		autoLogin(ActivityHome.this);
-		mContext = this;
 		// PreferenceUtils.init(HomeActivity.this);
 		// mWifiMgr = (WifiManager) getSystemService(WIFI_SERVICE);
 
@@ -275,16 +210,14 @@ public class ActivityHome extends ThemeActivity implements OnClickListener,
 		// }
 
 		// initShare();
-		barTitleView = new TextView(this);
 
-		LayoutParams params = new ActionBar.LayoutParams(
-				ActionBar.LayoutParams.WRAP_CONTENT,
-				ActionBar.LayoutParams.WRAP_CONTENT, Gravity.CENTER);
-
-		barTitleView.setVisibility(View.GONE);
-		mActionBar.setCustomView(barTitleView, params);
-		mActionBar.setDisplayShowCustomEnabled(true);
-		actionBarHeight = mActionBar.getHeight();
+//		LayoutParams params = new ActionBar.LayoutParams(
+//				ActionBar.LayoutParams.WRAP_CONTENT,
+//				ActionBar.LayoutParams.WRAP_CONTENT, Gravity.CENTER);
+//
+//		barTitleView.setVisibility(View.GONE);
+//		mActionBar.setCustomView(barTitleView, params);
+//		mActionBar.setDisplayShowCustomEnabled(true);
 	}
 
 	/**
@@ -301,10 +234,10 @@ public class ActivityHome extends ThemeActivity implements OnClickListener,
 
 			@Override
 			public void onPageSelected(int arg0) {
-//				if (arg0 != MAIN_TAB)
-//					barTitleVisible(false);
-//				if (arg0 == MAIN_TAB)
-//					currTab = arg0;
+				// if (arg0 != MAIN_TAB)
+				// barTitleVisible(false);
+				// if (arg0 == MAIN_TAB)
+				// currTab = arg0;
 				((RadioButton) rGroup_Controls.getChildAt(arg0))
 						.setChecked(true);
 			}
@@ -326,7 +259,8 @@ public class ActivityHome extends ThemeActivity implements OnClickListener,
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		/** 使用SSO授权必须添加如下代码 */
-		UMSsoHandler ssoHandler = mController.getConfig().getSsoHandler(requestCode);
+		UMSsoHandler ssoHandler = mController.getConfig().getSsoHandler(
+				requestCode);
 		if (ssoHandler != null) {
 			ssoHandler.authorizeCallBack(requestCode, resultCode, data);
 		}
@@ -472,6 +406,7 @@ public class ActivityHome extends ThemeActivity implements OnClickListener,
 			}
 		}
 	}
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
@@ -480,21 +415,18 @@ public class ActivityHome extends ThemeActivity implements OnClickListener,
 			startActivity(new Intent(this, ActivityCreate.class));
 			break;
 		case R.id.action_feedback:
-			startTimer();
-//			startActivity(new Intent(this, FeedbackActivity.class));
+			// startTimer();
+			// startActivity(new Intent(this, FeedbackActivity.class));
 			break;
 		case R.id.action_scan:
-			count = 0;
-			mErrorNetTips.setVisibility(View.GONE);
-			mErrorNetTips1.setVisibility(View.VISIBLE);
-			mErrorNetTips1.setText("顶部条通过点击停止定位不可见");
-			stopTimer();
-//			Intent intent = new Intent();
-//			intent.setClass(this, QRCodeScanningActivity.class);
-//			startActivityForResult(intent, REQUEST_CODE_QR_CODE);
+			// count = 0;
+			// stopTimer();
+			// Intent intent = new Intent();
+			// intent.setClass(this, QRCodeScanningActivity.class);
+			// startActivityForResult(intent, REQUEST_CODE_QR_CODE);
 			break;
 		case R.id.action_add_driver:
-			
+
 			break;
 
 		// case R.id.action_login:
@@ -522,6 +454,7 @@ public class ActivityHome extends ThemeActivity implements OnClickListener,
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		MenuItem item;
@@ -654,109 +587,10 @@ public class ActivityHome extends ThemeActivity implements OnClickListener,
 
 	}
 
-	private CountDownTimer mCutdownTimer = null;
-	private int mRemainderTime = 60;
-	private int count = 0;
-	private int body = 0;
-	@Override
-	public boolean handleMessage(Message msg) {
-		switch (msg.what) {
-		case HandlerMsg.LocationSuc:
-			final BDLocation location = (BDLocation) msg.obj;
-			JSONObject obj = null;
-			try {
-				obj = new JSONObject();
-				obj.put("Cellphone", Myself.UserName);
-				obj.put("SourceId", "233455");
-				obj.put("DeviceCode",DeviceUtils.getIMEI(ActivityHome.this));
-				obj.put("Longitude", location.getLongitude());
-				obj.put("Latitude", location.getLatitude());
-			} catch (Exception e) {
-				mErrorNetTips1.setVisibility(View.VISIBLE);
-				mErrorNetTips1.setText(CrashHandler.getErrorMsg(e));
-			}
-			Flog.e(obj.toString());
-			AndroidHttp.getInstance().doRequest("http://120.24.234.112/service/gps", obj.toString(), new HttpCallback() {
-				@Override
-				public void onRequestSuccess(String tag, String jsonString) {handlerResult(jsonString);}
-				@Override
-				public void onRequestFinish(String tag) {}
-				@Override
-				public void onRequestFailure(String tag, int errorCode) {handlerResult(null);}
-			});
-			break;
-		case HandlerMsg.LocationFailed:
-			handlerResult(null);
-			break;
-		default:
-			break;
-		}
-		return super.handleMessage(msg);
-	}
+	// private void startTimer() {
+	// initLocation();
+	// }
 
-	private void startTimer() {
-		initLocation();
-	}
-	private void handlerResult(String jsonString)
-	{
-		mErrorNetTips1.setVisibility(View.GONE);
-		if(jsonString==null)
-		{
-			mRemainderTime = 300;
-		}
-		else
-		{
-			try {
-				JSONObject  objResult=new JSONObject(jsonString);
-				if(objResult.getString("Code").equals("0000"))
-				{
-					body=objResult.getInt("Body");
-				}
-				else
-				{body=0;}
-			} catch (JSONException e) {
-				mErrorNetTips1.setVisibility(View.VISIBLE);
-				mErrorNetTips1.setText(CrashHandler.getErrorMsg(e));
-				body=0;
-			}
-			Flog.e(jsonString);
-			count++;
-			if(body!=0)
-			mRemainderTime = body;
-			else
-			mRemainderTime = 300;
-		}
-		mErrorNetTips.setVisibility(View.VISIBLE);
-			
-		if (mCutdownTimer == null) {
-			mCutdownTimer = new CountDownTimer(mRemainderTime * 1000, 1000) {
-
-				@Override
-				public void onTick(long millisUntilFinished) {
-					mRemainderTime--;
-					mErrorNetTips.setText("离下次获取经纬度的时间还有，" + mRemainderTime
-							+ "秒" + ",定位并且发送数据成功次数:" + count);
-					Flog.e(mRemainderTime + "秒");
-				}
-
-				@Override
-				public void onFinish() {
-					mRemainderTime = 0;
-					stopTimer();
-					startTimer();
-				}
-			};
-			mCutdownTimer.start();
-		}
-	
-	}
-	private void stopTimer() {
-
-		if (mCutdownTimer != null) {
-			mCutdownTimer.cancel();
-			mCutdownTimer = null;
-		}
-	}
 
 
 
@@ -821,6 +655,7 @@ public class ActivityHome extends ThemeActivity implements OnClickListener,
 		// if (mKnet != null) {
 		// mKnet.destroy();
 		// }
+		unregisterReceiver(mBroadcastReceiver);
 		super.onDestroy();
 	}
 
@@ -1163,9 +998,6 @@ public class ActivityHome extends ThemeActivity implements OnClickListener,
 		public void onTouchEvent(MotionEvent event);
 	}
 
-	public void setNetName(String netName) {
-		barTitleView.setText(netName);
-	}
 
 
 	@Override

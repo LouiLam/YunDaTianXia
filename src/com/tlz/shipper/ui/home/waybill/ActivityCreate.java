@@ -1,9 +1,12 @@
 package com.tlz.shipper.ui.home.waybill;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.tlz.model.Myself;
 import com.tlz.shipper.R;
@@ -17,6 +20,7 @@ import com.tlz.shipper.ui.widget.EditTextBarIconTitleClearText;
 import com.tlz.shipper.ui.widget.EditTextBarIconTitleClearTextAndRemark;
 import com.tlz.shipper.ui.widget.EditTextBarIconTitleClearTextAndRemark.TBOnPhotographClickListener;
 import com.tlz.shipper.ui.widget.ViewBar.TBBarOnClickListener;
+import com.tlz.utils.ResIdentifier;
 import com.tlz.utils.ToastUtils;
 
 public class ActivityCreate extends ThemeActivity {
@@ -26,8 +30,9 @@ public class ActivityCreate extends ThemeActivity {
 	public static final int REQUEST_CODE_DATE_SEND = 3;
 	public static final int REQUEST_CODE_DATE_ARRIVE = 4;
 	public static final int REQUEST_CODE_GOODS = 5;
-	public static final int REQUEST_CODE_IMAGE_SELECT = 6;
-	public static final int REQUEST_CODE_QR_CODE = 7;
+	public static final int REQUEST_CODE_IMAGE_SELECT_TOP = 6;
+	public static final int REQUEST_CODE_IMAGE_SELECT_BOTTOM = 7;
+	public static final int REQUEST_CODE_QR_CODE = 8;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,16 +41,28 @@ public class ActivityCreate extends ThemeActivity {
 		mActionBar.setTitle(R.string.waybill_create_title);
 		initView();
 	}
-
 	EditTextBarIconTitleBtn loading, unloading, weight, date_send, date_arrive,
 			goods_type;
 	EditTextBarIconTitleClearTextAndRemark remarks, remarks1;
 	EditTextBarIconTitleClearText goods_insurance, goods_receive;
+	LinearLayout waybill_create_image_bar_top, waybill_create_image_bar_bottom;
+	ImageView imgsTop[] = new ImageView[5];
+	ImageView imgsBottom[] = new ImageView[5];
+	private int countTop = 0, countBottom = 0;
 
 	@Override
 	protected void initView() {
 		super.initView();
-
+		waybill_create_image_bar_top = (LinearLayout) findViewById(R.id.waybill_create_image_bar_top);
+		waybill_create_image_bar_top.setVisibility(View.GONE);
+		waybill_create_image_bar_bottom = (LinearLayout) findViewById(R.id.waybill_create_image_bar_bottom);
+		waybill_create_image_bar_bottom.setVisibility(View.GONE);
+		for (int i = 0; i < 5; i++) {
+			imgsTop[i] = (ImageView) waybill_create_image_bar_top
+					.findViewById(ResIdentifier.getIDByName(this, "image" + i));
+			imgsBottom[i] = (ImageView) waybill_create_image_bar_bottom
+					.findViewById(ResIdentifier.getIDByName(this, "image" + i));
+		}
 		loading = (EditTextBarIconTitleBtn) findViewById(R.id.waybill_create_loading);
 		loading.setTBBarOnClickListener(new TBBarOnClickListener() {
 
@@ -119,9 +136,11 @@ public class ActivityCreate extends ThemeActivity {
 
 			@Override
 			public void onClick() {
+				if (countBottom > 4)
+					return;
 				Intent intent = new Intent(ActivityCreate.this,
 						ImageGridPickerActivity.class);
-				startActivityForResult(intent, REQUEST_CODE_IMAGE_SELECT);
+				startActivityForResult(intent, REQUEST_CODE_IMAGE_SELECT_BOTTOM);
 
 			}
 		});
@@ -129,9 +148,11 @@ public class ActivityCreate extends ThemeActivity {
 
 			@Override
 			public void onClick() {
+				if (countTop > 4)
+					return;
 				Intent intent = new Intent(ActivityCreate.this,
 						ImageGridPickerActivity.class);
-				startActivityForResult(intent, REQUEST_CODE_IMAGE_SELECT);
+				startActivityForResult(intent, REQUEST_CODE_IMAGE_SELECT_TOP);
 
 			}
 		});
@@ -215,16 +236,25 @@ public class ActivityCreate extends ThemeActivity {
 		} else if (requestCode == REQUEST_CODE_GOODS && resultCode == RESULT_OK) {
 			Myself.Goods = data.getStringExtra("goods");
 			goods_type.setTBRightText(Myself.Goods);
-		} else if (requestCode == REQUEST_CODE_IMAGE_SELECT
+		} else if (requestCode == REQUEST_CODE_IMAGE_SELECT_TOP
 				&& resultCode == RESULT_OK) {
-			// Bitmap bm = data.getParcelableExtra("bitmap");
-			// bar_logo.setIconRightBack(bm);
+			waybill_create_image_bar_top.setVisibility(View.VISIBLE);
+			Bitmap bm = data.getParcelableExtra("bitmap");
+			imgsTop[countTop].setImageBitmap(bm);
+			countTop++;
 		} else if (requestCode == REQUEST_CODE_QR_CODE
 				&& resultCode == RESULT_OK) {
 			Bundle bundle = data.getExtras();
-			ToastUtils.show(this,"二维码内容为:"+bundle.getString("result"));
-//			mTextView.setText(bundle.getString("result"));
-//			mImageView.setImageBitmap((Bitmap) data.getParcelableExtra("bitmap"));
+			ToastUtils.show(this, "二维码内容为:" + bundle.getString("result"));
+			// mTextView.setText(bundle.getString("result"));
+			// mImageView.setImageBitmap((Bitmap)
+			// data.getParcelableExtra("bitmap"));
+		} else if (requestCode == REQUEST_CODE_IMAGE_SELECT_BOTTOM
+				&& resultCode == RESULT_OK) {
+			waybill_create_image_bar_bottom.setVisibility(View.VISIBLE);
+			Bitmap bm = data.getParcelableExtra("bitmap");
+			imgsBottom[countBottom].setImageBitmap(bm);
+			countBottom++;
 		}
 	}
 

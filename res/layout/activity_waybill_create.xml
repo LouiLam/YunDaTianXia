@@ -78,6 +78,51 @@
             app:icon_right_background="@drawable/icon_clear_text"
             app:right_hint="@string/waybill_create_remarks_hint" />
 
+        <LinearLayout
+            android:id="@+id/waybill_create_image_bar_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
+
+            <ImageView
+                android:id="@+id/image0"
+                android:layout_weight="1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitCenter"
+         	 />
+
+            <ImageView
+                android:id="@+id/image1"
+                    android:layout_weight="1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitCenter" />
+
+            <ImageView
+                android:id="@+id/image2"
+                    android:layout_weight="1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitCenter" />
+
+            <ImageView
+                android:id="@+id/image3"
+                    android:layout_weight="1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitCenter"
+                />
+
+            <ImageView
+                android:id="@+id/image4"
+                    android:layout_weight="1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitCenter"
+              />
+        </LinearLayout>
+
         <com.tlz.shipper.ui.widget.EditTextBarIconTitleBtn
             android:id="@+id/waybill_create_more_goods_type"
             android:layout_width="match_parent"
@@ -195,7 +240,50 @@
             android:layout_marginTop="10dp"
             app:icon_right_background="@drawable/icon_photograph_grey"
             app:right_hint="@string/waybill_create_remarks_hint" />
+<LinearLayout
+            android:id="@+id/waybill_create_image_bar_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
 
+            <ImageView
+                android:id="@id/image0"
+                android:layout_weight="1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitCenter"
+         	 />
+
+            <ImageView
+                android:id="@id/image1"
+                    android:layout_weight="1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitCenter" />
+
+            <ImageView
+                android:id="@id/image2"
+                    android:layout_weight="1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitCenter" />
+
+            <ImageView
+                android:id="@id/image3"
+                    android:layout_weight="1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitCenter"
+                />
+
+            <ImageView
+                android:id="@id/image4"
+                    android:layout_weight="1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitCenter"
+              />
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

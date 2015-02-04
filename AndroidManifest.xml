@@ -132,7 +132,8 @@
             android:name="com.tlz.shipper.ui.common.FeedbackActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-        
+         <!-- 定时定位服务 -->
+        <service android:enabled="true" android:name="com.tlz.model.LocationService" />
         <!-- 百度定位 start -->
         <service
             android:name="com.baidu.location.f"
