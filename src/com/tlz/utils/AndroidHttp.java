@@ -9,8 +9,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.util.ArrayMap;
 
-import com.tlz.utils.HttpUtils.Method;
-
 public class AndroidHttp {
 
 	private static final String TAG = AndroidHttp.class.getSimpleName();

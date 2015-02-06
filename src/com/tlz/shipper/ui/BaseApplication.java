@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.tlz.model.User;
 import com.tlz.utils.CrashHandler;
 import com.tlz.utils.Flog;
@@ -42,6 +43,7 @@ public class BaseApplication extends Application {
 		if (DEBUG)
 			Flog.e("BaseApplication onCreate");
 		init();
+		SDKInitializer.initialize(this);
 	}
 
 	@TargetApi(14)

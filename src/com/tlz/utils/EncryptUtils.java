@@ -16,9 +16,6 @@ import android.util.Log;
 
 /**
  * 加密工具类
- * @description 
- * @author Fang Yucun
- * @created 2013年10月31日
  */
 public class EncryptUtils {
 	

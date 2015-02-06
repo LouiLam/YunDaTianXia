@@ -44,7 +44,6 @@ public class LocationAdmin implements BDLocationListener {
 
 	public void startLocation(OnLocationListener listener) {
 		mOnLocationListener = listener;
-
 		mLocationClient.unRegisterLocationListener(this);
 		initLocation();
 		mLocationClient.registerLocationListener(this);
@@ -60,8 +59,9 @@ public class LocationAdmin implements BDLocationListener {
 		LocationClientOption option = new LocationClientOption();
 		option.setLocationMode(LocationMode.Hight_Accuracy);// 设置定位模式
 		option.setCoorType("bd09ll");// 返回的定位结果是百度经纬度，默认值gcj02
-		option.setScanSpan(500);// 当<1000(1s)时，定时定位无效,为主动单次请求
+		option.setScanSpan(10000);// 当<1000(1s)时，定时定位无效,为主动单次请求
 		option.setIsNeedAddress(true);
+		option.setOpenGps(true);
 		mLocationClient.setLocOption(option);
 	}
 
@@ -75,14 +75,13 @@ public class LocationAdmin implements BDLocationListener {
 	public void onReceiveLocation(BDLocation location) {
 		if (location == null)
 			return;
-
 		int type = location.getLocType();
 		switch (type) {
 		case BDLocation.TypeGpsLocation:
-		case BDLocation.TypeCacheLocation:
-		case BDLocation.TypeOffLineLocation:
+//		case BDLocation.TypeCacheLocation:
+//		case BDLocation.TypeOffLineLocation:
 		case BDLocation.TypeNetWorkLocation:
-		case BDLocation.TypeOffLineLocationNetworkFail:
+//		case BDLocation.TypeOffLineLocationNetworkFail:
 			if (mOnLocationListener != null) {
 				mOnLocationListener.onLocation(location);
 			}
@@ -92,6 +91,6 @@ public class LocationAdmin implements BDLocationListener {
 				mOnLocationListener.onLocationFailure(type);
 			}
 		}
-		stopLocation();
+//		stopLocation();
 	}
 }

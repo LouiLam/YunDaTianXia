@@ -8,6 +8,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import android.content.Context;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -33,9 +34,16 @@ public class Flog {
 	
 	private Flog(Context context) {
 		mContext = context;
-		mDefaultDir = FileUtils.getDirectory(StorageUtils.getExternalStorageRootDir().toString() + "/" + 
+		if(StorageUtils.getExternalStorageRootDir()!=null)
+		{mDefaultDir = FileUtils.getDirectory(StorageUtils.getExternalStorageRootDir().toString() + "/" + 
 					StringUtils.getSimpleNameFromFullName(mContext.getPackageName()));
-		mDefaultFileName = "log-" + TimeUtils.getCurrentDateInString() + ".log";
+		mDefaultFileName = "log-" + TimeUtils.getCurrentDateInString() + ".log";}
+		else
+		{
+			if (Environment.getExternalStorageState().equals(Environment.MEDIA_SHARED)) {
+				ToastUtils.show(context, "您现在是以USB模式和计算机连接的,如有需要可在手机上调整连接方式");
+			}
+		}
 	}
 	
 	public static Flog getInstance(Context context) {

@@ -40,6 +40,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
 import com.tlz.model.LocationService;
+import com.tlz.model.Myself;
 import com.tlz.model.User;
 import com.tlz.shipper.R;
 import com.tlz.shipper.ui.BaseLoadingDialog;
@@ -98,7 +99,9 @@ public class ActivityHome extends ThemeActivity implements OnClickListener,
 		User currentUser = new User();
 		setUser(currentUser);
 		registerBoradcastReceiver();
-		this.startService(new Intent(this, LocationService.class));
+		Intent intent=new Intent(this, LocationService.class);
+		intent.putExtra("username", Myself.UserName);
+		this.startService(intent);
 		// setVisible(false);
 	}
 	/**

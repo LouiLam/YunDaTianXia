@@ -2,6 +2,7 @@ package com.tlz.utils;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.security.cert.CertificateException;
@@ -9,6 +10,8 @@ import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.http.util.EncodingUtils;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -430,6 +433,34 @@ public class AndroidUtils {
 		}
 		return null;
     }
-	
+    //向指定的文件中写入指定的数据
+    public static void writeFileData(String filename, String message,Context context){
+        try {
+           FileOutputStream fout = context.openFileOutput(filename, Context.MODE_PRIVATE);//获得FileOutputStream
+           //将要写入的字符串转换为byte数组
+           byte[]  bytes = message.getBytes();
+           fout.write(bytes);//将byte数组写入文件
+           IOUtils.close(fout);
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
+    }
+                       
+    //打开指定文件，读取其数据，返回字符串对象
+    public static String readFileData(String fileName,Context context){
+        String result="";
+        try {
+           FileInputStream fin = context.openFileInput(fileName);
+           //获取文件长度
+           int length = fin.available();
+           byte[] buffer = new byte[length];
+           fin.read(buffer);
+           //将byte数组转换成指定格式的字符串
+           result = EncodingUtils.getString(buffer, "UTF-8");
+       } catch (Exception e) {
+          return null;
+       }
+       return result;
+    }
 	private AndroidUtils() {/* Do not new me */}
 }

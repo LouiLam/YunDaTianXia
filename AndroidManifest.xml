@@ -7,7 +7,7 @@
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="21" />
-
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -133,7 +133,7 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
          <!-- 定时定位服务 -->
-        <service android:enabled="true" android:name="com.tlz.model.LocationService" />
+        <service android:enabled="true" android:name="com.tlz.model.LocationService"   android:process=":remote1" />
         <!-- 百度定位 start -->
         <service
             android:name="com.baidu.location.f"

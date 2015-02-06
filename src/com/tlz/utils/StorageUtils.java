@@ -24,11 +24,11 @@ public class StorageUtils {
 	 * 获取存储卡根目录
 	 * @return
 	 */
-	public static File getExternalStorageRootDir() throws RuntimeException {
-		if (!isExternalStorageReady()) {
-			throw new RuntimeException("外部存储器未知!");
+	public static File getExternalStorageRootDir()  {
+		if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+			return Environment.getExternalStorageDirectory();
 		}
-		return Environment.getExternalStorageDirectory();
+		return null;
 	}
 	
 	public static File getExternalStorageDCIMDir() throws RuntimeException {
