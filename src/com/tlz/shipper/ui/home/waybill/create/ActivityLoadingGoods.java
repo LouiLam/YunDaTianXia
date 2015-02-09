@@ -1,4 +1,4 @@
-package com.tlz.shipper.ui.home.waybill;
+package com.tlz.shipper.ui.home.waybill.create;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,7 +16,6 @@ import com.tlz.model.Myself;
 import com.tlz.shipper.R;
 import com.tlz.shipper.ui.ThemeActivity;
 import com.tlz.utils.DBHelper;
-import com.tlz.utils.ToastUtils;
 
 public class ActivityLoadingGoods extends ThemeActivity {
 

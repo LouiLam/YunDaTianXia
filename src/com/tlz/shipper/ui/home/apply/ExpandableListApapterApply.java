@@ -126,14 +126,6 @@ public class ExpandableListApapterApply extends BaseExpandableListAdapter {
 		String titles[]=mContext.getResources().getStringArray(R.array.apply_titles);
 		title.setText(titles[groupPosition]);
 		icon.setBackgroundResource(ResIdentifier.getDrawbleIDByName(mContext, "icon_home_yundan_"+groupPosition));
-		if(groupPosition==0)
-		{BadgeView badge = new BadgeView(mContext, icon);
-		badge.setText("10");
-		badge.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
-		badge.setBackgroundResource(R.drawable.icon_circle);
-    	badge.setBadgeMargin(0, 0);
-    	badge.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
-    	badge.toggle(true);}
     	
 		return view;
 		

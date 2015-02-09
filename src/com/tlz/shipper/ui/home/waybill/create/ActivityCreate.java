@@ -1,4 +1,4 @@
-package com.tlz.shipper.ui.home.waybill;
+package com.tlz.shipper.ui.home.waybill.create;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,7 +14,7 @@ import com.tlz.shipper.ui.ThemeActivity;
 import com.tlz.shipper.ui.common.GoodsActivity;
 import com.tlz.shipper.ui.common.ImageGridPickerActivity;
 import com.tlz.shipper.ui.common.QRCodeScanningActivity;
-import com.tlz.shipper.ui.home.waybill.my_waybill.ActivityMyWalbill;
+import com.tlz.shipper.ui.home.waybill.my_waybill.ActivityMyWaybill;
 import com.tlz.shipper.ui.widget.EditTextBarIconTitleBtn;
 import com.tlz.shipper.ui.widget.EditTextBarIconTitleClearText;
 import com.tlz.shipper.ui.widget.EditTextBarIconTitleClearTextAndRemark;
@@ -165,7 +165,7 @@ public class ActivityCreate extends ThemeActivity {
 					@Override
 					public void onClick(View v) {
 						startActivity(new Intent(ActivityCreate.this,
-								ActivityMyWalbill.class));
+								ActivityMyWaybill.class));
 					}
 				});
 		findViewById(R.id.waybill_create_more).setOnClickListener(this);

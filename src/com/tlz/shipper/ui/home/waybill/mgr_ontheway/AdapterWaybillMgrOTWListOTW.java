@@ -1,4 +1,4 @@
-package com.tlz.shipper.ui.home.waybill.my_waybill;
+package com.tlz.shipper.ui.home.waybill.mgr_ontheway;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,20 +7,23 @@ import java.util.Iterator;
 import java.util.List;
 
 import android.content.Context;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tlz.model.MyWaybill;
 import com.tlz.shipper.R;
+import com.tlz.shipper.ui.widget.BadgeView;
 
 /**
- * 运单_>我的运单
+ * 运单->管理在途->在途
  * 
  */
-public class AdapterWaybillList extends BaseAdapter {
+public class AdapterWaybillMgrOTWListOTW extends BaseAdapter {
 	private List<MyWaybill> dataCombined = new ArrayList<MyWaybill>();
 
 	HashMap<Integer, List<MyWaybill>> dataYears = new HashMap<Integer, List<MyWaybill>>();
@@ -34,7 +37,7 @@ public class AdapterWaybillList extends BaseAdapter {
 	HashSet<Integer> setYear = new HashSet<Integer>();
 	HashSet<String> setYearMonthDay = new HashSet<String>();
 
-	public AdapterWaybillList(Context ctx, List<MyWaybill> data) {
+	public AdapterWaybillMgrOTWListOTW(Context ctx, List<MyWaybill> data) {
 		mContext = ctx;
 		// 检索 同一年的数据
 		for (MyWaybill myWaybill : data) {
@@ -169,7 +172,7 @@ public class AdapterWaybillList extends BaseAdapter {
 			if (convertView == null) {
 				holder = new ViewHolderContent();
 				convertView = LayoutInflater.from(mContext).inflate(
-						R.layout.list_item_waybill_list, parent, false);
+						R.layout.list_item_waybill_mgr_otw_list, parent, false);
 				holder.name = (TextView) convertView.findViewById(R.id.name);
 				holder.licensePlate = (TextView) convertView
 						.findViewById(R.id.licensePlate);
@@ -181,6 +184,19 @@ public class AdapterWaybillList extends BaseAdapter {
 						.findViewById(R.id.fromCity);
 				holder.toCity = (TextView) convertView
 						.findViewById(R.id.toCity);
+				holder.more = (ImageView) convertView
+						.findViewById(R.id.more);
+				holder.headicon = (ImageView) convertView
+						.findViewById(R.id.headicon);
+				
+				BadgeView badge = new BadgeView(mContext, holder.more);
+				//大与两位数只显示原点，不显示文字
+				badge.setText("10");
+				badge.setTextSize(TypedValue.COMPLEX_UNIT_SP, 8);
+				badge.setBackgroundResource(R.drawable.icon_circle);
+		    	badge.setBadgeMargin(0, 0);
+		    	badge.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
+		    	badge.toggle(true);
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolderContent) convertView.getTag();
@@ -200,6 +216,8 @@ public class AdapterWaybillList extends BaseAdapter {
 		TextView toProvinceCityDistrict;
 		TextView fromCity;
 		TextView toCity;
+		ImageView more;
+		ImageView headicon;
 	}
 
 	static class ViewHolderDateText {

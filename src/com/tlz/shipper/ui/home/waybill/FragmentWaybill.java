@@ -17,6 +17,10 @@ import com.tlz.model.WaybillNews;
 import com.tlz.shipper.R;
 import com.tlz.shipper.ui.ThemeFragment;
 import com.tlz.shipper.ui.home.ActivityHome;
+import com.tlz.shipper.ui.home.waybill.create.ActivityCreate;
+import com.tlz.shipper.ui.home.waybill.mgr_ontheway.ActivityMgrOTW;
+import com.tlz.shipper.ui.home.waybill.my_waybill.ActivityMyWaybill;
+import com.tlz.shipper.ui.home.waybill.news.ActivityNewMsg;
 import com.tlz.utils.CollectionUtils;
 import com.tlz.utils.ToastUtils;
 
@@ -144,5 +148,9 @@ public class FragmentWaybill extends ThemeFragment implements
 			startActivity(new Intent(getActivity(), ActivityNewMsg.class));
 		if (position == 1)
 			startActivity(new Intent(getActivity(), ActivityCreate.class));
+		if (position == 2)
+			startActivity(new Intent(getActivity(), ActivityMgrOTW.class));
+		if (position == 3)
+			startActivity(new Intent(getActivity(), ActivityMyWaybill.class));
 	}
 }

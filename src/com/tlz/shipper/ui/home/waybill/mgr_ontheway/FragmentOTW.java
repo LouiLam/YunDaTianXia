@@ -1,4 +1,4 @@
-package com.tlz.shipper.ui.home.waybill.my_waybill;
+package com.tlz.shipper.ui.home.waybill.mgr_ontheway;
 
 import java.util.ArrayList;
 
@@ -9,29 +9,31 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.tlz.model.MyWaybill;
-import com.tlz.model.WaybillNews;
 import com.tlz.shipper.R;
 import com.tlz.shipper.ui.ThemeFragment;
 /**
  * 待发车
  *
  */
-public class FragmentAlready extends ThemeFragment  {
+public class FragmentOTW extends ThemeFragment  {
 	private ListView listView = null;
-	private ActivityMyWaybill activity;
+	private ActivityMgrOTW activity;
 	private ArrayList<MyWaybill> list;
-	AdapterWaybillList  adapter;
-	public static FragmentAlready newInstance() {
-		return new FragmentAlready();
+	AdapterWaybillMgrOTWListOTW  adapter;
+	public static FragmentOTW newInstance() {
+		return new FragmentOTW();
 	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		activity = (ActivityMyWaybill) mActivity;
+		activity = (ActivityMgrOTW) mActivity;
 		list = new ArrayList<MyWaybill>();
-		list.add(new MyWaybill(0,MyWaybill.TYPE_CONTENT));
-		list.add(new MyWaybill(0,MyWaybill.TYPE_CONTENT));
-		adapter=new AdapterWaybillList(activity,  list);
+		list.add(new MyWaybill(1422865096,MyWaybill.TYPE_CONTENT));
+		list.add(new MyWaybill(1422865096,MyWaybill.TYPE_CONTENT));
+		
+		list.add(new MyWaybill(1420865096,MyWaybill.TYPE_CONTENT));
+		list.add(new MyWaybill(1420865096,MyWaybill.TYPE_CONTENT));
+		adapter=new AdapterWaybillMgrOTWListOTW(activity,  list);
 		super.onCreate(savedInstanceState);
 	}
 

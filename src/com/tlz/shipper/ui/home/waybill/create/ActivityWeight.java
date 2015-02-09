@@ -1,4 +1,4 @@
-package com.tlz.shipper.ui.home.waybill;
+package com.tlz.shipper.ui.home.waybill.create;
 
 import android.content.Intent;
 import android.os.Bundle;

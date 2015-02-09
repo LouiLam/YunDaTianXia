@@ -25,9 +25,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBar.LayoutParams;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -47,7 +44,7 @@ import com.tlz.shipper.ui.BaseLoadingDialog;
 import com.tlz.shipper.ui.FullScreenDialog;
 import com.tlz.shipper.ui.ThemeActivity;
 import com.tlz.shipper.ui.ViewVisibleListener;
-import com.tlz.shipper.ui.home.waybill.ActivityCreate;
+import com.tlz.shipper.ui.home.waybill.create.ActivityCreate;
 import com.tlz.utils.FaceImageUtils.FaceImageChangeListener;
 import com.tlz.utils.ToastUtils;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -99,10 +96,9 @@ public class ActivityHome extends ThemeActivity implements OnClickListener,
 		User currentUser = new User();
 		setUser(currentUser);
 		registerBoradcastReceiver();
-		Intent intent=new Intent(this, LocationService.class);
-		intent.putExtra("username", Myself.UserName);
-		this.startService(intent);
-		// setVisible(false);
+//		Intent intent=new Intent(this, LocationService.class);
+//		intent.putExtra("username", Myself.UserName);
+//		this.startService(intent);
 	}
 	/**
 	 * 定时定位相关 广播的接收处理

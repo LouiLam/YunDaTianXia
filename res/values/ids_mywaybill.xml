@@ -13,16 +13,18 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
- -->
+-->
 <resources>
-  <!-- Messages IDs -->
-  <item type="id" name="licensePlate"/>
-  <item type="id" name="toCity"/>
-  <item type="id" name="fromCity"/>
-  <item type="id" name="toProvinceCityDistrict"/>
-  <item type="id" name="content"/>
-  <item type="id" name="name"/>
-    <item type="id" name="year"/>
-     <item type="id" name="yearMonthDay"/>
-  
+
+    <!-- Messages IDs -->
+    <item name="licensePlate" type="id"/>
+    <item name="toCity" type="id"/>
+    <item name="fromCity" type="id"/>
+    <item name="toProvinceCityDistrict" type="id"/>
+    <item name="content" type="id"/>
+    <item name="name" type="id"/>
+    <item name="year" type="id"/>
+    <item name="yearMonthDay" type="id"/>
+	<item name="more" type="id"/>
+	<item name="headicon" type="id"/>
 </resources>

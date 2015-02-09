@@ -131,8 +131,9 @@ public class ExpandableListApapterWaybill extends BaseExpandableListAdapter {
 		icon.setBackgroundResource(ResIdentifier.getDrawbleIDByName(mContext, "icon_home_yundan_"+groupPosition));
 		if(groupPosition==0)
 		{BadgeView badge = new BadgeView(mContext, icon);
+		//大与两位数只显示原点，不显示文字
 		badge.setText("10");
-		badge.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
+		badge.setTextSize(TypedValue.COMPLEX_UNIT_SP, 8);
 		badge.setBackgroundResource(R.drawable.icon_circle);
     	badge.setBadgeMargin(0, 0);
     	badge.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);

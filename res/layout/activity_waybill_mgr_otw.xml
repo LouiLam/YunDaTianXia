@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical" >
+
+    <RadioGroup
+        android:id="@+id/rdgr_controls"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+       
+        android:orientation="horizontal"
+        android:paddingTop="10dp" >
+
+        <RadioButton
+            android:id="@+id/rdi_otw"
+              android:background="@color/tab_grey"
+            style="@style/Tab.RadioButton.NoButton"
+            android:drawableLeft="@drawable/selector_tab_radio_bg_mgr_otw"
+            android:drawablePadding="5dp"
+            android:gravity="left"
+            android:paddingBottom="5dp"
+            android:paddingLeft="50dp"
+            android:paddingTop="6dp"
+            android:text="@string/waybill_mgr_otw_tab_otw"
+            android:textColor="@drawable/tb_selector_mgr_otw" >
+        </RadioButton>
+
+        <RadioButton
+            android:id="@+id/rdi_arrive"
+              android:background="@color/tab_grey"
+            style="@style/Tab.RadioButton.NoButton"
+            android:drawableLeft="@drawable/selector_tab_radio_bg_mgr_arrive"
+            android:drawablePadding="5dp"
+            android:gravity="left"
+            android:paddingBottom="5dp"
+            android:paddingLeft="50dp"
+            android:paddingTop="6dp"
+            android:text="@string/waybill_mgr_otw_tab_arrive"
+            android:textColor="@drawable/tb_selector_mgr_otw" >
+        </RadioButton>
+    </RadioGroup>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/tab_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/rdgr_controls" />
+
+</RelativeLayout>

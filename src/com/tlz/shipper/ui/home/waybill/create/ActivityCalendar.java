@@ -1,4 +1,4 @@
-package com.tlz.shipper.ui.home.waybill;
+package com.tlz.shipper.ui.home.waybill.create;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

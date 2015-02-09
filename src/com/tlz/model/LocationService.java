@@ -1,6 +1,5 @@
 package com.tlz.model;
 
-import org.apache.http.impl.cookie.DateUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,15 +39,15 @@ public class LocationService extends Service {
 		JSONObject Record = new JSONObject();
 		JSONObject Source = new JSONObject();
 		try {
-//			Source.put("Cellphone", Myself.UserName);
-//			Source.put("Id", "233455");
-//			Source.put("DeviceCode",
-//					DeviceUtils.getIMEI(getApplicationContext()));
-//			JSONObject Point = new JSONObject();
-//			Point.put("Longitude", Longitude);
-//			Point.put("Latitude", Latitude);
-//			Record.put("Source", Source);
-//			Record.put("Point", Point);
+			Source.put("Cellphone", Myself.UserName);
+			Source.put("Id", "233455");
+			Source.put("DeviceCode",
+					DeviceUtils.getIMEI(getApplicationContext()));
+			JSONObject Point = new JSONObject();
+			Point.put("Longitude", Longitude);
+			Point.put("Latitude", Latitude);
+			Record.put("Source", Source);
+			Record.put("Point", Point);
 			Record.put("DeviceTime", TimeUtils.getCurrentDateTime());
 		} catch (JSONException e1) {
 			e1.printStackTrace();
@@ -83,7 +82,7 @@ public class LocationService extends Service {
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
-					return temp==null?array.toString():temp.toString();
+					return obj.toString();
 				}
 				//如果不是判断缓存，就可以写缓存
 				AndroidUtils.writeFileData("LocationService", array.toString(),
@@ -98,8 +97,10 @@ public class LocationService extends Service {
 
 	private void handlerResult(String jsonString) {
 		
+		
 		if (jsonString == null) {
 			mRemainderTime = 300;
+			if(Longitude!=0||Latitude!=0) 
 			writeCache(false);
 		} else if(jsonString.length()>0) {//空串表示定位失败 要做判断处理
 			try {
@@ -111,10 +112,12 @@ public class LocationService extends Service {
 					deleteFile("LocationService");
 				} else {
 					body = 0;
+					if(Longitude!=0||Latitude!=0) 
 					writeCache(false);
 				}
 			} catch (JSONException e) {
 				body = 0;
+				if(Longitude!=0||Latitude!=0) 
 				writeCache(false);
 			}
 
@@ -124,6 +127,11 @@ public class LocationService extends Service {
 				mRemainderTime = 300;
 			}
 		}
+		else
+		{
+			Longitude=0;Latitude=0;
+		}
+//		mRemainderTime = 20;
 		if (mCutdownTimer == null) {
 			mCutdownTimer = new CountDownTimer(mRemainderTime * 1000, 1000) {
 
@@ -211,17 +219,17 @@ public class LocationService extends Service {
 	}
 
 	private void postData() {
-
-		String result = jsonInstall();
+		String result =null;
+		if(Longitude!=0||Latitude!=0) 
+		{result = jsonInstall();
 		//发送数据前 判断是否有缓存内容，如果有就取出缓存内容，没缓存则为null
 		String temp=writeCache(true);
 		if(temp!=null) //有缓存内容
 			result=temp;
+		}
 		Flog.e(result);
-		if (result == null)
-			return;
 		AndroidHttp.getInstance().doRequest(
-				"http://120.24.234.112/service/gps/batch1", result,
+				"http://120.24.234.112/service/gps/batch", result,
 				new HttpCallback() {
 					@Override
 					public void onRequestSuccess(String tag, String jsonString) {

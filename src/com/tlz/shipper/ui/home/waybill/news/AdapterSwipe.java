@@ -1,5 +1,5 @@
 
-package com.tlz.shipper.ui.home.waybill;
+package com.tlz.shipper.ui.home.waybill.news;
 
 import java.util.ArrayList;
 import java.util.List;

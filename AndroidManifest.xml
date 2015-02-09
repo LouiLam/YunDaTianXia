@@ -92,27 +92,27 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.tlz.shipper.ui.home.waybill.ActivityNewMsg"
+            android:name="com.tlz.shipper.ui.home.waybill.news.ActivityNewMsg"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.tlz.shipper.ui.home.waybill.ActivityCreate"
+            android:name="com.tlz.shipper.ui.home.waybill.create.ActivityCreate"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.tlz.shipper.ui.home.waybill.ActivityLoadingGoods"
+            android:name="com.tlz.shipper.ui.home.waybill.create.ActivityLoadingGoodsngGoods"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.tlz.shipper.ui.home.waybill.ActivityWeight"
+              android:name="com.tlz.shipper.ui.home.waybill.create.ActivityWeightyWeight"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.tlz.shipper.ui.home.waybill.ActivityCalendar"
+            android:name="com.tlz.shipper.ui.home.waybill.create.ActivityCalendar"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.tlz.shipper.ui.home.waybill.my_waybill.ActivityMyWalbill"
+            android:name="com.tlz.shipper.ui.home.waybill.my_waybill.ActivityMyWaybill"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
@@ -132,6 +132,11 @@
             android:name="com.tlz.shipper.ui.common.FeedbackActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
+          <activity
+            android:name="com.tlz.shipper.ui.home.waybill.mgr_ontheway.ActivityMgrOTW"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+         
          <!-- 定时定位服务 -->
         <service android:enabled="true" android:name="com.tlz.model.LocationService"   android:process=":remote1" />
         <!-- 百度定位 start -->

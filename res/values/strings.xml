@@ -6,8 +6,8 @@
     <string name="action_menu_more">更多</string>
     <string name="action_bar_new_yundan">新建运单</string>
     <string name="action_bar_add_driver">添加司机</string>
-    <string name="action_bar_scan">停止定位</string><!-- 扫一扫 -->
-    <string name="action_bar_feedback">定时定位</string><!-- 意见反馈 -->
+    <string name="action_bar_scan">扫一扫</string><!-- 扫一扫 -->
+    <string name="action_bar_feedback">意见反馈</string><!-- 意见反馈 -->
     <string name="action_menu_search">搜索</string>
     <!-- 首次注册成功 全屏对话框 -->
     <string name="dialog_0">恭喜你已成为认证会员</string>
@@ -133,7 +133,11 @@
     <string name="waybill_myWaybill_tab_wait">待发车</string>
     <string name="waybill_myWaybill_tab_already">已发车</string>
     <string name="waybill_myWaybill_tab_finished">已完成</string>
-    <string name="waybill_myWaybill_tab_all">全部</string>
+    <string name="waybill_myWaybill_tab_all">已全部</string>
+        <!-- 运单->在途管理 -->
+    <string name="waybill_mgr_otw_title">在途管理</string>
+    <string name="waybill_mgr_otw_tab_otw">在途</string>
+    <string name="waybill_mgr_otw_tab_arrive">到达</string>
     <!-- 装/卸货地   控件 -->
     <string name="waybill_loading_title">填写装/卸货地</string>
     <string name="waybill_loading_common_area">常用地区</string>

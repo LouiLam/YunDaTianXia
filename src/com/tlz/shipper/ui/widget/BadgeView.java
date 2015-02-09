@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RoundRectShape;
 import android.util.AttributeSet;
@@ -52,10 +53,9 @@ public class BadgeView extends TextView {
 	private int badgeMarginH;
 	private int badgeMarginV;
 	private int badgeColor;
-	
 	private boolean isShown;
 	
-	private ShapeDrawable badgeBg;
+	private ShapeDrawable  badgeBg;
 	
 	private int targetTabIndex;
 	
@@ -113,10 +113,10 @@ public class BadgeView extends TextView {
 		badgeMarginH = dipToPixels(DEFAULT_MARGIN_DIP);
 		badgeMarginV = badgeMarginH;
 		badgeColor = DEFAULT_BADGE_COLOR;
-		
+		setGravity(Gravity.CENTER);
 		setTypeface(Typeface.DEFAULT_BOLD);
-		int paddingPixels = dipToPixels(DEFAULT_LR_PADDING_DIP);
-		setPadding(paddingPixels, 0, paddingPixels, 0);
+//		int paddingPixels = dipToPixels(DEFAULT_LR_PADDING_DIP);
+//		setPadding(paddingPixels, 0, paddingPixels, 0);
 		setTextColor(DEFAULT_TEXT_COLOR);
 		
 		fadeIn = new AlphaAnimation(0, 1);
@@ -143,8 +143,7 @@ public class BadgeView extends TextView {
 		ViewParent parent = target.getParent();
 		FrameLayout container = new FrameLayout(context);
 		FrameLayout.LayoutParams ss=new  FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		ss.topMargin=dipToPixels(10)/2;
-		ss.rightMargin=dipToPixels(10)/2;
+		ss.setMargins(0, dipToPixels(12)/2, dipToPixels(12)/2, 0);
 		if (target instanceof TabWidget) {
 			
 			// set target to the relevant tab child container
@@ -321,7 +320,7 @@ public class BadgeView extends TextView {
 		return increment(-offset);
 	}
 	
-	private ShapeDrawable getDefaultBackground() {
+	private ShapeDrawable  getDefaultBackground() {
 		
 		int r = dipToPixels(DEFAULT_CORNER_RADIUS_DIP);
 		float[] outerR = new float[] {r, r, r, r, r, r, r, r};
@@ -345,7 +344,7 @@ public class BadgeView extends TextView {
 			break;
 		case POSITION_TOP_RIGHT:
 			lp.gravity = Gravity.RIGHT | Gravity.TOP;
-			lp.setMargins(0, badgeMarginV, badgeMarginH, 0);
+//			lp.setMargins(0, badgeMarginV, badgeMarginH, 0);
 			break;
 		case POSITION_BOTTOM_LEFT:
 			lp.gravity = Gravity.LEFT | Gravity.BOTTOM;

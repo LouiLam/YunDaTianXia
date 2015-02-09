@@ -17,7 +17,7 @@ import com.tlz.shipper.ui.ThemeFragment;
  */
 public class FragmentAll extends ThemeFragment  {
 	private ListView listView = null;
-	private ActivityMyWalbill activity;
+	private ActivityMyWaybill activity;
 	private ArrayList<MyWaybill> list;
 	AdapterWaybillList  adapter;
 	public static FragmentAll newInstance() {
@@ -26,7 +26,7 @@ public class FragmentAll extends ThemeFragment  {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		activity = (ActivityMyWalbill) mActivity;
+		activity = (ActivityMyWaybill) mActivity;
 		list = new ArrayList<MyWaybill>();
 		list.add(new MyWaybill(0,MyWaybill.TYPE_CONTENT));
 		list.add(new MyWaybill(0,MyWaybill.TYPE_CONTENT));
