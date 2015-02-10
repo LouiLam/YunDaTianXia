@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import com.tlz.model.Myself;
 import com.tlz.shipper.R;
 import com.tlz.shipper.ui.ThemeActivity;
+import com.tlz.shipper.ui.common.ActivityBigPicture;
 import com.tlz.shipper.ui.common.GoodsActivity;
 import com.tlz.shipper.ui.common.ImageGridPickerActivity;
 import com.tlz.shipper.ui.common.QRCodeScanningActivity;
@@ -20,6 +21,7 @@ import com.tlz.shipper.ui.widget.EditTextBarIconTitleClearText;
 import com.tlz.shipper.ui.widget.EditTextBarIconTitleClearTextAndRemark;
 import com.tlz.shipper.ui.widget.EditTextBarIconTitleClearTextAndRemark.TBOnPhotographClickListener;
 import com.tlz.shipper.ui.widget.ViewBar.TBBarOnClickListener;
+import com.tlz.utils.Flog;
 import com.tlz.utils.ResIdentifier;
 import com.tlz.utils.ToastUtils;
 
@@ -33,7 +35,8 @@ public class ActivityCreate extends ThemeActivity {
 	public static final int REQUEST_CODE_IMAGE_SELECT_TOP = 6;
 	public static final int REQUEST_CODE_IMAGE_SELECT_BOTTOM = 7;
 	public static final int REQUEST_CODE_QR_CODE = 8;
-
+	public static final int REQUEST_CODE_BIG_PICTURE_TOP = 9;
+	public static final int REQUEST_CODE_BIG_PICTURE_BOTTOM = 10;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -48,6 +51,8 @@ public class ActivityCreate extends ThemeActivity {
 	LinearLayout waybill_create_image_bar_top, waybill_create_image_bar_bottom;
 	ImageView imgsTop[] = new ImageView[5];
 	ImageView imgsBottom[] = new ImageView[5];
+	Bitmap bmTop[]=new Bitmap[5];
+	Bitmap bmBottom[]=new Bitmap[5];
 	private int countTop = 0, countBottom = 0;
 
 	@Override
@@ -62,6 +67,8 @@ public class ActivityCreate extends ThemeActivity {
 					.findViewById(ResIdentifier.getIDByName(this, "image" + i));
 			imgsBottom[i] = (ImageView) waybill_create_image_bar_bottom
 					.findViewById(ResIdentifier.getIDByName(this, "image" + i));
+			imgsBottom[i].setTag(i);
+			imgsTop[i].setTag(i);
 		}
 		loading = (EditTextBarIconTitleBtn) findViewById(R.id.waybill_create_loading);
 		loading.setTBBarOnClickListener(new TBBarOnClickListener() {
@@ -239,8 +246,22 @@ public class ActivityCreate extends ThemeActivity {
 		} else if (requestCode == REQUEST_CODE_IMAGE_SELECT_TOP
 				&& resultCode == RESULT_OK) {
 			waybill_create_image_bar_top.setVisibility(View.VISIBLE);
-			Bitmap bm = data.getParcelableExtra("bitmap");
+			final Bitmap bm = data.getParcelableExtra("bitmap");
 			imgsTop[countTop].setImageBitmap(bm);
+			bmTop[countTop]=bm;
+			imgsTop[countTop].setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(ActivityCreate.this,
+							ActivityBigPicture.class);
+					intent.putExtra("isDelete", true);
+					intent.putExtra("bitmap", bm);
+					intent.putExtra("count", (Integer)v.getTag());
+					startActivityForResult(intent, REQUEST_CODE_BIG_PICTURE_TOP);
+					
+				}
+			});
 			countTop++;
 		} else if (requestCode == REQUEST_CODE_QR_CODE
 				&& resultCode == RESULT_OK) {
@@ -252,10 +273,90 @@ public class ActivityCreate extends ThemeActivity {
 		} else if (requestCode == REQUEST_CODE_IMAGE_SELECT_BOTTOM
 				&& resultCode == RESULT_OK) {
 			waybill_create_image_bar_bottom.setVisibility(View.VISIBLE);
-			Bitmap bm = data.getParcelableExtra("bitmap");
+			final Bitmap bm = data.getParcelableExtra("bitmap");
 			imgsBottom[countBottom].setImageBitmap(bm);
+			bmBottom[countBottom]=bm;
+			imgsBottom[countBottom].setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(ActivityCreate.this,
+							ActivityBigPicture.class);
+					intent.putExtra("isDelete", true);
+					intent.putExtra("bitmap", bm);
+					intent.putExtra("count", (Integer)v.getTag());
+					startActivityForResult(intent, REQUEST_CODE_BIG_PICTURE_BOTTOM);
+					
+				}
+			});
 			countBottom++;
 		}
+		else if(requestCode == REQUEST_CODE_BIG_PICTURE_TOP
+				&& resultCode == RESULT_OK)
+		{
+			Integer  temp=(Integer) data.getSerializableExtra("count");
+			boolean isDelete=data.getBooleanExtra("isDelete", false);
+			if(isDelete)
+			{
+			countTop--;	
+			imgsTop[countTop].setImageDrawable(null);
+			imgsTop[countTop].setOnClickListener(null);
+			sortBM(temp, bmTop);
+			for (int i = 0; i < countTop; i++) {
+				imgsTop[i].setImageBitmap(bmTop[i]);
+				imgsTop[i].setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent(ActivityCreate.this,
+								ActivityBigPicture.class);
+						intent.putExtra("isDelete", true);
+						intent.putExtra("bitmap", bmTop[(Integer)v.getTag()]);
+						intent.putExtra("count", (Integer)v.getTag());
+						startActivityForResult(intent, REQUEST_CODE_BIG_PICTURE_TOP);
+						
+					}
+				});
+			}
+			if(countTop<=0){countTop=0;waybill_create_image_bar_top.setVisibility(View.GONE);}
+			}
+		}
+		else if(requestCode == REQUEST_CODE_BIG_PICTURE_BOTTOM
+				&& resultCode == RESULT_OK)
+		{
+			Integer  temp=(Integer) data.getSerializableExtra("count");
+			boolean isDelete=data.getBooleanExtra("isDelete", false);
+			if(isDelete)
+			{
+			countBottom--;
+			imgsBottom[countBottom].setImageDrawable(null);
+			imgsBottom[countBottom].setOnClickListener(null);
+			sortBM(temp, bmBottom);
+			for (int i = 0; i < countBottom; i++) {
+				imgsBottom[i].setImageBitmap(bmBottom[i]);
+				imgsBottom[i].setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent(ActivityCreate.this,
+								ActivityBigPicture.class);
+						intent.putExtra("isDelete", true);
+						intent.putExtra("bitmap", bmBottom[(Integer)v.getTag()]);
+						intent.putExtra("count", (Integer)v.getTag());
+						startActivityForResult(intent, REQUEST_CODE_BIG_PICTURE_BOTTOM);
+						
+					}
+				});
+			}
+			}
+			if(countBottom<=0){countBottom=0;waybill_create_image_bar_bottom.setVisibility(View.GONE);}
+		}
 	}
-
+	private void sortBM(int temp,Bitmap bm[])
+	{
+		for (int i = temp; i < bm.length-1; i++) {
+			if(bm[i+1]!=null)
+			{
+				bm[i]=bm[i+1];
+			}
+		}
+	}
 }

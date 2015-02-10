@@ -46,6 +46,7 @@
             android:id="@+id/rdi_fahuo"
             style="@style/Tab.RadioButton.NoButton"
             android:background="@drawable/tab_fahuo_bg"
+            android:textColor="@drawable/tb_selector_home_cargo"
             android:paddingTop="10dp"
             android:paddingBottom="5dp"
             android:drawableTop="@drawable/selector_tab_radio_bg_fahuo"

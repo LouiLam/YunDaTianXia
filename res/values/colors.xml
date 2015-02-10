@@ -13,10 +13,12 @@
 
     <!-- 运单里面的文字颜色 -->
     <color name="waybill_blue">#0d55a1</color><!-- listview 文字蓝 -->
+    <color name="waybill_blue_otw">#0d87ee</color><!-- listview 文字浅蓝   在途 -->
+    <color name="waybill_green">#25aa13</color><!-- listview 文字浅蓝   到达 -->
     <color name="waybill_red">#e70d0d</color><!-- listview 文字红 -->
      <color name="waybill_blue_light">#09a6ca</color><!-- 浅蓝 -->
 	
 	 <color name="waybill_mgr_otw_radio_grey">#999999</color><!-- 文字灰-->
-	 <color name="waybill_mgr_otw_radio_yellow">#f99b06</color><!-- 文字黄色-->
+	 <color name="waybill_mgr_otw_radio_yellow">#f99b06</color><!-- 文字黄色  -->
 	
 </resources>

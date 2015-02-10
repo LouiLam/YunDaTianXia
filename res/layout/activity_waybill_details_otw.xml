@@ -19,6 +19,7 @@
 
             <TextView
                 android:id="@id/loading_city"
+                android:textColor="@color/waybill_mgr_otw_radio_yellow"
                 style="@style/city" />
 
             <ImageView
@@ -101,7 +102,50 @@
             android:layout_width="match_parent"
             android:layout_marginTop="10dp"
             android:padding="10dp" />
+<LinearLayout
+            android:id="@+id/waybill_create_image_bar_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
 
+            <ImageView
+                android:id="@+id/image0"
+                android:layout_weight="1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitCenter"
+         	 />
+
+            <ImageView
+                android:id="@+id/image1"
+                    android:layout_weight="1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitCenter" />
+
+            <ImageView
+                android:id="@+id/image2"
+                    android:layout_weight="1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitCenter" />
+
+            <ImageView
+                android:id="@+id/image3"
+                    android:layout_weight="1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitCenter"
+                />
+
+            <ImageView
+                android:id="@+id/image4"
+                    android:layout_weight="1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitCenter"
+              />
+        </LinearLayout>
         <TextView
             style="@style/weight"
             android:layout_width="match_parent"
@@ -115,8 +159,9 @@
 
             <ImageView
                 android:id="@id/headicon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                     android:layout_width="50dp"
+                android:layout_height="50dp"
+                   android:scaleType="fitCenter"
                 android:background="@drawable/logo"
                 android:contentDescription="@null" />
 
@@ -125,12 +170,14 @@
                 android:layout_alignTop="@id/headicon"
                 android:layout_marginTop="5dp"
                 android:layout_toRightOf="@id/headicon"
+                android:layout_marginLeft="10dp"
                 android:text="大明" />
 
             <TextView
                 style="@style/weight"
                 android:layout_alignBottom="@id/headicon"
                 android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@id/headicon"
                 android:text="湘A-VH016" />
 
@@ -144,33 +191,55 @@
                 android:contentDescription="@null" />
         </RelativeLayout>
         
-         
+         <LinearLayout
+            android:id="@+id/waybill_create_image_bar_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
+
+            <ImageView
+                android:id="@id/image0"
+                android:layout_weight="1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitCenter"
+         	 />
+
+            <ImageView
+                android:id="@id/image1"
+                    android:layout_weight="1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitCenter" />
+
+            <ImageView
+                android:id="@id/image2"
+                    android:layout_weight="1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitCenter" />
+
+            <ImageView
+                android:id="@id/image3"
+                    android:layout_weight="1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitCenter"
+                />
+
+            <ImageView
+                android:id="@id/image4"
+                    android:layout_weight="1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitCenter"
+              />
+        </LinearLayout>
         
     </LinearLayout>
 
     <TextView
         style="@style/CircleArrow"
-        android:background="@drawable/icon_waybill_arrow_grey"
-        android:text="待发" />
- <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-       	android:padding="17dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
-        >
-            
-              <TextView  style="@style/MTextViewBtn1"
-                     android:layout_width="0dp"
-                  android:layout_weight="1"
-                  android:text="确认发车"
-                  />
-                 <TextView  style="@style/MTextViewBtn1"
-                       android:layout_width="0dp"
-                         android:layout_weight="1"
-                  android:text="已完成"
-                    android:layout_marginLeft="50dp"
-                  android:enabled="false"
-                  />
-        </LinearLayout>
+        android:background="@drawable/icon_waybill_arrow_blue"
+        android:text="在途" />
 </RelativeLayout>

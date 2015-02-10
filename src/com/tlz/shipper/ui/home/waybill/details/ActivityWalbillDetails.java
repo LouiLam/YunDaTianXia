@@ -3,10 +3,13 @@ package com.tlz.shipper.ui.home.waybill.details;
 import java.lang.reflect.Method;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.TextView;
@@ -15,11 +18,8 @@ import com.tlz.shipper.R;
 import com.tlz.shipper.ui.ThemeActivity;
 
 @SuppressLint("HandlerLeak")
-public class ActivityWalbillDetails extends ThemeActivity implements OnClickListener
-		  {
-
-
-
+public class ActivityWalbillDetails extends ThemeActivity implements
+		OnClickListener {
 
 	TextView barTitleView;
 	int actionBarHeight;
@@ -30,25 +30,20 @@ public class ActivityWalbillDetails extends ThemeActivity implements OnClickList
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_waybill_details);
+		setContentView(R.layout.activity_waybill_details_finished);
 		init();
-		// setVisible(false);
 	}
-
-
-
-
-
 	private void init() {
+		findViewById(R.id.phone).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(Intent.ACTION_CALL, Uri  
+	                    .parse("tel:" + "13975800403"));  
+				 startActivity(intent); 
+			}
+		});
 	}
-
-	
-
-
-
-
-
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -89,26 +84,24 @@ public class ActivityWalbillDetails extends ThemeActivity implements OnClickList
 		}
 	}
 
-//	@Override
-//	public boolean onPrepareOptionsMenu(Menu menu) {
-//		MenuItem item;
-//
-//		// item = menu.findItem(R.id.action_overflow);
-//		// item.setIcon(R.drawable.ic_menu_more);
-//		item = menu.findItem(R.id.action_new_yundan);
-//		item.setVisible(true);
-//		item = menu.findItem(R.id.action_add_driver);
-//		item.setVisible(true);
-//		item = menu.findItem(R.id.action_scan);
-//		item.setVisible(true);
-//		item = menu.findItem(R.id.action_feedback);
-//		item.setVisible(true);
-//
-//		super.onPrepareOptionsMenu(menu);
-//		return true;
-//	}
-
-
+	// @Override
+	// public boolean onPrepareOptionsMenu(Menu menu) {
+	// MenuItem item;
+	//
+	// // item = menu.findItem(R.id.action_overflow);
+	// // item.setIcon(R.drawable.ic_menu_more);
+	// item = menu.findItem(R.id.action_new_yundan);
+	// item.setVisible(true);
+	// item = menu.findItem(R.id.action_add_driver);
+	// item.setVisible(true);
+	// item = menu.findItem(R.id.action_scan);
+	// item.setVisible(true);
+	// item = menu.findItem(R.id.action_feedback);
+	// item.setVisible(true);
+	//
+	// super.onPrepareOptionsMenu(menu);
+	// return true;
+	// }
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -126,14 +119,14 @@ public class ActivityWalbillDetails extends ThemeActivity implements OnClickList
 		case R.id.menu_waybill_del:
 			// startActivity(new Intent(this, AboutActivity.class));
 			break;
-//		case R.id.action_feedback:
-//			// startUserCommentActivity();
-//			// showUserCommentDialog();
-//			// startTrafficAccountActivity();
-//			break;
-//		case R.id.action_logout:
-//			showLogoutAlert(HomeActivity.this);
-//			break;
+		// case R.id.action_feedback:
+		// // startUserCommentActivity();
+		// // showUserCommentDialog();
+		// // startTrafficAccountActivity();
+		// break;
+		// case R.id.action_logout:
+		// showLogoutAlert(HomeActivity.this);
+		// break;
 		// case R.id.action_help:
 		// Intent intent = new Intent(this, WebContentActivity.class);
 		// intent.putExtra("title", getString(R.string.title_help));
@@ -145,12 +138,5 @@ public class ActivityWalbillDetails extends ThemeActivity implements OnClickList
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
-
-	
-
-
-
-
 
 }

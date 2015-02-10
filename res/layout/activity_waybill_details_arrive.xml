@@ -1,0 +1,248 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="17dp" >
+
+        <RelativeLayout
+            android:id="@id/group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/waybill_blue_light"
+            android:padding="10dp" >
+
+            <TextView
+                android:id="@id/loading_city"
+                style="@style/city"
+                android:textColor="@color/waybill_mgr_otw_radio_yellow" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/loading_city"
+                android:background="@drawable/icon_waybill_details_loading"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:id="@id/loading_location"
+                style="@style/location"
+                android:layout_below="@id/loading_city" />
+
+            <TextView
+                android:id="@id/loading_date"
+                style="@style/date"
+                android:layout_below="@id/loading_location" />
+
+            <TextView
+                style="@style/tip"
+                android:layout_below="@id/loading_date" />
+
+            <ImageView
+                android:id="@+id/not_use"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/loading_location"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/icon_waybill_details_arrow" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/loading_city"
+                android:layout_alignRight="@id/not_use"
+                android:background="@drawable/icon_waybill_details_truck" />
+
+            <TextView
+                android:id="@id/unloading_city"
+                style="@style/city"
+                android:layout_alignParentRight="true" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/unloading_city"
+                android:background="@drawable/icon_waybill_details_unloading"
+                android:contentDescription="@null" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@id/unloading_city"
+                android:background="@drawable/icon_waybill_details_loading"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:id="@id/unloading_location"
+                style="@style/location"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/unloading_city" />
+
+            <TextView
+                android:id="@id/unloading_date"
+                style="@style/date"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/unloading_location" />
+
+            <TextView
+                style="@style/tip"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/unloading_date" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@id/weight"
+            style="@style/weight"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:padding="10dp" />
+
+        <LinearLayout
+            android:id="@+id/waybill_create_image_bar_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
+
+            <ImageView
+                android:id="@+id/image0"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:scaleType="fitCenter" />
+
+            <ImageView
+                android:id="@+id/image1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:scaleType="fitCenter" />
+
+            <ImageView
+                android:id="@+id/image2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:scaleType="fitCenter" />
+
+            <ImageView
+                android:id="@+id/image3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:scaleType="fitCenter" />
+
+            <ImageView
+                android:id="@+id/image4"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:scaleType="fitCenter" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/weight"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:text="承运司机/车辆信息:" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
+
+            <ImageView
+                android:id="@id/headicon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/logo"
+                android:contentDescription="@null"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                style="@style/weight"
+                android:layout_alignTop="@id/headicon"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@id/headicon"
+                android:text="大明" />
+
+            <TextView
+                style="@style/weight"
+                android:layout_alignBottom="@id/headicon"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/headicon"
+                android:text="湘A-VH016" />
+
+            <ImageView
+                android:id="@id/phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/icon_waybill_details_phone"
+                android:contentDescription="@null" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/waybill_create_image_bar_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
+
+            <ImageView
+                android:id="@id/image0"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:scaleType="fitCenter" />
+
+            <ImageView
+                android:id="@id/image1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:scaleType="fitCenter" />
+
+            <ImageView
+                android:id="@id/image2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:scaleType="fitCenter" />
+
+            <ImageView
+                android:id="@id/image3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:scaleType="fitCenter" />
+
+            <ImageView
+                android:id="@id/image4"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:scaleType="fitCenter" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        style="@style/CircleArrow"
+        android:background="@drawable/icon_waybill_arrow_blue"
+        android:text="到达" />
+
+    <TextView
+        style="@style/MTextViewBtn2"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:text="确认运费信息" />
+
+</RelativeLayout>

@@ -261,17 +261,17 @@ public class ImageGridPickerActivity extends ThemeActivity {
 			super(context, CompressFormat.PNG, 85);
 		}
 
-		@Override
-		protected void downloadImage(String key, Uri uri)
-				throws ClientProtocolException, IOException {
-			try {
-				Thread.sleep(r.nextInt(3000) + 500);
-			} catch (final InterruptedException e) {
-
-			}
-			super.downloadImage(key, uri);
-
-		}
+//		@Override
+//		protected void downloadImage(String key, Uri uri)
+//				throws ClientProtocolException, IOException {
+//			try {
+//				Thread.sleep(r.nextInt(3000) + 500);
+//			} catch (final InterruptedException e) {
+//
+//			}
+//			super.downloadImage(key, uri);
+//
+//		}
 	}
 
 	/**

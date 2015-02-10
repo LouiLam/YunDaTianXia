@@ -169,7 +169,7 @@ public class AdapterWaybillList extends BaseAdapter {
 			if (convertView == null) {
 				holder = new ViewHolderContent();
 				convertView = LayoutInflater.from(mContext).inflate(
-						R.layout.list_item_waybill_list, parent, false);
+						R.layout.list_item_waybill_mywaybill_list, parent, false);
 				holder.name = (TextView) convertView.findViewById(R.id.name);
 				holder.licensePlate = (TextView) convertView
 						.findViewById(R.id.licensePlate);

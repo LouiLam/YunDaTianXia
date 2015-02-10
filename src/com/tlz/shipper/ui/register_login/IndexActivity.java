@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.tlz.shipper.R;
 import com.tlz.shipper.ui.ThemeActivity;
+import com.tlz.shipper.ui.home.waybill.details.ActivityWalbillDetails;
 import com.tlz.utils.Flog;
 
 public class IndexActivity extends ThemeActivity {
@@ -41,8 +42,10 @@ public class IndexActivity extends ThemeActivity {
 	public void onClick(int viewId) {
 		switch (viewId) {
 		case R.id.index_btn_reg:
-			startActivity(new Intent(this, RegisterActivity.class));
+//			startActivity(new Intent(this, RegisterActivity.class));
 //			startActivity(new Intent(this, NewsActivity.class));
+			startActivity(new Intent(this, ActivityWalbillDetails.class));
+			
 			break;
 		case R.id.index_btn_login:
 			startActivity(new Intent(this, LoginActivity.class));

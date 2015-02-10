@@ -17,6 +17,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+   
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -100,11 +102,11 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.tlz.shipper.ui.home.waybill.create.ActivityLoadingGoodsngGoods"
+            android:name="com.tlz.shipper.ui.home.waybill.create.ActivityLoadingGoods"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-              android:name="com.tlz.shipper.ui.home.waybill.create.ActivityWeightyWeight"
+              android:name="com.tlz.shipper.ui.home.waybill.create.ActivityWeight"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
@@ -136,7 +138,11 @@
             android:name="com.tlz.shipper.ui.home.waybill.mgr_ontheway.ActivityMgrOTW"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-         
+          <activity
+            android:name="com.tlz.shipper.ui.common.ActivityBigPicture"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+          
          <!-- 定时定位服务 -->
         <service android:enabled="true" android:name="com.tlz.model.LocationService"   android:process=":remote1" />
         <!-- 百度定位 start -->
