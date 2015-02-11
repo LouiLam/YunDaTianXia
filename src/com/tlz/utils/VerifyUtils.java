@@ -28,7 +28,8 @@ public class VerifyUtils {
 		if (TextUtils.isEmpty(text)) return false;
 		
 //		Pattern p = Pattern.compile("([+]?[0-9]{2,})?1[3-8]\\d{9}");
-		Pattern p = Pattern.compile("1[3|5|7|8|][0-9]{9}");
+//		1[3|5|7|8|][0-9]{9}
+		Pattern p = Pattern.compile("1[0-9]{10}");
 		 
 		Matcher m = p.matcher(text);
 		return m.matches();

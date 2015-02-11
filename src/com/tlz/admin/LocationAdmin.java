@@ -59,7 +59,7 @@ public class LocationAdmin implements BDLocationListener {
 		LocationClientOption option = new LocationClientOption();
 		option.setLocationMode(LocationMode.Hight_Accuracy);// 设置定位模式
 		option.setCoorType("bd09ll");// 返回的定位结果是百度经纬度，默认值gcj02
-		option.setScanSpan(10000);// 当<1000(1s)时，定时定位无效,为主动单次请求
+		option.setScanSpan(60000);// 当<1000(1s)时，定时定位无效,为主动单次请求
 		option.setIsNeedAddress(true);
 		option.setOpenGps(true);
 		mLocationClient.setLocOption(option);

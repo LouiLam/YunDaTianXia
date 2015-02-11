@@ -14,18 +14,72 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:bar_background="@color/grey"
-            app:left_text="@string/waybill_sure_costs_title" />
-
-      
+            app:left_text="@string/waybill_sure_costs_price_info" />
 
         <com.tlz.shipper.ui.widget.EditTextBarIconTitleClearText
             android:id="@+id/waybill_create_costs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             app:left_text="@string/waybill_create_costs"
             app:right_hint="@string/waybill_create_costs_hint"
             app:unit_right_text="元" />
+
+        <com.tlz.shipper.ui.widget.TextViewBarIcon
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            app:bar_background="@color/grey"
+            app:left_text="@string/waybill_sure_costs_fact_price_info" />
+
+        <com.tlz.shipper.ui.widget.EditTextBarIconTitleClearText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            app:left_text="@string/waybill_sure_costs0"
+            app:unit_right_text="元" />
+
+        <com.tlz.shipper.ui.widget.EditTextBarIconTitleClearText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            app:left_text="@string/waybill_sure_costs0"
+            app:unit_right_text="元" />
+
+        <com.tlz.shipper.ui.widget.EditTextBarIconTitleClearText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            app:left_text="@string/waybill_sure_costs1"
+            app:unit_right_text="元" />
+
+        <com.tlz.shipper.ui.widget.EditTextBarIconTitleClearText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            app:left_text="@string/waybill_sure_costs2"
+            app:unit_right_text="元" />
+
+        <com.tlz.shipper.ui.widget.EditTextBarIconTitleClearText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            app:left_text="@string/waybill_sure_costs3"
+            app:unit_right_text="元" />
+
+        <com.tlz.shipper.ui.widget.EditTextBarIconTitleClearText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            app:left_text="@string/waybill_sure_costs4"
+            app:unit_right_text="元" />
+
+        <com.tlz.shipper.ui.widget.TextViewBarIcon
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            app:bar_background="@color/grey"
+            app:left_text="@string/waybill_sure_costs_remark_info" />
 
         <com.tlz.shipper.ui.widget.EditTextBarIconTitleClearTextAndRemark
             android:id="@+id/waybill_create_remarks"
@@ -43,43 +97,47 @@
 
             <ImageView
                 android:id="@+id/image0"
-                android:layout_weight="1"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:scaleType="fitCenter"
-         	 />
+                android:layout_weight="1"
+                android:scaleType="fitCenter" />
 
             <ImageView
                 android:id="@+id/image1"
-                    android:layout_weight="1"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:layout_weight="1"
                 android:scaleType="fitCenter" />
 
             <ImageView
                 android:id="@+id/image2"
-                    android:layout_weight="1"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:layout_weight="1"
                 android:scaleType="fitCenter" />
 
             <ImageView
                 android:id="@+id/image3"
-                    android:layout_weight="1"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:scaleType="fitCenter"
-                />
+                android:layout_weight="1"
+                android:scaleType="fitCenter" />
 
             <ImageView
                 android:id="@+id/image4"
-                    android:layout_weight="1"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:scaleType="fitCenter"
-              />
+                android:layout_weight="1"
+                android:scaleType="fitCenter" />
         </LinearLayout>
 
+            <TextView
+                android:id="@+id/waybill_btn_save"
+                style="@style/MTextViewBtn"
+                android:layout_width="match_parent"
+                  android:layout_marginTop="20dp"
+               android:layout_gravity="bottom|center_horizontal"
+                android:text="@string/waybill_sure_costs_btn_ok" />
     </LinearLayout>
 
 </ScrollView>

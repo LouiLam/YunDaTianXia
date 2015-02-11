@@ -31,6 +31,7 @@ public interface CommonApi {
    
    /**
     * 取得所有省份数据 
+    * 返回的数据data对象使用AreadictionaryDTO对象
     * @return 返回一个json数组
     *{
     *   resultCode:1 :正确| 0:会话超时 | -1:操作失败,
@@ -50,6 +51,7 @@ public interface CommonApi {
    String getAllProvince();
    
   /**
+   * 返回的数据data对象使用AreadictionaryDTO对象
    * 取指定省份的所有地区市
    * @return 返回一个json数组{
     *   resultCode:1 :正确| 0:会话超时 | -1:操作失败,
@@ -70,6 +72,7 @@ public interface CommonApi {
    String getAllCity(String provinceId);
    
    /**
+    * 返回的数据data对象使用AreadictionaryDTO对象
     * 取指定市的所有区县
     * @return 返回一个json数组
     *{
@@ -91,6 +94,28 @@ public interface CommonApi {
    String getAllArea(String cityId);
    
    /**
+    * 取得指定行政区域编码的全部下级区域
+    * @return 返回一个json数组
+    * {
+    *   resultCode:1 :正确| 0:会话超时 | -1:操作失败,
+    * 	data:[Areadictionary,...]
+    * }
+    */
+   String getLocations(String parentCode);
+   
+   
+   /**
+    * 根据地区编号取得消息的所有对象
+    * @return 返回一个json数组
+    * {
+    *   resultCode:1 :正确| 0:会话超时 | -1:操作失败,
+    * 	data:[Areadictionary,...]
+    * }
+    */
+   String getLocationObj(String codeid);
+   
+   
+   /**
     * 保存通话记录
     * @param callerNum  呼出号
     * @param recieverNum  接听号
@@ -105,6 +130,7 @@ public interface CommonApi {
    String saveCall(String callerNum, String recieverNum, boolean callStatus, Date callDate, int callLength);
   
    /** 
+    * 返回的数据data对象使用CallrecordDTO对象
     * 查询通话记录
     * @param callNum 呼出号
     * @param stime 开始时间
@@ -160,7 +186,7 @@ public interface CommonApi {
     * @param type 验证类型
     * @return @return json对象,格式如下 返回: 
     * {
-    *   resultCode:1:不正确, 2:正确, 0:会话超时,需重新登陆,-1,操作失败
+    *   resultCode:1:正确, 2:不正确, 0:会话超时,需重新登陆,-1,操作失败
     * 	data:{}
     * }
     */
@@ -177,6 +203,7 @@ public interface CommonApi {
    String getEdition(String editioin);
    
    /**
+    * 返回的数据data对象使用MessageDTO对象
     * 查取系统服务通知,返回最新的消息对象的json集合 
     * @return json对象,格式如下 
     * {
@@ -195,17 +222,17 @@ public interface CommonApi {
    String getServieMessages();
    
    /**
-    * 图片上传
-    * @param pic 图片
+    * 图片上传,保存图片URL到MEMBER_IMAGE表
+    * @param url 图片
     * 平台所有图片的上传，都是调用该方法，
     * 该方法实现上传图片到服务器，并保存到数据，返回一个该图片在表中的主键
     * @return 返回该图片在表tp_MemberImages的ID值 
     * {
     *   resultCode:1 :正确| 0:会话超时 | -1:操作失败,
-    * 	data:{picId:整型id值}
+    * 	data:{imageId:整型id值}
     * }
     */
-   String uploadPic2Id(byte[] pic);
+   String uploadPic2Id(String url);
    
    /** 
     * 该方法不同一uploadPic2Id,他在表tp_MemberImages中不存在记录
@@ -215,10 +242,11 @@ public interface CommonApi {
     *   resultCode:1 :正确| 0:会话超时 | -1:操作失败,
     * 	data:{picUrl:'url'}
     * }
-    */
-   String uploadPic2Url(byte[] pic);
+    *//*
+   String uploadPic2Url(String url);*/
    
    /** 
+    * 返回的数据data对象使用DriverLocationDTO对象:司机当前经纬度位置信息
     * 查得司机实时位置信息 
     * @param sid 货主ID
     * @param did 司机ID

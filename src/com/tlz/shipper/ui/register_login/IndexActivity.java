@@ -42,9 +42,9 @@ public class IndexActivity extends ThemeActivity {
 	public void onClick(int viewId) {
 		switch (viewId) {
 		case R.id.index_btn_reg:
-//			startActivity(new Intent(this, RegisterActivity.class));
+			startActivity(new Intent(this, RegisterActivity.class));
 //			startActivity(new Intent(this, NewsActivity.class));
-			startActivity(new Intent(this, ActivityWalbillDetails.class));
+//			startActivity(new Intent(this, ActivityWalbillDetails.class));
 			
 			break;
 		case R.id.index_btn_login:

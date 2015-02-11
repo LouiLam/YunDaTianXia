@@ -260,7 +260,7 @@ public interface WayBillApi {
     * @return  DataMode 
     * 
     * 1:添加成功,-2:会话超时,需要重新登陆, -1操作失败 ,-3:操作失败，业务逻辑异常*/
-   String appendDriver(int did, int billId, String plantNumber, String remark, int[] pics);
+   String appendDriver(int did, int billId, String plantNumber, String remark, String pics);
    
    /** 
     * 逻辑删除订单
@@ -312,7 +312,7 @@ public interface WayBillApi {
     * }
     * 
     */
-   String addBreakRecord(int billId, String breakRemark, int[] pics);
+   String addBreakRecord(int billId, String breakRemark, String pics);
    
    /**
     * 运单结算 :由企业？发起，改变运单状态为“完成”，并更新运单几个字段的值，结算时间，状态等 
@@ -330,7 +330,7 @@ public interface WayBillApi {
     * }
     * 
     */ 
-   String settleAccounts(int billId,int sid, float breakCost, float carriage, float insurance, float otherCost, int[] pics, String remark);
+   String settleAccounts(int billId,int sid, float breakCost, float carriage, float insurance, float otherCost, String pics, String remark);
    
    /** 运单统计   * 需求暂不明 ,格式如下:
     * @return DataMode<待定>

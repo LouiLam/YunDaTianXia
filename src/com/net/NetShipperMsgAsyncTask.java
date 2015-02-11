@@ -1,7 +1,5 @@
 package com.net;
 
-import org.json.JSONObject;
-
 import android.content.Context;
 import android.os.AsyncTask;
 
@@ -9,8 +7,6 @@ import com.caucho.hessian.client.HessianProxyFactory;
 import com.tlz.shipper.R;
 import com.tlz.shipper.ui.BaseLoadingDialog;
 import com.tlz.shipper.ui.BaseLoadingDialog.OnTimeoutListener;
-import com.tlz.utils.Flog;
-import com.tlz.utils.HttpUtils;
 import com.tlz.utils.ToastUtils;
 
 public class NetShipperMsgAsyncTask extends AsyncTask<String, Integer, Integer> {

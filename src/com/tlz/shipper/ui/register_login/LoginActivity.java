@@ -86,20 +86,25 @@ public class LoginActivity extends ThemeActivity {
 				skipUI();
 			} else {
 				new NetShipperMsgAsyncTask(new APIListener() {
-//					{ 
-//						resultCode:1 :正确|-1:操作失败,0:用户名或密码有误 
-//						data:
-//							{ 
-//								token:令牌 
-//								memeber:
-//								{ memberId:12, phone:"会员手机号" loginName:"登陆名" creditGrad:(int)信誉等级 balance:(float)帐户余额 }, 
-//								shipper:
-//								{ shipperId:(int)主键 head:"头像url" auditStatus:(int)认证状态 locationCode :"所在地CODE" simpleName:"企业简称" fullName:"企业全称" detailAddress:"详细地址" contact:"联系人" phone:"联系电话" introduce:"企业简介" cargoType:"主要运送货品" qrCode:"二维码明片url" }
-//							 } 
-//						}
+					// {
+					// resultCode:1 :正确|-1:操作失败,0:用户名或密码有误
+					// data:
+					// {
+					// token:令牌
+					// memeber:
+					// { memberId:12, phone:"会员手机号" loginName:"登陆名"
+					// creditGrad:(int)信誉等级 balance:(float)帐户余额 },
+					// shipper:
+					// { shipperId:(int)主键 head:"头像url" auditStatus:(int)认证状态
+					// locationCode :"所在地CODE" simpleName:"企业简称" fullName:"企业全称"
+					// detailAddress:"详细地址" contact:"联系人" phone:"联系电话"
+					// introduce:"企业简介" cargoType:"主要运送货品" qrCode:"二维码明片url" }
+					// }
+					// }
 					@Override
 					public String handler(ShipperAccountApi api) {
-						return api.login(Myself.UserName, Myself.Password, (byte) 1);
+						return api.login(Myself.UserName, Myself.Password,
+								(byte) AppConfig.TYPE_ANDROID);
 					}
 
 					@Override
@@ -108,37 +113,55 @@ public class LoginActivity extends ThemeActivity {
 						try {
 							JSONObject obj = new JSONObject(json);
 							if (obj.getInt("resultCode") == 1) {
-								JSONObject data=obj.getJSONObject("data");
+								JSONObject data = obj.getJSONObject("data");
 								Myself.Token = data.getString("token");
-								JSONObject memeber=data.getJSONObject("memeber");
-								JSONObject shipper=data.getJSONObject("shipper");
-								Myself.MemberId=memeber.getInt("memberId");
-								Myself.PhoneNumber=memeber.getString("phone");
-								Myself.UserName=memeber.getString("loginName");
-								Myself.CreditGrad=memeber.getInt("creditGrad");
-								Myself.Balance=memeber.getDouble("balance");
-								
-								Myself.ShipperId=shipper.getInt("shipperId");
-								Myself.HeadIconUrl=shipper.getString("head");
-								Myself.AuditStatus=shipper.getInt("auditStatus");
-								Myself.Location=shipper.getString("locationCode");
-								Myself.UserName=shipper.getString("simpleName");
-								Myself.FullName=shipper.getString("fullName");
-								Myself.LocationDetail=shipper.getString("detailAddress");
-								Myself.ContactName=shipper.getString("contact");
-								Myself.PhoneNumber=shipper.getString("phone");
-								Myself.Introduction=shipper.getString("introduce");
-								Myself.Goods=shipper.getString("cargoType");
-								Myself.QRUrl=shipper.getString("qrCode");
+								JSONObject memeber = data.getJSONObject("member");
+								JSONObject shipper = data
+										.getJSONObject("shipper");
+								Myself.MemberId = memeber.getInt("memberId");
+								Myself.PhoneNumber = memeber.getString("phone");
+								Myself.UserName = memeber
+										.getString("loginName");
+								Myself.CreditGrad = memeber
+										.getInt("creditGrad");
+								Myself.Balance = memeber.getDouble("balance");
+
+								Myself.ShipperId = shipper.getInt("shipperId");
+								Myself.HeadIconUrl = shipper.getString("head");
+								Myself.AuditStatus = shipper
+										.getInt("auditStatus");
+								Myself.Location = shipper
+										.getString("locationCode");
+								Myself.UserName = shipper
+										.getString("simpleName");
+								Myself.FullName = shipper.getString("fullName");
+								Myself.LocationDetail = shipper
+										.getString("detailAddress");
+								Myself.ContactName = shipper
+										.getString("contact");
+								Myself.PhoneNumber = shipper.getString("phone");
+								Myself.Introduction = shipper
+										.getString("introduce");
+								Myself.Goods = shipper.getString("cargoType");
+								Myself.QRUrl = shipper.getString("qrCode");
 								skipUI();
-							} else {
-								mErrorNetTips.setText(obj.getString("error")+"\n内部版本，由于目前服务器测试阶段，你可以点我直接跳入home界面哟");
-								mErrorNetTips.setVisibility(View.VISIBLE);
+							}
+							else {
+								try {
+									String error=obj.getString("error");
+									ToastUtils.showCrouton(LoginActivity.this,
+											error+":"+obj.getInt("resultCode"));
+								} catch (Exception e) {
+									ToastUtils.showCrouton(LoginActivity.this,
+											getString(R.string.login_error)+obj.getInt("resultCode"));
+								}
 							}
 						} catch (Exception e) {
 							e.printStackTrace();
-							ToastUtils.show(LoginActivity.this,
-									getString(R.string.register_exception)+e.getMessage());
+							ToastUtils.showCrouton(
+									LoginActivity.this,
+									getString(R.string.login_exception)
+											+ e.getMessage());
 						}
 
 					}

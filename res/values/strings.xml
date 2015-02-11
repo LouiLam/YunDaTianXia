@@ -6,8 +6,8 @@
     <string name="action_menu_more">更多</string>
     <string name="action_bar_new_yundan">新建运单</string>
     <string name="action_bar_add_driver">添加司机</string>
-    <string name="action_bar_scan">扫一扫</string><!-- 扫一扫 -->
-    <string name="action_bar_feedback">意见反馈</string><!-- 意见反馈 -->
+    <string name="action_bar_scan">扫一扫</string> <!-- 扫一扫 -->
+    <string name="action_bar_feedback">意见反馈</string> <!-- 意见反馈 -->
     <string name="action_menu_search">搜索</string>
     <!-- 首次注册成功 全屏对话框 -->
     <string name="dialog_0">恭喜你已成为认证会员</string>
@@ -21,6 +21,8 @@
     <string name="index_reg">注册</string>
     <string name="index_login">登录</string>
     <!-- 注册 -->
+    <string name="register_error">注册失败</string>        <!-- 注册错误信息 -->
+    <string name="register_exception">注册异常</string>        <!-- 注册错误信息 -->
     <string name="register_title">填写注册帐号</string>
     <string name="register_enterprise_simple_name">企业简称</string>
     <string name="register_enterprise_simple_name_hint">注册后不可修改</string>
@@ -40,14 +42,18 @@
     <string name="register_goods_title">选择货品</string>
     <string name="register_goods_mygoods">我运输的货物</string>
     <string name="register_goods_common">常用货品类型</string>
-
     <!-- 注册 填写手机号 -->
+    <string name="captcha_error">获取验证码失败</string>     <!-- 获取验证码错误信息 -->
+    <string name="captcha_exception">获取验证码异常</string>     <!-- 获取验证码错误信息 -->
+    <string name="verify_error">验证失败</string>     <!-- 验证错误信息 -->
+    <string name="verify_exception">验证异常</string>     <!-- 验证错误信息 -->
     <string name="register_phone_number_title">填写手机号</string>
     <string name="register_phone_number_btn_verify">验证</string>
     <string name="register_phone_number_tip">请填写企业物流管理员的手机号，管理员将会通过此手机号码登录。</string>
     <string name="register_phone_number_pn">+86</string>
     <string name="register_phone_number_pn_hint">您的常用手机号</string>
     <string name="register_phone_number_verify_code">获取验证码</string>
+    <string name="register_phone_number_verify_code_repeat">重新发送</string>
     <string name="register_phone_number_verify_code_hint">请填写手机收到的验证码</string>
     <!-- 注册 填写详细的企业信息 -->
     <string name="register_details_title">企业信息</string>
@@ -76,13 +82,14 @@
     <string name="register_details_item_location_detail_hint_top">填写企业详细地址</string>
     <string name="register_details_item_title_qualifications">上传企业资质证件</string>
     <string name="register_details_item_enterprise_introduction_hint_top">填写企业简介</string>
-    <!-- 注册错误信息 -->
-    <string name="register_error">注册失败</string>
-    <string name="register_exception">注册异常</string>
+
+  
     <!-- 注册多模块按钮 -->
     <string name="register_save">保存</string>
     <string name="upload_ok">上传成功</string>
     <!-- 登录 -->
+    <string name="login_error">登录失败</string>        <!-- 登录错误信息 -->
+    <string name="login_exception">登录异常</string>        <!-- 登录错误信息 -->
     <string name="login_title">登录</string>
     <string name="login_username_hint">手机号码或公司名称</string>
     <string name="login_forget_pwd">忘记密码？</string>
@@ -139,10 +146,16 @@
     <string name="waybill_mgr_otw_tab_otw">在途</string>
     <string name="waybill_mgr_otw_tab_arrive">到达</string>
     <!-- 运单->运单详情->确认运费信息 -->
-     <string name="waybill_sure_costs_title">确认运费信息</string>
+    <string name="waybill_sure_costs_title">确认运费信息</string>
     <string name="waybill_sure_costs_price_info">运单价格信息：</string>
-    <string name="waybill_sure_costs_fact_price_info">实际价格信息：</string>
-     <string name="waybill_sure_costs_remark_info">备忘记录：</string>
+    <string name="waybill_sure_costs_fact_price_info">实际发生费用：</string>
+    <string name="waybill_sure_costs_remark_info">备忘记录：</string>
+    <string name="waybill_sure_costs0">实际运费</string>
+    <string name="waybill_sure_costs1">破损扣款</string>
+    <string name="waybill_sure_costs2">货险</string>
+    <string name="waybill_sure_costs3">其他费用</string>
+    <string name="waybill_sure_costs4">实际总金额</string>
+    <string name="waybill_sure_costs_btn_ok">确定</string>
     <!-- 装/卸货地   控件 -->
     <string name="waybill_loading_title">填写装/卸货地</string>
     <string name="waybill_loading_common_area">常用地区</string>
@@ -163,18 +176,17 @@
     <string name="waybill_calendar_title1">预计到达日期</string>
     <string name="waybill_calendar_hint">向下滑动浏览更多日期</string>
     <string name="waybill_calendar_btn">确定</string>
-    
+
     <!-- 意见反馈 -->
     <string name="feedback_title">意见反馈</string>
     <string name="feedback_hint_contact">联系方式</string>
     <string name="feedback_hint_content">谢谢您的宝贵意见，我们会做得更好！</string>
     <string name="feedback_submit_success">意见已提交,感谢您的宝贵意见!</string>
     <string name="feedback_submit_fail">提交失败, 可能网络错误了哦!</string>
-     <string name="feedback_btn_submit">提交</string>
-     <!-- 查看大图 -->
+    <string name="feedback_btn_submit">提交</string>
+    <!-- 查看大图 -->
     <string name="big_picture_title">查看大图</string>
     <string name="big_picture_btn_delete">删除</string>
-    
     <string name="syb_system">系统</string>
     <string name="syb_system_error">服务器处理失败，请稍后重试</string>
     <string name="register_sended_anthcode">验证码已发送到</string>

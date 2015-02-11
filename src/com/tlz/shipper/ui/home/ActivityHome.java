@@ -95,34 +95,34 @@ public class ActivityHome extends ThemeActivity implements OnClickListener,
 		}
 		User currentUser = new User();
 		setUser(currentUser);
-		registerBoradcastReceiver();
+//		registerBoradcastReceiver();
 //		Intent intent=new Intent(this, LocationService.class);
 //		intent.putExtra("username", Myself.UserName);
 //		this.startService(intent);
 	}
-	/**
-	 * 定时定位相关 广播的接收处理
-	 */
-	private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver(){  
-        @Override  
-        public void onReceive(Context context, Intent intent) {  
-            String action = intent.getAction();  
-            if(action.equals("ticker.broadcast")){  
-            	mErrorNetTips.setVisibility(View.VISIBLE);
-				mErrorNetTips.setText("离下次获取经纬度的时间还有，" + intent.getIntExtra("mRemainderTime", 0)
-						+ "秒" + ",定位并且发送数据成功次数:" + intent.getIntExtra("count", 0));
-            }  
-        }  
-          
-    };  
-    /**
-	 * 定时定位相关 广播的注册
-	 */
-    public void registerBoradcastReceiver(){  
-        IntentFilter myIntentFilter = new IntentFilter();  
-        myIntentFilter.addAction("ticker.broadcast");  
-        registerReceiver(mBroadcastReceiver, myIntentFilter);  
-    } 
+//	/**
+//	 * 定时定位相关 广播的接收处理
+//	 */
+//	private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver(){  
+//        @Override  
+//        public void onReceive(Context context, Intent intent) {  
+//            String action = intent.getAction();  
+//            if(action.equals("ticker.broadcast")){  
+//            	mErrorNetTips.setVisibility(View.VISIBLE);
+//				mErrorNetTips.setText("离下次获取经纬度的时间还有，" + intent.getIntExtra("mRemainderTime", 0)
+//						+ "秒" + ",定位并且发送数据成功次数:" + intent.getIntExtra("count", 0));
+//            }  
+//        }  
+//          
+//    };  
+//    /**
+//	 * 定时定位相关 广播的注册
+//	 */
+//    public void registerBoradcastReceiver(){  
+//        IntentFilter myIntentFilter = new IntentFilter();  
+//        myIntentFilter.addAction("ticker.broadcast");  
+//        registerReceiver(mBroadcastReceiver, myIntentFilter);  
+//    } 
 	
     	
     	
@@ -639,14 +639,6 @@ public class ActivityHome extends ThemeActivity implements OnClickListener,
 
 	}
 
-	// private void initYouzu() {
-	//
-	// // 初始化游族sdk
-	// String channelId = "3b151b6fe72cfcb2512334130f7d70b8";
-	//
-	// // �?��要在打开app的时候调�?
-	// ChannelApi.getInstance().init(HomeActivity.this, channelId, "kuaishang");
-	// }
 
 	@Override
 	protected void onDestroy() {
@@ -654,7 +646,7 @@ public class ActivityHome extends ThemeActivity implements OnClickListener,
 		// if (mKnet != null) {
 		// mKnet.destroy();
 		// }
-		unregisterReceiver(mBroadcastReceiver);
+//		unregisterReceiver(mBroadcastReceiver);
 		super.onDestroy();
 	}
 

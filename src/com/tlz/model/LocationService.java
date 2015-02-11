@@ -297,7 +297,8 @@ public class LocationService extends Service {
 		// return super.onStartCommand(intent, flags, startId);
 		if (intent != null) {
 			Myself.UserName = intent.getStringExtra("username");
-			PrefsUtils.putValue(this, "config", "username", Myself.UserName);
+			if(Myself.UserName!=null&&(!Myself.UserName.equals("null")))
+			{PrefsUtils.putValue(this, "config", "username", Myself.UserName);}
 		} else {
 			Myself.UserName = PrefsUtils.getString(this, "config", "username",
 					null);

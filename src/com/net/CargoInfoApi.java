@@ -13,11 +13,15 @@ package com.net;
  */
 public interface CargoInfoApi {
    /** 发布中 */
-   static final int STATUS_PUBLISHING = 1;
+   static final int STATUS_PUBLISHING = 0;
    /** 已签约 */
-   static final int STATUS_CONTRACTED = 2;
+   static final int STATUS_CONTRACTED = 1;
    /** 已过期 */
-   static final int STATUS_EXPIRED = 3;
+   static final int STATUS_EXPIRED = 2;
+   /**
+    * 已到货
+    */
+   static final int status_Arraved=3;
    /**所有*/
    static final int STATUS_ALL = -1;
    
@@ -44,10 +48,12 @@ public interface CargoInfoApi {
     * @param truckLen 要求车长
     * @param date 发货时间
     * @param other 其他要求
-    * @param picId 图片id:上传图片成功返回的那个id值,有多张图则多个id
-    * @return { resultCode:1:发布成功,-2:会话超时,需要重新登陆,-1:操作失败 }
+    * @param picIds 图片id:上传图片成功返回的那个id值,有多张图则多个id,由","分隔,如:"1,3,4,5"
+    * @param cargoType 货品类型码
+    * @return  返回  DataMode;
+    * { resultCode:1:发布成功,-2:会话超时,需要重新登陆,-1:操作失败 }
     */
-   String publish(int sid, String startAddr,String destinationAdd,String unit,float count,int truckLen,String date,String other,int[] picId);
+   String publish(int sid, String startAddr,String destinationAdd,String unit,float count,int truckLen,String date,String other,String picIds, String cargoType);
    
    /** 
     * 取得给定企业货主的所有发货列表
@@ -55,10 +61,11 @@ public interface CargoInfoApi {
     * @param status 状态值可以为：该接口中定义的几个常量值
     * @param pageNo  页号
     * @param pageSize 每页行数
-    * @return 一个的json数组,格式:
+    * @return 返回 DataModel<List<CargoInfo>> 
+    * 一个的json数组,格式:
     * {
     * 	resultCode:1 :正确| -2:会话超时 | -1:操作失败,
-    * 	data:[{字段同表tp_CargoInfo},...]
+    * 	data:[{字段同表tp_CargoInfo},...,{totalCount:总行数}]
     * }
     * */
    String getCargoList(int sid, int status,int pageNo,int pageSize);
@@ -66,6 +73,8 @@ public interface CargoInfoApi {
    /** 
     * 取得发货详情
     * @param cid 货源ID
+    * @return 返回 DataModel<CargoInfo>
+    * 
     * 一个字段同表tp_CargoInfo的json对象 
     *  {
     * 	resultCode:1 :正确| -2:会话超时 | -1:操作失败,
@@ -79,7 +88,8 @@ public interface CargoInfoApi {
     * @param cid 货源ID
     * @param pageNo  页号
     * @param pageSize 每页行数
-    * @return  返回返回一个JSON数组，，其中司机为一个对象
+    * @return 返回  DataModel<List<OfferListDTO>> 
+    * 返回返回一个JSON数组，，其中司机为一个对象
     * {
     * 	resultCode:1-n :正确| -2:会话超时 | -1:操作失败,
     * 	data:[{
@@ -101,7 +111,8 @@ public interface CargoInfoApi {
    /**
     * 查看司机详情
     * @param 车队司机id 也就是表tp_UsedDriver的主键 
-    * @return josn格式如下:
+    * @return 返回  DataMode<GetDriverDetailDTO>
+    * josn格式如下:
     * {
     * 	resultCode:1 :正确| -2:会话超时 | -1:操作失败,
     * 	data:{
@@ -123,12 +134,14 @@ public interface CargoInfoApi {
     *  }
     * }
     */
-   String getDriverDetail(int did,int sid);
+   String getDriverDetail(int udid);
    
    /** 
     * 当前最低报价,有报价则返回最低报价及所关联的报价对象及关联的司机情况;
     * @param cid 货源ID
-    * @return 返回该报价详情josn, json格式如下
+    * @return 返回 DataModel<LowestOffer>
+    * 
+    * 返回该报价详情josn, json格式如下
     * {
     *   resultCode:1 :正确| -2:会话超时 | -1:操作失败,
     * 	data:{
@@ -136,6 +149,7 @@ public interface CargoInfoApi {
     *    offeredPrice:价格
     *    createTime:报价时间
     *    driver:{
+    *    	 driverId,
     *        head:url,
     *        checked:是否验证，
     *        audited:是否审核
@@ -150,7 +164,9 @@ public interface CargoInfoApi {
     * 向司机发送一个询价消息，以方便该司机在线上报个价
     * @param cid 货源ID
     * @param dids 将多个司机ID加","组成一个字符串,格式如:1,2,4,5
-    * @return { resultCode:n:成功询价的个数，-1:操作失败 }*/
+    * @return DataMode;
+    * 
+    * { resultCode:n:成功询价的个数，-1:操作失败 }*/
    String queryPrice(int cid, String dids);
    
    /** 
@@ -159,7 +175,9 @@ public interface CargoInfoApi {
     * @param gids 将多个分组ID加","组成一个字符串,格式如:1,2,4,5
     * @param pageNo  页号
     * @param pageSize 每页行数
-    * @return 返回JSON为司机的对象数组，格式如下
+    * @return 返回 DataMode<List<ListDriver>>对象
+    * 
+    * 返回JSON为司机的对象数组，格式如下
     * {
     *   resultCode:1 :正确| -2:会话超时 | -1:操作失败,
     * 	data:[{
@@ -172,7 +190,7 @@ public interface CargoInfoApi {
     *        credit:信誉度
     *        realName:真实姓名
     *        phone:手机号       
-    *     },...]
+    *     },...,{totalCount:总记录数}]
     *   }
     */
    String getMyDriverList(int sid, int pageNo,int pageSize,String gids);
@@ -195,7 +213,8 @@ public interface CargoInfoApi {
     * @param recieverPhone 收货单位联系电话
     * @param remark 备注
     * @param picIds 图片id:上传图片成功返回的那个id值,有多张图则多个id
-    * @return { resultCode:1:派单成功能数;-2:会话超时,需重新登陆,-1:操作失败 }*/
+    * @return 返回DataMode对象;
+    *   { resultCode:1:派单成功能数;-2:会话超时,需重新登陆,-1:操作失败 }*/
    String dispachBill(int did, int sid,String startAddr,String destinationAddr,String unit,float count,int price,float bail,
 		   String date,int cargoType,String remark,int recieverId,String recieverContact,String recieverPhone,int[] picIds);
    
@@ -209,7 +228,8 @@ public interface CargoInfoApi {
     * @param scope 范围公里数
     * @param pageNo 页号
     * @param pageSize 每页行数
-    * @return json格式发下
+    * @return 返回的数据结构模型:DataMode<List<SearchTruckInfoDTO>>
+    * json格式发下
     * <pre>
     * {
     *   resultCode:1 :正确| -2:会话超时 | -1:操作失败,
@@ -230,12 +250,14 @@ public interface CargoInfoApi {
     * }
     * </pre>
     */
-   String searchTruckInfoList(String startAddr,String destationAddr,int truckLen,int load, int scope,int pageNo,int pageSize);
+   String searchTruckInfoList(String startAddr,String destationAddr,int truckLen,String unit,float capacity, int scope,int pageNo,int pageSize);
    
    /**
     * 根据给定车源ID,取得该车源详细数据
     * @param truckInfoId 车源id
-    * @return 一个json对象,格式如下:
+    * @return 返回 DataMode<GetTruckInfoDetailDTO>
+    * 
+    * 一个json对象,格式如下:
     * {
     * 	 resultCode:1 :正确| -2:会话超时 | -1:操作失败,
     * 	 data:{
@@ -247,7 +269,7 @@ public interface CargoInfoApi {
     *       	head:"司机头像url"
     *       	realName:"真实姓名"
     *      		checked:0|1,是否验证
-    *      		picIds:{1,3,4,...} 证件照料    
+    *      		picIds:[1,3,4,...] 证件照料    
     *      		qrCode:"URL二维码URL"	
     *      		multiLocale:"常跑地"	
     *      		phone:"司机电话"	
@@ -267,10 +289,12 @@ public interface CargoInfoApi {
    
    /** 
     * 上传企业发货地的定位信息
-    * @param slid 企业货主收货地ID
+    * @param slid 企业货主发货地ID
     * @param lng 经度
     * @param lat 纬度
-    * @return { resultCode:1:派单成功能数;-2:会话超时,需重新登陆,-1:操作失败 }
+    * @return DataModel;
+    * 
+    * { resultCode:1:派单成功能数;-2:会话超时,需重新登陆,-1:操作失败 }
     */
    String setPosition(int slid ,double lng, double lat);
    
@@ -280,7 +304,9 @@ public interface CargoInfoApi {
     * @param cid  货源ID
     * @param pageNo  页号
     * @param pageSize 每页行数
-    * @return  json数组,格式如下:
+    * @return  DataModel<List<MatchedDriverListDTO>>
+    * 
+    * json数组,格式如下:
     * {
     *   resultCode:1 :正确| -2:会话超时 | -1:操作失败,
     * 	data:[{
@@ -295,7 +321,7 @@ public interface CargoInfoApi {
     *          ton:吨位
     *          type:车型
     *        }
-    *     },...]
+    *     },...,{totalCount:总记录数}]
     *  }
     */
    String matchedDriverList(int cid,int pageNo,int pageSize);
@@ -305,7 +331,9 @@ public interface CargoInfoApi {
     * @param cid  货源ID
     * @param pageNo  页号
     * @param pageSize 每页行数
-    * @return  json数组,格式如下:
+    * @return 返回  DataModel<List<MatchedDriverListDTO>>对象
+    * 
+    * json数组,格式如下:
     * {
     *   resultCode:1 :正确| -2:会话超时 | -1:操作失败,
     * 	data:[{
@@ -326,4 +354,25 @@ public interface CargoInfoApi {
     *  }
     */
    String matchedMyDriverList(int cid,int pageNo,int pageSize);
+   
+   /**
+    * 取得指定货源匹配到的符合要求的车源信息条数
+    * @param cid 货源ID
+    * @return
+    */
+   String matchedTruckInfoCount(int cid);
+   
+   /**
+    * 取得指定货源接收到的报价条数
+    * @param cid 货源ID
+    * @return
+    */
+   String getPricingCount(int cid);
+   
+   /**
+    * 货源重发接口
+    * @param cargoId 货源ID
+    * @return
+    */
+   String repost(int cargoId);
 }

@@ -18,7 +18,8 @@ public interface TruckManageApi {
     * 2，如果司机不存在，则需要同时保存数据到司机与车辆表中后，再添加与企业的关联；
     * @param phone  电话
     * @param sid 企业货主ID
-    * @return {resultCode:1:添加成功，0：该手机未注册,-2:会话超时,需要重新登陆, -1：操作失败} */
+    * @return 返回DataMode;
+    *  {resultCode:1:添加成功，0：该手机未注册,-2:会话超时,需要重新登陆, -1：操作失败} */
    String relationDriver(String phone, int sid);
    
    
@@ -29,18 +30,23 @@ public interface TruckManageApi {
     * @param phoneNum 电话
     * @param name 司机呢称
     * @param truckNum 车牌
-    * @return {resultCode:1:新增成功，-2:会话超时,需要重新登陆,-1：操作失败 }*/
+    * @return 返回DataMode;
+    * {resultCode:1:新增成功，-2:会话超时,需要重新登陆,-1：操作失败 }
+    */
    String addDriver(int sid, String phoneNum, String name, String truckNum);
    
    /** 扫码司机到车队
     * @param did 司机ID
     * @param sid 企业货主ID
-    * @return {resultCode:1:加入成功，-2:会话超时,需要重新登陆,-1操作失败 }*/
+    * @return 返回DataMode;
+    *  {resultCode:1:加入成功，-2:会话超时,需要重新登陆,-1操作失败 }*/
    String scanToFleet(int did, int sid);
    
    /** 
     * 获得所有车队司机通讯录
-    * @return 返回我的车队中所有司机的JSON数组,格式如下:
+    * @return 返回DataMode<List<GetContactListDTO>>
+    * 
+    * 返回我的车队中所有司机的JSON数组,格式如下:
     * {
     *   resultCode:1 :正确| -2:会话超时 | -1:操作失败,
     * 	data:[{
@@ -58,51 +64,59 @@ public interface TruckManageApi {
    /** 
     * 查取新申请加入车队司机数  
     * @param sid 企业货主ID
-    * @return {resultCode:n:新申请加入司机数,-2:会话超时,需要重新登陆,-1:操作失败 }
+    * @return 返回DataMode;
+    *  {resultCode:n:新申请加入司机数,-2:会话超时,需要重新登陆,-1:操作失败 }
     */
    String getNewDriverCount(int sid);
    
    /** 
     * 读取所有分组列表
-    * @return 一个json对象,格式如下:
+    * @return  返回DataModel<List<DriverGroupDTO>>
+    * 一个json对象,格式如下:
     * {
     *   resultCode:1 :正确| -2:会话超时 | -1:操作失败,
-    * 	data:[{字段描述如表tp_DriverGroup},...]
+    * 	data:[{字段描述如表tp_DriverGroup},...,{totalCount:总行数}]
     * }
     * @param sid 企业货主ID*/
    String getGroupList(int sid);
    
    /** 拉司机到黑名单
     * @param UserDriverId 车队司机ID
-    * @return {resultCode:1:拉黑成功，-2:会话超时,需要重新登陆,-1：操作失败 }*/
+    * @return 返回DataMode;
+    * {resultCode:1:拉黑成功，-2:会话超时,需要重新登陆,-1：操作失败 }*/
    String toBlackList(int userDriverId);
    
    /** 
     * 添加司机到分组
     * @param userDriverId 车队司机ID
     * @param gid 分组ID
-    * @return {resultCode:1:添加成功，-2:会话超时,需要重新登陆,-1：添加失败 }*/
+    * @return 返回DataMode;
+    * {resultCode:1:添加成功，-2:会话超时,需要重新登陆,-1：添加失败 }*/
    String addDriverToGroup(int userDriverId, int gid);
    
    /** 
     * 修改司机称谓(昵称)
     * @param userDriverId 车队司机ID
     * @param newAlias 新昵称
-    * @return {resultCode:1:修改成功,-2:会话超时,需要重新登陆,-1操作失败 }*/
+    * @return 返回DataMode;
+    * {resultCode:1:修改成功,-2:会话超时,需要重新登陆,-1操作失败 }*/
    String updateAlias(int userDriverId, String newAlias);
    
    /** 
     * 从车队移除司机
     * @param userDriverId 车队司机ID
-    * @return  {resultCode:1:移除成功,-2:会话超时,需要重新登陆,-1:操作失败} */
+    * @return  返回DataMode;
+    *  {resultCode:1:移除成功,-2:会话超时,需要重新登陆,-1:操作失败} */
    String removeDriver(int userDriverId);
    
    /** 
     * 查取与司机通话记录
-    * @return 返回通话记录表（tp_CallRecord）的json数组,格式如下:
+    * @return 返回DataModel<List<CallRecordDTO>>
+    * 
+    * 返回通话记录表（tp_CallRecord）的json数组,格式如下:
     * {
     *   resultCode:1 :正确| -2:会话超时 | -1:操作失败,
-    * 	data:[{字段描述如表tp_CallRecord所述},...]
+    * 	data:[{字段描述如表tp_CallRecord所述},...,{totalCount:总行数}]
     * }
     * @param myPhone 我电话
     */
@@ -112,7 +126,8 @@ public interface TruckManageApi {
     * 新增分组
     * @param sid  企业货主ID
     * @param group 组名称
-    * @return {resultCode:1：新增成功，-2:会话超时,需要重新登陆,-1：新增失败 }*/
+    * @return 返回DataMode;
+    *  {resultCode:1：新增成功，-2:会话超时,需要重新登陆,-1：新增失败 }*/
    String addGroup(int sid, String groupName);
    
    /** 
@@ -125,7 +140,8 @@ public interface TruckManageApi {
     * 修改分组名称
     * @param gid 分组ID
     * @param group 组名
-    * @return {resultCode:1:修改成功，-2:会话超时,需要重新登陆,-1：操作失败 }*/
+    * @return 返回DataMode;
+    *  {resultCode:1:修改成功，-2:会话超时,需要重新登陆,-1：操作失败 }*/
    String updateGroup(int gid, String groupName);
    
    /** 分组统计车队司机总数
@@ -138,14 +154,17 @@ public interface TruckManageApi {
    /**
     * 统计车队总司机数
     * @param sid 企业货主ID
-    * @return{resultCode: n:车队总司机数，-2:会话超时,需要重新登陆,-1：操作失败}
+    * @return 返回DataMode;
+    *  {resultCode: n:车队总司机数，-2:会话超时,需要重新登陆,-1：操作失败}
     */
    String getUsedDriverTotal(int sid);
    
    /**
     *  查取分组司机列表
     *  根据给定的车队0个或多个分组ID，查取对应的司机列表，当未指定分组时，为所有分组;
-    *  @return 返回司机的对象JSON数组,格式如下:
+    *  @return DataMode<List<MatchedDriverListDTO>>
+    *  
+    *  返回司机的对象JSON数组,格式如下:
     * {
     *   resultCode:1 :正确| -2:会话超时 | -1:操作失败,
     * 	data:[{
@@ -154,13 +173,14 @@ public interface TruckManageApi {
     *        usedDriverId:车队司机ID
     *        head:url,
     *        checked:是否验证，
-    *        position:{lng:经茺,lat:纬度}
+    *        position:{lng:经度,lat:纬度,description:位置描述}
     *        truck:{
     *           len:长
     *           ton:吨位
     *           type:车型
     *        }
-    *     },...]
+    *     },...,{totalCount:1}//总行数,所有分页查询,最后一个都是一样
+    *     	]
     * }    
     * @param sid 企业货主ID
     * @param gid 分组ID 
@@ -172,12 +192,14 @@ public interface TruckManageApi {
    /**
     * 取得分组司机数
     * @param gid 分组id
-    * @return {resultCode: n:司机数,-2:会话超时,需要重新登陆,-1:操作失败} */
+    * @return 返回DataMode;
+    *  {resultCode: n:司机数,-2:会话超时,需要重新登陆,-1:操作失败} */
    String getGroupDriverTotal(int gid);
    
    /** 
     * 查取所有注册司机的总数
-    * @return {resultCode: n:注册司机总数, -2:会话超时,需要重新登陆,-1:操作失败}*/
+    * @return 返回DataMode;
+    *  {resultCode: n:注册司机总数, -2:会话超时,需要重新登陆,-1:操作失败}*/
    String getDriverTotal();
    
    /** 按省统计平台司机
@@ -187,7 +209,8 @@ public interface TruckManageApi {
     * 	data: [
     * 		{湖南省：1000},
     * 		{湖北省：2000},
-    *		...
+    *		...,
+    *		{totalCount:总行数}
     * 	] 
     * }
     */
@@ -202,7 +225,8 @@ public interface TruckManageApi {
     *    city:[
     *     	{长沙市：1000},
     *     	{郴州市：2000},
-    *     	.....
+    *     	...,
+    *     	{totalCount:总行数}
     *    ]
     * 	}	
     * }
@@ -211,7 +235,9 @@ public interface TruckManageApi {
    String driverTotalByCity(String province);
    /** 
     * 取得地市平台司机数据列表
-    * @return json,格式如下:
+    * @return  DataMode<List<MatchedDriverListDTO>>
+    * 
+    * json,格式如下:
     * {
     *   resultCode:1 :正确| -2:会话超时 | -1:操作失败,
     * 	data:[{
@@ -224,15 +250,17 @@ public interface TruckManageApi {
     *           ton:吨位
     *           type:车型
     *        }
-    *     },...]
+    *     },...,{totalCount:总行数}]
     * }
     * @param city 地市名*/
-   String cityDriverList(String city);
- 
+   String cityDriverList(String city, int page, int size);
+ //--------------------------------------------------------------------
    /** 
     * 取平台司机详情
     * @param did 司机id
-    * @return json,格式如下:
+    * @return DataModel<GetDriverDetailDTO>
+    * 
+    * json,格式如下:
     * {
     *   resultCode:1 :正确| -2:会话超时 | -1:操作失败,
     * 	data:{
@@ -242,8 +270,7 @@ public interface TruckManageApi {
     *    	head:url 头像
     *    	multiLocale: 长沙,益阳,.. 常跑地
     *    	phone:电话
-    *    	qrCode:二维码名片
-    *    
+    *    	qrCode:二维码名片    
     *    	truck:[{
     *       	head:'url',
     *       	len:长
@@ -256,7 +283,9 @@ public interface TruckManageApi {
    String getDriverDetail(int did);
    
    /** 根据手机查司机车辆
-    * @return json,格式如下:
+    * @return return DataMode<GetDriverByPhoneDTO>
+    * 
+    * json,格式如下:
     * {
     *   resultCode:1 :正确  0:给定的手机号未注册| -2:会话超时 | -1:操作失败,
     * 	data:{
@@ -272,22 +301,27 @@ public interface TruckManageApi {
    /**
     * 查取请求加入车队司机列表
     * @param sid 企业货主ID
-    *  @return json,格式如下:
+    * @param pn 分号
+    * @param ps 每页行数
+    *  @return DataMode<SimpleDriverAudit>
+    *  
+    *  json,格式如下:
     * {
-    *   resultCode:1 :正确| -2:会话超时 | -1:操作失败,
+    *   resultCode:申请加车队司机数 | -2:会话超时 | -1:发生服务器异常,
     * 	data:[{
     *        driverId:司机ID
     *        realName：姓名
     *        head:url头像
     *        checked:是否验证，
-    *     },...] 
+    *     },...,{totalCount:总行数}] 
     * } 
-    *     */
-   String getAppliedJoinList(int sid);
+    */
+   String getAppliedJoinList(int sid,int pn,int ps);
    
    /** 
     * 查找已发车源信息,查询符合条件的车源列表;
-    * @return json,格式如下:
+    * @return DataMode<List<SearchTruckInfoListDTO>>    * 
+    * json,格式如下:
     * {
     *   resultCode:1 :正确| -2:会话超时 | -1:操作失败,
     * 	data:[{
@@ -301,7 +335,7 @@ public interface TruckManageApi {
     *            ton:吨位
     *           type:车型
     *        }
-    *     },...]
+    *     },...,{totalCount:总行数}]
     * }
     * 
     * @param start 出发地
@@ -310,13 +344,15 @@ public interface TruckManageApi {
     * @param unit 载重单位
     * @param capacity 载重量
     * @param scope 位置范围(半径公里数）*/
-   String getTruckInfoList(int start, int end, int len, String unit, int capacity, int scope);
+   String searchTruckInfoList(String start, String end, int len, String unit, int capacity, int scope,int pn,int ps);
    
    /**
     * 取车源详情
-    * @return json,格式如下:
+    * @return DataModel<GetTruckInfoDetailDTO>
+    * 
+    * json,格式如下:
     * {
-    *   resultCode:1 :正确| -2:会话超时 | -1:操作失败,
+    *   resultCode:1 :正确| -2:会话超时 | -1:操作失败,|0:找不到对应的记录
     * 	data:{
     * 		startPoint;出发地
     * 		destination;目的地
@@ -348,9 +384,10 @@ public interface TruckManageApi {
    /** 
     * 向多个司机发送货源消息
     * @param cid 货源ID
-    * @param dids 司机ID数组
-    * @return 1:操作成功, -2:会话超时,需要重新登陆,-1:操作失败
+    * @param dids 由司机ID及","拼成的字符串,格式如"1,34,4,519,3"
+    * @return 返回DataMode;
+    * {resultCode: 1:操作成功, -2:会话超时,需要重新登陆,-1:服务器异常}
     */
-   int sendCargoInfoTo(int cid,int... dids);
+   String sendCargoInfoTo(int cid,String dids);
 
 }

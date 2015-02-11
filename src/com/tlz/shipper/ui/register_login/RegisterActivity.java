@@ -55,10 +55,9 @@ public class RegisterActivity extends ThemeActivity {
 		switch (msg.what) {
 		case HandlerMsg.LocationSuc:
 			BDLocation location = (BDLocation) msg.obj;
-			
-			Myself.Location=String.format("%s %s %s",
-					location.getProvince(), location.getCity(),
-					location.getDistrict());
+
+			Myself.Location = String.format("%s %s %s", location.getProvince(),
+					location.getCity(), location.getDistrict());
 			location_et.setText(Myself.Location);
 			break;
 
@@ -104,10 +103,10 @@ public class RegisterActivity extends ThemeActivity {
 						return (VerifyUtils.isPwd(text) || text.length() == 0);
 					}
 				});
-		enterprise_et = (EditText) viewbar_enterprise.findViewById(R.id.tb_right);
-		pwd_et = (EditText) passwordView.findViewById(R.id.tb_right);
-		pwd_conf_et = (EditText) passwordConfView
+		enterprise_et = (EditText) viewbar_enterprise
 				.findViewById(R.id.tb_right);
+		pwd_et = (EditText) passwordView.findViewById(R.id.tb_right);
+		pwd_conf_et = (EditText) passwordConfView.findViewById(R.id.tb_right);
 		pwd_et.addTextChangedListener(watcher);
 		pwd_conf_et.addTextChangedListener(watcher);
 		enterprise_et.addTextChangedListener(watcher);
@@ -142,7 +141,8 @@ public class RegisterActivity extends ThemeActivity {
 		@Override
 		public void afterTextChanged(Editable s) {
 			if (pwd_et.getText().toString()
-					.equals(pwd_conf_et.getText().toString())&&enterprise_et.getText().length()>0) {
+					.equals(pwd_conf_et.getText().toString())
+					&& enterprise_et.getText().length() > 0) {
 				if (VerifyUtils.isPwd(pwd_et.getText().toString())
 						&& enterprise_et.getText().length() > 0) {
 					reg_view_btn.setEnabled(true);
@@ -172,41 +172,53 @@ public class RegisterActivity extends ThemeActivity {
 			Myself.UserName = enterprise_et.getText().toString();
 			Myself.Location = location_et.getText().toString();
 			Myself.Password = pwd_et.getText().toString();
-			if(AppConfig.DEBUG)
-			{startActivity(new Intent(RegisterActivity.this,
-					RegisterPhoneNumberActivity.class));}
-			else
-			{	new NetShipperMsgAsyncTask(new APIListener() {
+			if (AppConfig.DEBUG) {
+				startActivity(new Intent(RegisterActivity.this,
+						RegisterPhoneNumberActivity.class));
+			} else {
+				new NetShipperMsgAsyncTask(new APIListener() {
 
-				@Override
-				public String handler(ShipperAccountApi api) {
-					return api.regist(Myself.UserName, Myself.Location,
-							Myself.Password);
+					@Override
+					public String handler(ShipperAccountApi api) {
+						return api.regist(Myself.UserName, Myself.Location,
+								Myself.Password);
 
-				}
-
-				@Override
-				public void finish(String json) {
-					Flog.e(json);
-					try {
-						JSONObject obj = new JSONObject(json);
-						if (obj.getInt("resultCode") == 1) {
-							Myself.Token=obj.getJSONObject("data").getString("token");
-							startActivity(new Intent(RegisterActivity.this,
-									RegisterPhoneNumberActivity.class));
-						} else {
-							ToastUtils.show(RegisterActivity.this,
-									getString(R.string.register_error));
-						}
-					} catch (Exception e) {
-						e.printStackTrace();
-						ToastUtils.show(RegisterActivity.this,
-								getString(R.string.register_exception));
 					}
 
-				}
-			}, this).execute(Urls.REGEDIT);}
-		
+					@Override
+					public void finish(String json) {
+						Flog.e(json);
+						try {
+							JSONObject obj = new JSONObject(json);
+							if (obj.getInt("resultCode") == 1) {
+								Myself.Token = obj.getJSONObject("data")
+										.getString("token");
+								Myself.MemberId=obj.getJSONObject("data")
+										.getInt("memberId");
+								startActivity(new Intent(RegisterActivity.this,
+										RegisterPhoneNumberActivity.class));
+							} else {
+								try {
+									String error=obj.getString("error");
+									ToastUtils.showCrouton(RegisterActivity.this,
+											error+":"+obj.getInt("resultCode"));
+								} catch (Exception e) {
+									ToastUtils.showCrouton(RegisterActivity.this,
+											getString(R.string.register_error)+obj.getInt("resultCode"));
+								}
+								
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
+							ToastUtils.showCrouton(RegisterActivity.this,
+									getString(R.string.register_exception));
+						}
+
+					}
+				}, this).execute(Urls.REGEDIT);
+
+			
+			}
 
 			break;
 		default:
@@ -262,6 +274,5 @@ public class RegisterActivity extends ThemeActivity {
 			mCheckNetTimer.cancel();
 		mCheckNetTimer = null;
 	}
-
 
 }

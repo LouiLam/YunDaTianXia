@@ -15,7 +15,10 @@ import android.widget.TextView;
 import com.net.CommonApi;
 import com.net.AppConfig;
 import com.net.NetCommonMsgAsyncTask;
+import com.net.NetShipperMsgAsyncTask;
+import com.net.ShipperAccountApi;
 import com.net.Urls;
+import com.net.NetShipperMsgAsyncTask.APIListener;
 import com.tlz.model.Myself;
 import com.tlz.part0.other.SmsAdmin;
 import com.tlz.part0.other.SmsAdmin.OnSmsListener;
@@ -30,20 +33,20 @@ import com.tlz.utils.Flog;
 import com.tlz.utils.ToastUtils;
 import com.tlz.utils.VerifyUtils;
 
+public class RegisterPhoneNumberActivity extends ThemeActivity implements
+		OnSmsListener {
 
-public class RegisterPhoneNumberActivity extends ThemeActivity implements OnSmsListener {
-
-
-
-
-	private TextView  getVerifyCodeBtn = null;
+	private TextView getVerifyCodeBtn = null;
 
 	private CountDownTimer mCutdownTimer = null;
 	private int mRemainderTime = 60;
 	View btn_verify;
-	EditText et_pn,et_verify_code;
+	EditText et_pn, et_verify_code;
+	private String code;
+	String TokenCaptcha;
 	EditTextBarTitleClearTextAndLeftClick textBar;
 	EditTextBarIconTitleClearText textBar_pn;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -55,61 +58,76 @@ public class RegisterPhoneNumberActivity extends ThemeActivity implements OnSmsL
 	@Override
 	protected void initView() {
 		super.initView();
-		textBar_pn=(EditTextBarIconTitleClearText) findViewById(R.id.register_phone_number_pn);
-		textBar=(EditTextBarTitleClearTextAndLeftClick) findViewById(R.id.register_phone_number_verify_code);
+		textBar_pn = (EditTextBarIconTitleClearText) findViewById(R.id.register_phone_number_pn);
+		textBar = (EditTextBarTitleClearTextAndLeftClick) findViewById(R.id.register_phone_number_verify_code);
 		textBar.setTBOnClickListener(new TBOnClickListener() {
-			
+
 			@Override
 			public void onClick() {
-				new NetCommonMsgAsyncTask(new NetCommonMsgAsyncTask.APIListener() {
-					
-					@Override
-					public String handler(CommonApi api) {
-						return api.sendCaptcha(et_pn.getText().toString());
-					}
-					
-					@Override
-					public void finish(String json) {
-						Flog.e(json);
-						try {
-							JSONObject obj = new JSONObject(json);
-							if (obj.getInt("resultCode") == 1) {
-								ToastUtils.show(RegisterPhoneNumberActivity.this, "服务测试阶段，验证码直接发送过来,您的验证码为:"+obj.getString("data"));
-								textBar.setTBRightText(obj.getString("data"));
-								stopTimer();
-							} else {
-								ToastUtils.show(RegisterPhoneNumberActivity.this,
-										getString(R.string.register_error));
-								
+				new NetCommonMsgAsyncTask(
+						new NetCommonMsgAsyncTask.APIListener() {
+
+							@Override
+							public String handler(CommonApi api) {
+								return api.sendCaptcha(et_pn.getText()
+										.toString());
 							}
-						} catch (Exception e) {
-							e.printStackTrace();
-							ToastUtils.show(RegisterPhoneNumberActivity.this,
-									getString(R.string.register_exception));
-						}
-						
-						
-					}
-				}, RegisterPhoneNumberActivity.this).execute(Urls.COMMON);
+
+							@Override
+							public void finish(String json) {
+								Flog.e(json);
+								try {
+									JSONObject obj = new JSONObject(json);
+									if (obj.getInt("resultCode") == 1) {
+										JSONObject data = obj
+												.getJSONObject("data");
+										// ToastUtils.showCrouton(RegisterPhoneNumberActivity.this,
+										// "服务测试阶段，验证码直接发送过来,您的验证码为:"+data.getString("code"));
+										TokenCaptcha = data.getString("token");
+										code = data.getString("code");
+										textBar.setTBRightText(code);
+										getVerifyCodeBtn
+												.setText(getString(R.string.register_phone_number_verify_code_repeat));
+										stopTimer();
+									} else {
+										ToastUtils
+												.show(RegisterPhoneNumberActivity.this,
+														getString(R.string.captcha_error)
+																+ obj.getInt("resultCode"));
+
+									}
+								} catch (Exception e) {
+									e.printStackTrace();
+									ToastUtils
+											.show(RegisterPhoneNumberActivity.this,
+													getString(R.string.captcha_exception));
+								}
+
+							}
+						}, RegisterPhoneNumberActivity.this)
+						.execute(Urls.COMMON);
 				startTimer();
 			}
 		});
-		getVerifyCodeBtn=(TextView) textBar.findViewById(R.id.tb_left);
-		textBar_pn.setTBFocusChangeVerifyListener(new TBFocusChangeVerifyListener() {
-			
-			@Override
-			public boolean verify(String text, boolean hasFocus) {
-				return (VerifyUtils.isPhoneNumber(text)||text.length()==0);
-			}
-		});
-		et_pn=(EditText) textBar_pn.findViewById(R.id.tb_right);
-		et_verify_code=(EditText) textBar.findViewById(R.id.tb_right);
+		getVerifyCodeBtn = (TextView) textBar.findViewById(R.id.tb_left);
+		textBar_pn
+				.setTBFocusChangeVerifyListener(new TBFocusChangeVerifyListener() {
+
+					@Override
+					public boolean verify(String text, boolean hasFocus) {
+						return (VerifyUtils.isPhoneNumber(text) || text
+								.length() == 0);
+					}
+				});
+		et_pn = (EditText) textBar_pn.findViewById(R.id.tb_right);
+		et_verify_code = (EditText) textBar.findViewById(R.id.tb_right);
 		et_pn.addTextChangedListener(watcher);
 		et_verify_code.addTextChangedListener(watcher);
-		btn_verify=findViewById(R.id.register_phone_number_btn_verify);
+		btn_verify = findViewById(R.id.register_phone_number_btn_verify);
 		btn_verify.setOnClickListener(this);
 		btn_verify.setEnabled(false);
 	}
+
 	TextWatcher watcher = new TextWatcher() {
 
 		@Override
@@ -126,101 +144,121 @@ public class RegisterPhoneNumberActivity extends ThemeActivity implements OnSmsL
 
 		@Override
 		public void afterTextChanged(Editable s) {
-			if(VerifyUtils.isPhoneNumber(et_pn.getText().toString())&&et_verify_code.getText().toString().length()>0)
-			{
+			if (VerifyUtils.isPhoneNumber(et_pn.getText().toString())
+					&& et_verify_code.getText().toString().length() > 0) {
 				btn_verify.setEnabled(true);
-			}
-			else
-			{
+			} else {
 				btn_verify.setEnabled(false);
 			}
 		}
 	};
+
 	@Override
 	public void onClick(int viewId) {
 		super.onClick(viewId);
 		switch (viewId) {
 		case R.id.register_phone_number_btn_verify:
-			Myself.PhoneNumber=textBar_pn.getTBTextRight();
-			if(AppConfig.DEBUG)
-			{
-				Intent  intent=new Intent(RegisterPhoneNumberActivity.this,ActivityHome.class);
+			Myself.PhoneNumber = textBar_pn.getTBTextRight();
+			if (AppConfig.DEBUG) {
+				Intent intent = new Intent(RegisterPhoneNumberActivity.this,
+						ActivityHome.class);
 				intent.putExtra("isComeFromReg", true);
 				startActivity(intent);
-				
+
+			} else {
+				new NetShipperMsgAsyncTask(
+						new NetShipperMsgAsyncTask.APIListener() {
+
+							@Override
+							public String handler(ShipperAccountApi api) {
+								return api.checkShipperPhonePass(
+										Myself.MemberId, et_pn.getText()
+												.toString(), code);
+							}
+
+							@Override
+							public void finish(String json) {
+								Flog.e(json);
+								try {
+									JSONObject obj = new JSONObject(json);
+									if (obj.getInt("resultCode") == 1) {
+										login();
+										// Intent intent = new Intent(
+										// RegisterPhoneNumberActivity.this,
+										// ActivityHome.class);
+										// intent.putExtra("isComeFromReg",
+										// true);
+										// startActivity(intent);
+									} else {
+										try {
+											String error = obj.getString("error");
+											ToastUtils
+													.showCrouton(
+															RegisterPhoneNumberActivity.this,
+															error
+																	+ ":"
+																	+ obj.getInt("resultCode"));
+										} catch (Exception e) {
+											ToastUtils
+													.showCrouton(
+															RegisterPhoneNumberActivity.this,
+															getString(R.string.verify_error)
+																	+ obj.getInt("resultCode"));
+										}
+
+									}
+								} catch (Exception e) {
+									e.printStackTrace();
+									ToastUtils
+											.showCrouton(
+													RegisterPhoneNumberActivity.this,
+													getString(R.string.verify_exception));
+								}
+
+							}
+						}, RegisterPhoneNumberActivity.this)
+						.execute(Urls.REGEDIT + ";jsessionid=" + TokenCaptcha);
+
 			}
-			else
-			{
-				Intent  intent=new Intent(RegisterPhoneNumberActivity.this,ActivityHome.class);
-				intent.putExtra("isComeFromReg", true);
-				startActivity(intent);
-			}
-//			Intent intent = new Intent(RegisterPhoneNumberActivity.this,
-//					WebContentActivity.class);
-//			intent.putExtra("title",
-//					getString(R.string.register_view_agree_protocol2));
-//			intent.putExtra("url", Urls.USER_SERVICE_PROTOCOL_URL);
-//			startActivity(intent);
 			break;
 		default:
 			break;
 		}
 	}
 
-//	@Override
-//	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//		if (resultCode == RESULT_OK && requestCode == 0) {
-//			location_et.setText(data.getStringExtra("myLocation"));
-//		}
-//		super.onActivityResult(requestCode, resultCode, data);
-//
-//	}
-
-
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-	}
-
-	@Override
-	protected void onPause() {
-		SmsAdmin.getInstance(this).stopMonitor();
-		super.onPause();
-	}
-
-	@Override
-	protected void onResume() {
-		SmsAdmin.getInstance(this).startMonitor("10", "验证码", this);
-		super.onResume();
-	}
-
-
-
+	// @Override
+	// public void onDestroy() {
+	// super.onDestroy();
+	// }
+	//
+	// @Override
+	// protected void onPause() {
+	// SmsAdmin.getInstance(this).stopMonitor();
+	// super.onPause();
+	// }
+	//
+	// @Override
+	// protected void onResume() {
+	// SmsAdmin.getInstance(this).startMonitor("10", "验证码", this);
+	// super.onResume();
+	// }
 
 	private void startTimer() {
 		mRemainderTime = 60;
 		if (mCutdownTimer == null) {
-			mCutdownTimer = new CountDownTimer(60* 1000, 1000) {
+			mCutdownTimer = new CountDownTimer(60 * 1000, 1000) {
 
 				@Override
 				public void onTick(long millisUntilFinished) {
 					mRemainderTime--;
-					getVerifyCodeBtn.setText(mRemainderTime+"秒");
-//					int remainTime = (int) (millisUntilFinished / 1000 - 540);
-//					if (remainTime > 0) {
-//						mBtnReSend.setText("重新发送 "
-//								+ (millisUntilFinished / 1000 - 540));
-//						mBtnReSend.setEnabled(false);
-//					} else {
-//						mBtnReSend.setText("重新发送 ");
-//						mBtnReSend.setEnabled(true);
-//					}
+					getVerifyCodeBtn.setText(mRemainderTime + "秒");
 				}
 
 				@Override
 				public void onFinish() {
 					mRemainderTime = 0;
-					getVerifyCodeBtn.setText("重新发送 ");
+					getVerifyCodeBtn
+							.setText(getString(R.string.register_phone_number_verify_code_repeat));
 					textBar.setTBTitleEnable();
 					stopTimer();
 				}
@@ -236,7 +274,6 @@ public class RegisterPhoneNumberActivity extends ThemeActivity implements OnSmsL
 		}
 	}
 
-
 	@Override
 	public void onSmsReceived(String text) {
 		if (TextUtils.isEmpty(text))
@@ -244,9 +281,90 @@ public class RegisterPhoneNumberActivity extends ThemeActivity implements OnSmsL
 
 		int index = text.indexOf("验证码:");
 		String verificationCode = text.substring(index + 4, index + 4 + 6);
-		ToastUtils.show(this, "收到短信验证："+verificationCode);
-//		mInputVerificationCode.setText(verificationCode);
+		ToastUtils.show(this, "收到短信验证：" + verificationCode);
+		// textBar.setTBRightText(verificationCode);
 	}
 
+	private void login() {
+		new NetShipperMsgAsyncTask(new APIListener() {
+			// {
+			// resultCode:1 :正确|-1:操作失败,0:用户名或密码有误
+			// data:
+			// {
+			// token:令牌
+			// memeber:
+			// { memberId:12, phone:"会员手机号" loginName:"登陆名"
+			// creditGrad:(int)信誉等级 balance:(float)帐户余额 },
+			// shipper:
+			// { shipperId:(int)主键 head:"头像url" auditStatus:(int)认证状态
+			// locationCode :"所在地CODE" simpleName:"企业简称" fullName:"企业全称"
+			// detailAddress:"详细地址" contact:"联系人" phone:"联系电话"
+			// introduce:"企业简介" cargoType:"主要运送货品" qrCode:"二维码明片url" }
+			// }
+			// }
+			@Override
+			public String handler(ShipperAccountApi api) {
+				return api.login(Myself.UserName, Myself.Password,
+						(byte) AppConfig.TYPE_ANDROID);
+			}
 
+			@Override
+			public void finish(String json) {
+				Flog.e(json);
+				try {
+					JSONObject obj = new JSONObject(json);
+					if (obj.getInt("resultCode") == 1) {
+						JSONObject data = obj.getJSONObject("data");
+						Myself.Token = data.getString("token");
+						JSONObject memeber = data.getJSONObject("member");
+						JSONObject shipper = data.getJSONObject("shipper");
+						Myself.MemberId = memeber.getInt("memberId");
+						Myself.PhoneNumber = memeber.getString("phone");
+						Myself.UserName = memeber.getString("loginName");
+						Myself.CreditGrad = memeber.getInt("creditGrad");
+						Myself.Balance = memeber.getDouble("balance");
+
+						Myself.ShipperId = shipper.getInt("shipperId");
+						Myself.HeadIconUrl = shipper.getString("head");
+						Myself.AuditStatus = shipper.getInt("auditStatus");
+						Myself.Location = shipper.getString("locationCode");
+						Myself.UserName = shipper.getString("simpleName");
+						Myself.FullName = shipper.getString("fullName");
+						Myself.LocationDetail = shipper.getString("detailAddress");
+						Myself.ContactName = shipper.getString("contact");
+						Myself.PhoneNumber = shipper.getString("phone");
+						Myself.Introduction = shipper.getString("introduce");
+						Myself.Goods = shipper.getString("cargoType");
+						Myself.QRUrl = shipper.getString("qrCode");
+						Intent intent = new Intent(
+								RegisterPhoneNumberActivity.this,
+								ActivityHome.class);
+						intent.putExtra("isComeFromReg", true);
+						startActivity(intent);
+					} else {
+
+						try {
+							String error = obj.getString("error");
+							ToastUtils.showCrouton(
+									RegisterPhoneNumberActivity.this, error
+											+ ":" + obj.getInt("resultCode"));
+						} catch (Exception e) {
+							ToastUtils.showCrouton(
+									RegisterPhoneNumberActivity.this,
+									getString(R.string.login_error)
+											+ obj.getInt("resultCode"));
+						}
+
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					ToastUtils.showCrouton(
+							RegisterPhoneNumberActivity.this,
+							getString(R.string.login_exception)
+									+ e.getMessage());
+				}
+
+			}
+		}, this).execute(Urls.LOGIN);
+	}
 }

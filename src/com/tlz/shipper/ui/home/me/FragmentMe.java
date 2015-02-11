@@ -2,6 +2,9 @@ package com.tlz.shipper.ui.home.me;
 
 import java.util.ArrayList;
 
+import org.json.JSONObject;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,13 +15,20 @@ import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ExpandableListView.OnGroupCollapseListener;
 import android.widget.ExpandableListView.OnGroupExpandListener;
 
+import com.net.NetShipperMsgAsyncTask;
+import com.net.ShipperAccountApi;
+import com.net.Urls;
 import com.tlz.model.Myself;
 import com.tlz.model.WaybillNews;
 import com.tlz.shipper.R;
 import com.tlz.shipper.ui.ThemeFragment;
 import com.tlz.shipper.ui.home.ActivityHome;
+import com.tlz.shipper.ui.register_login.RegisterDetailsActivity;
+import com.tlz.shipper.ui.register_login.RegisterPhoneNumberActivity;
 import com.tlz.shipper.ui.widget.TextViewBarIcon;
+import com.tlz.shipper.ui.widget.ViewBar.TBBarOnClickListener;
 import com.tlz.utils.CollectionUtils;
+import com.tlz.utils.Flog;
 import com.tlz.utils.ToastUtils;
 
 public class FragmentMe extends ThemeFragment implements
@@ -66,6 +76,53 @@ public class FragmentMe extends ThemeFragment implements
 	private void initView(View v) {
 		
 		TextViewBarIcon bar=(TextViewBarIcon) v.findViewById(R.id.me_details_icon);
+		bar.setTBBarOnClickListener(new TBBarOnClickListener() {
+			
+			@Override
+			public void onTBClick(View v) {
+				new NetShipperMsgAsyncTask(new NetShipperMsgAsyncTask.APIListener() {
+
+					@Override
+					public String handler(ShipperAccountApi api) {
+						return api.getShipper(Myself.ShipperId);
+
+					}
+
+					@Override
+					public void finish(String json) {
+						Flog.e(json);
+						startActivity(new Intent(getActivity(), RegisterDetailsActivity.class));
+//						try {
+//							JSONObject obj = new JSONObject(json);
+//							if (obj.getInt("resultCode") == 1) {
+//								Myself.Token = obj.getJSONObject("data")
+//										.getString("token");
+//								Myself.MemberId=obj.getJSONObject("data")
+//										.getInt("memberId");
+//								startActivity(new Intent(getActivity(), RegisterDetailsActivity.class));
+//							} else {
+//								try {
+//									String error=obj.getString("error");
+//									ToastUtils.showCrouton(getActivity(),
+//											error+":"+obj.getInt("resultCode"));
+//								} catch (Exception e) {
+//									ToastUtils.showCrouton(getActivity(),
+//											getString(R.string.register_error)+obj.getInt("resultCode"));
+//								}
+//								
+//							}
+//						} catch (Exception e) {
+//							e.printStackTrace();
+//							ToastUtils.showCrouton(getActivity(),
+//									getString(R.string.register_exception));
+//						}
+
+					}
+				}, getActivity()).execute(Urls.REGEDIT);
+				
+				
+			}
+		});
 		bar.setTBLeftText(Myself.UserName);
 		listView = (ExpandableListView) v.findViewById(R.id.listView);
 		listView.setAdapter(adapter);

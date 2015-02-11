@@ -5,6 +5,9 @@ import java.util.Date;
 public class Myself {
 	public static  String UserName,Password;
 	public static String  Location;
+	/**
+	 * 登录，注册成功返回的Token
+	 */
 	public static String  Token;
 	public static String  PhoneNumber;
 	public static String  FullName;

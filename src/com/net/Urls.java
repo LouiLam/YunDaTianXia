@@ -2,20 +2,19 @@ package com.net;
 
 public class Urls {
 
-	//public static final String HOST = "http://ua.ks5g.com";
-	//public static final String HOST ="http://kuaishang002.com:200";
-	//public static final String HOST = "http://218.77.43.3";
-//	public static final String HOST= "http://192.168.1.49:8088";
-//	public static final String HOST= "http://192.168.21.13:8088";
 	
-//	public static final String HOST= "http://192.168.1.223:80";
-	public static final String HOST= "http://120.24.234.129:8080";
+	public static final String HOST= "http://192.168.1.25:8080";//全的服务器
+	public static final String ProjectName="/quickload";//全的项目名称
+//	public static final String HOST= "http://120.24.234.129:8080";
+//	public static final String ProjectName="/ql";
+	
 	
 	public static final String UPLOAD="http://120.24.234.112/service/image/sync";
+	public static final String REGEDIT=HOST+ProjectName+"/md/saapi";
+	public static final String LOGIN=HOST+ProjectName+"/md/saapi?login";
+	public static final String COMMON=HOST+ProjectName+"/md/common";
 	
-	public static final String REGEDIT=HOST+"/ql/md/saapi";
-	public static final String LOGIN=HOST+"/ql/md/saapi?login";
-	public static final String COMMON=HOST+"/ql/md/common";
+	
 	public static final String USER_SERVICE_PROTOCOL_URL = "http://www.baidu.com";
 	
 	
