@@ -12,8 +12,11 @@ public class Myself {
 	public static String  PhoneNumber;
 	public static String  FullName;
 	public static String  ContactName;
-	public static String  LocationDetail;
-	public static String  Goods;
+	public static String  DetailAddress;
+	/**
+	 * 主要运输货物类型
+	 */
+	public static byte  CargoType;
 	public static String  HeadIconUrl;
 	/**
 	 * 二维码URL

@@ -91,16 +91,16 @@ public class RegisterPhoneNumberActivity extends ThemeActivity implements
 										stopTimer();
 									} else {
 										ToastUtils
-												.show(RegisterPhoneNumberActivity.this,
-														getString(R.string.captcha_error)
+												.showCrouton(RegisterPhoneNumberActivity.this,
+														getString(R.string.error)
 																+ obj.getInt("resultCode"));
 
 									}
 								} catch (Exception e) {
 									e.printStackTrace();
 									ToastUtils
-											.show(RegisterPhoneNumberActivity.this,
-													getString(R.string.captcha_exception));
+											.showCrouton(RegisterPhoneNumberActivity.this,
+													getString(R.string.exception));
 								}
 
 							}
@@ -305,7 +305,7 @@ public class RegisterPhoneNumberActivity extends ThemeActivity implements
 			@Override
 			public String handler(ShipperAccountApi api) {
 				return api.login(Myself.UserName, Myself.Password,
-						(byte) AppConfig.TYPE_ANDROID);
+						AppConfig.TYPE_ANDROID);
 			}
 
 			@Override
@@ -330,11 +330,11 @@ public class RegisterPhoneNumberActivity extends ThemeActivity implements
 						Myself.Location = shipper.getString("locationCode");
 						Myself.UserName = shipper.getString("simpleName");
 						Myself.FullName = shipper.getString("fullName");
-						Myself.LocationDetail = shipper.getString("detailAddress");
+						Myself.DetailAddress = shipper.getString("detailAddress");
 						Myself.ContactName = shipper.getString("contact");
 						Myself.PhoneNumber = shipper.getString("phone");
 						Myself.Introduction = shipper.getString("introduce");
-						Myself.Goods = shipper.getString("cargoType");
+						Myself.CargoType = (byte) shipper.getInt("cargoType");
 						Myself.QRUrl = shipper.getString("qrCode");
 						Intent intent = new Intent(
 								RegisterPhoneNumberActivity.this,
@@ -351,7 +351,7 @@ public class RegisterPhoneNumberActivity extends ThemeActivity implements
 						} catch (Exception e) {
 							ToastUtils.showCrouton(
 									RegisterPhoneNumberActivity.this,
-									getString(R.string.login_error)
+									getString(R.string.error)
 											+ obj.getInt("resultCode"));
 						}
 
@@ -360,7 +360,7 @@ public class RegisterPhoneNumberActivity extends ThemeActivity implements
 					e.printStackTrace();
 					ToastUtils.showCrouton(
 							RegisterPhoneNumberActivity.this,
-							getString(R.string.login_exception)
+							getString(R.string.exception)
 									+ e.getMessage());
 				}
 

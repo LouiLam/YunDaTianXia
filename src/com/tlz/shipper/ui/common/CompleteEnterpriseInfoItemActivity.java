@@ -1,4 +1,6 @@
-package com.tlz.shipper.ui.register_login;
+package com.tlz.shipper.ui.common;
+
+import org.json.JSONObject;
 
 import android.content.Intent;
 import android.content.res.Resources;
@@ -12,13 +14,20 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
+import com.net.AppConfig;
+import com.net.NetShipperMsgAsyncTask;
+import com.net.ShipperAccountApi;
+import com.net.Urls;
+import com.net.NetShipperMsgAsyncTask.APIListener;
 import com.tlz.model.Myself;
 import com.tlz.shipper.R;
 import com.tlz.shipper.ui.ThemeActivity;
 import com.tlz.shipper.ui.widget.EditTextBarPureClearText;
 import com.tlz.shipper.ui.widget.ViewBar.TBOnTextChangedListener;
+import com.tlz.utils.Flog;
+import com.tlz.utils.ToastUtils;
 
-public class RegisterDetailsItemActivity extends ThemeActivity {
+public class CompleteEnterpriseInfoItemActivity extends ThemeActivity {
 	EditTextBarPureClearText itemBar;
 	private TextView save_btn;
 	private int curItemType;
@@ -26,7 +35,7 @@ public class RegisterDetailsItemActivity extends ThemeActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_register_details_item);
+		setContentView(R.layout.activity_complete_enterprise_info_item);
 		initView();
 	}
 
@@ -36,9 +45,9 @@ public class RegisterDetailsItemActivity extends ThemeActivity {
 	protected void initView() {
 		super.initView();
 		Resources res = getResources();
-		maxLengths[RegisterDetailsActivity.IEMT_TYPE_FULL_NAME] = res
+		maxLengths[CompleteEnterpriseInfoActivity.IEMT_TYPE_FULL_NAME] = res
 				.getInteger(R.integer.enterprise_full_name);
-		maxLengths[RegisterDetailsActivity.IEMT_TYPE_CONTACT_NAME] = res
+		maxLengths[CompleteEnterpriseInfoActivity.IEMT_TYPE_CONTACT_NAME] = res
 				.getInteger(R.integer.location_detail);
 		Bundle bundle = getIntent().getExtras();
 		LayoutParams params = new ActionBar.LayoutParams((int) getResources()
@@ -77,25 +86,80 @@ public class RegisterDetailsItemActivity extends ThemeActivity {
 				bundle.putString("item_type_value", itemBar.getTBText());
 				data.putExtras(bundle);
 				switch (curItemType) {
-				case RegisterDetailsActivity.IEMT_TYPE_FULL_NAME:
+				case CompleteEnterpriseInfoActivity.IEMT_TYPE_FULL_NAME:
 					Myself.FullName = itemBar.getTBText();
 					break;
-				case  RegisterDetailsActivity.IEMT_TYPE_CONTACT_NAME:
+				case  CompleteEnterpriseInfoActivity.IEMT_TYPE_CONTACT_NAME:
 					Myself.ContactName = itemBar.getTBText();
 					break;
-				case RegisterDetailsActivity.IEMT_TYPE_LOCATION_DETAIL:
-					Myself.LocationDetail = itemBar.getTBText();
+				case CompleteEnterpriseInfoActivity.IEMT_TYPE_DETAIL_ADDRESS:
+					Myself.DetailAddress = itemBar.getTBText();
 					break;
 				default:
 					break;
 				}
-				setResult(RESULT_OK, data);
-				finish();
+				netComm(data);
 			}
 		});
 		mActionBar.setCustomView(save_btn, params);
 		mActionBar.setDisplayShowCustomEnabled(true);
 	}
 
+private void  netComm(final Intent data)
+{
+	if (AppConfig.DEBUG) {
+		setResult(RESULT_OK, data);
+		finish();
+	} else {
+		new NetShipperMsgAsyncTask(new APIListener() {
+			// {
+			// resultCode:1 :正确|-1:操作失败,0:用户名或密码有误
+			// data:
+			// {
+			// token:令牌
+			// memeber:
+			// { memberId:12, phone:"会员手机号" loginName:"登陆名"
+			// creditGrad:(int)信誉等级 balance:(float)帐户余额 },
+			// shipper:
+			// { shipperId:(int)主键 head:"头像url" auditStatus:(int)认证状态
+			// locationCode :"所在地CODE" simpleName:"企业简称" fullName:"企业全称"
+			// detailAddress:"详细地址" contact:"联系人" phone:"联系电话"
+			// introduce:"企业简介" cargoType:"主要运送货品" qrCode:"二维码明片url" }
+			// }
+			// }
+			@Override
+			public String handler(ShipperAccountApi api) {
+				return api.completeData(Myself.ShipperId, Myself.FullName, Myself.DetailAddress, Myself.ContactName,  Myself.Introduction,  Myself.CargoType);
+			}
 
+			@Override
+			public void finish(String json) {
+				Flog.e(json);
+				try {
+					JSONObject obj = new JSONObject(json);
+					if (obj.getInt("resultCode") == 1) {
+						setResult(RESULT_OK, data);
+						CompleteEnterpriseInfoItemActivity.this.finish();
+					}
+					else {
+						try {
+							String error=obj.getString("error");
+							ToastUtils.showCrouton(CompleteEnterpriseInfoItemActivity.this,
+									error+":"+obj.getInt("resultCode"));
+						} catch (Exception e) {
+							ToastUtils.showCrouton(CompleteEnterpriseInfoItemActivity.this,
+									getString(R.string.error)+obj.getInt("resultCode"));
+						}
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					ToastUtils.showCrouton(
+							CompleteEnterpriseInfoItemActivity.this,
+							getString(R.string.exception)
+									+ e.getMessage());
+				}
+
+			}
+		}, this).execute(Urls.REGEDIT);
+	}}
 }

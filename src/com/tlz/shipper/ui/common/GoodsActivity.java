@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,6 +24,7 @@ public class GoodsActivity extends ThemeActivity {
 		setContentView(R.layout.activity_register_goods);
 		mActionBar.setTitle(R.string.register_goods_title);
 		initView();
+		
 	}
 
 	TextViewBarIcon iconTextBar;
@@ -32,8 +32,7 @@ public class GoodsActivity extends ThemeActivity {
 	protected void initView() {
 		super.initView();
 		iconTextBar =(TextViewBarIcon) findViewById(R.id.cur_locationing);
-		if(Myself.Goods!=null)
-		{iconTextBar.setTBLeftText(Myself.Goods);}
+		{iconTextBar.setTBLeftText(getCurGoodsString());}
 		final ListView listView = (ListView) findViewById(R.id.listView);
 		listView.setAdapter(new SimpleAdapter(this, getAllGoods(), R.layout.list_item_location, new String[] { "content" }, new int[]{R.id.tb_left}));
 		listView.setOnItemClickListener(new OnItemClickListener() {
@@ -42,23 +41,19 @@ public class GoodsActivity extends ThemeActivity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				
-					Myself.Goods=goods[position];
-					iconTextBar.setTBLeftText(Myself.Goods);
-					Intent intent = new Intent();
-					intent.putExtra("goods", Myself.Goods);
-					setResult(RESULT_OK, intent);
+					Myself.CargoType=(byte) (position+1);
+					iconTextBar.setTBLeftText(getCurGoodsString());
+					setResult(RESULT_OK);
 					finish();
 		
 				
 			}
 		});
 	}
-	 String[] goods;
+	 
 	private ArrayList<HashMap<String, Object>> getAllGoods() {
 		
-		 Resources res =getResources();
-		  goods=res.getStringArray(R.array.goods);
-		 
+		String[] goods=getGoodsStringArray();
 		ArrayList<HashMap<String, Object>> listItem = new ArrayList<HashMap<String, Object>>();
 		/* 为动态数组添加数据 */
 		for (int i = 0; i < goods.length; i++) {

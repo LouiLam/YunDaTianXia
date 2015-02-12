@@ -1,22 +1,24 @@
-package com.tlz.shipper.ui.register_login;
+package com.tlz.shipper.ui.common;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
+import com.tlz.admin.ImageLoaderAdmin;
 import com.tlz.model.Myself;
 import com.tlz.shipper.R;
 import com.tlz.shipper.ui.ThemeActivity;
-import com.tlz.shipper.ui.common.GoodsActivity;
-import com.tlz.shipper.ui.common.ImageGridPickerActivity;
+import com.tlz.shipper.ui.register_login.LocationActivity;
+import com.tlz.shipper.ui.register_login.QRCodeActivity;
 import com.tlz.shipper.ui.widget.TextViewBarIcon;
 import com.tlz.shipper.ui.widget.TextViewBarPure;
 import com.tlz.shipper.ui.widget.ViewBar.TBBarOnClickListener;
 
-public class RegisterDetailsActivity extends ThemeActivity  {
+public class CompleteEnterpriseInfoActivity extends ThemeActivity  {
 	TextViewBarIcon bar_logo,qrcode;
-	TextViewBarPure fullName, contactName ,location,locationDetail,transportGoods,enterpriseIntroduction;
+	TextViewBarPure fullName, contactName ,location,detailAddress,transportGoods,enterpriseIntroduction;
 	public static final int REQUEST_CODE_IMAGE_SELECT=0;
 	public static final int REQUEST_CODE_ITEM_RETURN=1;
 	public static final int REQUEST_CODE_AREA=2;
@@ -25,13 +27,13 @@ public class RegisterDetailsActivity extends ThemeActivity  {
 	
 	public static final int IEMT_TYPE_FULL_NAME=0;
 	public static final int IEMT_TYPE_CONTACT_NAME=1;
-	public static final int IEMT_TYPE_LOCATION_DETAIL=2;
+	public static final int IEMT_TYPE_DETAIL_ADDRESS=2;
 	public static final int IEMT_TYPE_ENTERPRISE_INTRODUCTION=3;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		mActionBar.setTitle(R.string.register_details_title);
-		setContentView(R.layout.activity_register_details);
+		mActionBar.setTitle(R.string.complete_enterprise_info_title);
+		setContentView(R.layout.activity_complete_enterprise_info);
 		initView();
 	}
 
@@ -50,17 +52,17 @@ public class RegisterDetailsActivity extends ThemeActivity  {
 			Bundle bundle=data.getExtras();
 			int curType=bundle.getInt("item_type");
 			switch (curType) {
-			case  RegisterDetailsActivity.IEMT_TYPE_FULL_NAME:
+			case  CompleteEnterpriseInfoActivity.IEMT_TYPE_FULL_NAME:
 				fullName.setTBTextRight(bundle.getString("item_type_value"));
 				break;
-			case   RegisterDetailsActivity.IEMT_TYPE_CONTACT_NAME:
+			case   CompleteEnterpriseInfoActivity.IEMT_TYPE_CONTACT_NAME:
 				contactName.setTBTextRight(bundle.getString("item_type_value"));
 				
 				break;
-			case  RegisterDetailsActivity.IEMT_TYPE_LOCATION_DETAIL:
-				locationDetail.setTBTextRight(bundle.getString("item_type_value"));
+			case  CompleteEnterpriseInfoActivity.IEMT_TYPE_DETAIL_ADDRESS:
+				detailAddress.setTBTextRight(bundle.getString("item_type_value"));
 			break;
-			case RegisterDetailsActivity.IEMT_TYPE_ENTERPRISE_INTRODUCTION:
+			case CompleteEnterpriseInfoActivity.IEMT_TYPE_ENTERPRISE_INTRODUCTION:
 				enterpriseIntroduction.setTBTextRight(bundle.getString("item_type_value"));
 				break;
 			default:
@@ -74,8 +76,7 @@ public class RegisterDetailsActivity extends ThemeActivity  {
 		}
 		else if(requestCode == REQUEST_CODE_GOODS && resultCode == RESULT_OK)
 		{
-			Myself.Goods=data.getStringExtra("goods");
-			transportGoods.setTBTextRight(Myself.Goods);
+			transportGoods.setTBTextRight(getCurGoodsString());
 		}
 		
 		// else if (requestCode == REQUEST_CODE_CAPTURE_CAMEIA) {
@@ -92,11 +93,13 @@ public class RegisterDetailsActivity extends ThemeActivity  {
 
 			@Override
 			public void onTBClick(View v) {
-				Intent intent = new Intent(RegisterDetailsActivity.this,
+				Intent intent = new Intent(CompleteEnterpriseInfoActivity.this,
 						ImageGridPickerActivity.class);
+				intent.putExtra("category", ImageGridPickerActivity.UploadHead);
 				startActivityForResult(intent, REQUEST_CODE_IMAGE_SELECT);
 			}
 		});
+		
 		TextViewBarPure simpleName = (TextViewBarPure) findViewById(R.id.register_details_enterprise_simple_name);
 		TextViewBarPure phoneNumber = (TextViewBarPure) findViewById(R.id.register_details_phone_number);
 		
@@ -126,27 +129,27 @@ public class RegisterDetailsActivity extends ThemeActivity  {
 		location.setTBBarOnClickListener(new TBBarOnClickListener() {
 			@Override
 			public void onTBClick(View v) {
-				Intent intent = new Intent(RegisterDetailsActivity.this,
+				Intent intent = new Intent(CompleteEnterpriseInfoActivity.this,
 						LocationActivity.class);
 				intent.putExtra("myLocation", Myself.Location);
 				startActivityForResult(intent, REQUEST_CODE_AREA);
 			}
 		});
 	
-		locationDetail = (TextViewBarPure) findViewById(R.id.register_details_location_detail);
-		locationDetail.setTBBarOnClickListener(new TBBarOnClickListener() {
+		detailAddress = (TextViewBarPure) findViewById(R.id.register_details_location_detail);
+		detailAddress.setTBBarOnClickListener(new TBBarOnClickListener() {
 			@Override
 			public void onTBClick(View v) {
 				putContent(getString(R.string.register_details_item_location_detail_hint_top), 
 						getString(R.string.register_details_item_location_detail_hint_top),
-						"", IEMT_TYPE_LOCATION_DETAIL);
+						"", IEMT_TYPE_DETAIL_ADDRESS);
 			}
 		});
 		transportGoods=(TextViewBarPure) findViewById(R.id.register_details_transport_goods);
 		transportGoods.setTBBarOnClickListener(new TBBarOnClickListener() {
 			@Override
 			public void onTBClick(View v) {
-				Intent intent = new Intent(RegisterDetailsActivity.this,
+				Intent intent = new Intent(CompleteEnterpriseInfoActivity.this,
 						GoodsActivity.class);
 				startActivityForResult(intent, REQUEST_CODE_GOODS);
 			}
@@ -165,26 +168,30 @@ public class RegisterDetailsActivity extends ThemeActivity  {
 			
 			@Override
 			public void onTBClick(View v) {
-				startActivity(new Intent(RegisterDetailsActivity.this,QRCodeActivity.class));
+				startActivity(new Intent(CompleteEnterpriseInfoActivity.this,QRCodeActivity.class));
 			}
 		});
-		if (Myself.FullName!=null){
-			fullName.setTBTextRight(Myself.FullName);
-		}
-		if(Myself.ContactName!=null)
+		setDefault(Myself.FullName, fullName);
+		setDefault(Myself.ContactName, contactName);
+		setDefault(Myself.Location, location);
+		setDefault(Myself.DetailAddress, detailAddress);
+		ImageLoaderAdmin.getInstance().displayImage(Myself.HeadIconUrl,
+				(ImageView)bar_logo.findViewById(R.id.tb_icon_right));
+	}
+	private void setDefault(String data,TextViewBarPure view){
+		if(data!=null)
 		{
-			contactName.setTBTextRight(Myself.ContactName);
+			view.setTBTextRight(data);
 		}
-		if(Myself.Location!=null)
+		else
 		{
-			location.setTBTextRight(Myself.Location);
+			view.setTBTextRight(getString(R.string.complete_enterprise_info_default));
 		}
-		
 	}
 	private void putContent(String title,String hint_top,String hint_bottom,int item_type)
 	{
-		Intent intent = new Intent(RegisterDetailsActivity.this,
-				RegisterDetailsItemActivity.class);
+		Intent intent = new Intent(CompleteEnterpriseInfoActivity.this,
+				CompleteEnterpriseInfoItemActivity.class);
 		Bundle bundle=new Bundle();
 		bundle.putString("title", title);
 		bundle.putString("hint_top", hint_top);

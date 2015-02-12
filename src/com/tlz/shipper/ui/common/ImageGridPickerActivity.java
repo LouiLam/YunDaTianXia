@@ -4,21 +4,18 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
-import java.util.Random;
 
-import org.apache.http.client.ClientProtocolException;
 import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.CompressFormat;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -32,63 +29,45 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.net.AppConfig;
+import com.net.NetShipperMsgAsyncTask;
 import com.net.NetUploadAsyncTask;
 import com.net.NetUploadAsyncTask.APIListener;
-import com.tlz.model.ImageLocalData;
+import com.net.ShipperAccountApi;
+import com.net.Urls;
+import com.tlz.admin.ImageLoaderAdmin;
+import com.tlz.model.Myself;
 import com.tlz.shipper.R;
 import com.tlz.shipper.ui.ThemeActivity;
 import com.tlz.utils.FileUtils;
 import com.tlz.utils.Flog;
 import com.tlz.utils.ToastUtils;
 
-import edu.mit.mobile.android.imagecache.ImageCache;
-
 public class ImageGridPickerActivity extends ThemeActivity {
 	private GridView mGrid;
-	private ImageCache mCache;
-	private ImageLocalData mData;
+	private ArrayList<String> urlList;
 	private TextView save_btn;
+	public static final byte UploadHead = 1;
+	private byte curCategory;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mActionBar.setTitle(R.string.register_details_image_grid_title);
 		setContentView(R.layout.activity_register_details_image_grid);
+		curCategory = getIntent().getByteExtra("category", (byte) 0);
 		initView();
 
 	}
 
-	// private void initData() {
-	// mData.addItem(
-	// "Federico",
-	// "http://mobile.mit.edu/sites/mel-dru.mit.edu.mainsite/files/imagecache/person_profile/sites/mel-drudev.mit.edu/files/pic_64px_boss.jpg");
-	// mData.addItem(
-	// "Leo",
-	// "http://mobile.mit.edu/sites/mel-dru.mit.edu.mainsite/files/imagecache/person_profile/sites/mel-drudev.mit.edu/files/leonardo_0.jpg");
-	//
-	// mData.addItem(
-	// "Nick",
-	// "http://mobile.mit.edu/sites/mel-dru.mit.edu.mainsite/files/imagecache/person_profile/nwallen_pic.jpg");
-	//
-	// mData.addItem(
-	// "Steve",
-	// "http://mobile.mit.edu/sites/mel-dru.mit.edu.mainsite/files/imagecache/person_profile/sites/mel-drudev.mit.edu/files/pic_64px_steve.jpg");
-	//
-	// mData.addItem(
-	// "Amar",
-	// "http://mobile.mit.edu/sites/mel-dru.mit.edu.mainsite/files/imagecache/person_profile/me-icon_0.png");
-	//
-	// for (int i = 0; i < 10; i++) {
-	// mData.addAll(mData);
-	// }
-	// }
 	View lastItemView;
 
 	@Override
@@ -109,44 +88,45 @@ public class ImageGridPickerActivity extends ThemeActivity {
 			@Override
 			public void onClick(View v) {
 				if (!AppConfig.DEBUG) {
-					String path=(String)lastItemView.findViewById(R.id.thumb).getTag();
+					String path = (String) lastItemView
+							.findViewById(R.id.thumb).getTag();
 					System.err.println(path);
-					
-					
+
 					new NetUploadAsyncTask(new APIListener() {
-						
+
 						@Override
 						public void finish(String json) {
 							Flog.e(json);
 							try {
 								JSONObject obj = new JSONObject(json);
 								if (obj.getString("Code").equals("0000")) {
-									skipUI();
-									ToastUtils.show(ImageGridPickerActivity.this, getString(R.string.upload_ok));
+									if (curCategory == UploadHead)
+										uploadHead(obj.getString("Body"));
+									// skipUI();
+									ToastUtils.showCrouton(
+											ImageGridPickerActivity.this,
+											getString(R.string.upload_ok));
 								} else {
-									ToastUtils.show(ImageGridPickerActivity.this, obj.getString("Message"));
-									// ToastUtils.show(RegisterActivity.this,
-									// getString(R.string.register_error));
+									ToastUtils.showCrouton(
+											ImageGridPickerActivity.this,
+											obj.getString("Message"));
 								}
 							} catch (Exception e) {
 								e.printStackTrace();
 								// ToastUtils.show(RegisterActivity.this,
 								// getString(R.string.register_exception));
 							}
-							
-							
-							
+
 						}
 					}, ImageGridPickerActivity.this).execute(new File(path));
+				} else {
+					skipUI();
 				}
-				else
-				{skipUI();}
 			}
 		});
 		mActionBar.setCustomView(save_btn, params);
 		mActionBar.setDisplayShowCustomEnabled(true);
 
-		mCache = new SlowImageCache(this);
 		mGrid = (GridView) findViewById(R.id.grid);
 		mGrid.setOnItemClickListener(new OnItemClickListener() {
 
@@ -161,7 +141,7 @@ public class ImageGridPickerActivity extends ThemeActivity {
 						lastItemView.findViewById(R.id.selected).setVisibility(
 								View.GONE);
 					}
-					
+
 					save_btn.setEnabled(true);
 					view.findViewById(R.id.selected)
 							.setVisibility(View.VISIBLE);
@@ -170,13 +150,15 @@ public class ImageGridPickerActivity extends ThemeActivity {
 
 			}
 		});
-		mData = new ImageLocalData();
+		urlList = new ArrayList<>();
 		Resources r = getResources();
-		String image = ContentResolver.SCHEME_ANDROID_RESOURCE + "://"
-				+ r.getResourcePackageName(R.drawable.icon_photograph) + "/"
-				+ r.getResourceTypeName(R.drawable.icon_photograph) + "/"
-				+ r.getResourceEntryName(R.drawable.icon_photograph);
-		mData.addItem("", image);
+//		String image = ContentResolver.SCHEME_ANDROID_RESOURCE + "://"
+//				+ r.getResourcePackageName(R.drawable.icon_photograph) + "/"
+//				+ r.getResourceTypeName(R.drawable.icon_photograph) + "/"
+//				+ r.getResourceEntryName(R.drawable.icon_photograph);
+		String image =  "drawable://"+R.drawable.icon_photograph;
+		
+		urlList.add(image);
 		new LoadAsyncTask().execute(0);
 	}
 
@@ -225,53 +207,97 @@ public class ImageGridPickerActivity extends ThemeActivity {
 			// 将图片显示在ImageView里
 		}
 	}
-	private void skipUI()
-	{
-		
+
+	private void skipUI() {
+
 		Intent data = new Intent();
-		ImageView view = (ImageView) lastItemView
-				.findViewById(R.id.thumb);
+		ImageView view = (ImageView) lastItemView.findViewById(R.id.thumb);
 		BitmapDrawable drawable = (BitmapDrawable) view.getDrawable();
-		Bitmap bitmap=drawable.getBitmap();
-//		Bitmap bitmap = Bitmap.createBitmap(
-//
-//				drawable.getIntrinsicWidth(),
-//
-//				drawable.getIntrinsicHeight(),
-//
-//				drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
-//
-//						: Bitmap.Config.RGB_565);
-//
-//		Canvas canvas = new Canvas(bitmap);
-//		// canvas.setBitmap(bitmap);
-//		drawable.setBounds(0, 0, drawable.getIntrinsicWidth(),
-//				drawable.getIntrinsicHeight());
-//		drawable.draw(canvas);
+		Bitmap bitmap = drawable.getBitmap();
+		// Bitmap bitmap = Bitmap.createBitmap(
+		//
+		// drawable.getIntrinsicWidth(),
+		//
+		// drawable.getIntrinsicHeight(),
+		//
+		// drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
+		//
+		// : Bitmap.Config.RGB_565);
+		//
+		// Canvas canvas = new Canvas(bitmap);
+		// // canvas.setBitmap(bitmap);
+		// drawable.setBounds(0, 0, drawable.getIntrinsicWidth(),
+		// drawable.getIntrinsicHeight());
+		// drawable.draw(canvas);
 		data.putExtra("bitmap", bitmap);
 		setResult(RESULT_OK, data);
 		finish();
 	}
 
-	private static class SlowImageCache extends ImageCache {
+	private void uploadHead(final String url) {
 
-		private final Random r = new Random();
+		new NetShipperMsgAsyncTask(new NetShipperMsgAsyncTask.APIListener() {
 
-		protected SlowImageCache(Context context) {
-			super(context, CompressFormat.PNG, 85);
-		}
+			@Override
+			public String handler(ShipperAccountApi api) {
+				return api.uploadHead(Myself.ShipperId, url);
 
-//		@Override
-//		protected void downloadImage(String key, Uri uri)
-//				throws ClientProtocolException, IOException {
-//			try {
-//				Thread.sleep(r.nextInt(3000) + 500);
-//			} catch (final InterruptedException e) {
-//
-//			}
-//			super.downloadImage(key, uri);
-//
-//		}
+			}
+
+			@Override
+			public void finish(String json) {
+				Flog.e(json);
+
+				try {
+					JSONObject obj = new JSONObject(json);
+
+					if (obj.getInt("resultCode") == 1) {
+						// JSONObject data=obj.getJSONObject("data");
+						// String website = data
+						// .getString("website"); //暂无用
+						// String taxregistno=data
+						// .getString("taxregistno");//营业执照URL
+						// String introduce=data
+						// .getString("introduce");//
+						// String qrCode=data.getString("qrCode");
+						// Myself.ContactName = data.getString("contact");
+						// Myself.DetailAddress=data.getString("detailAddress");
+						// Myself.Location=data.getString("locationCode");
+						// int auditStatus=data.getInt("auditStatus");
+						// int cargoType=data.getInt("cargoType");
+						// int serialVersionUID=data.getInt("serialVersionUID");
+						// Myself.FullName=data.getString("fullName");
+						// String
+						// organizationno=data.getString("organizationno");//组织机构代码证的URL
+						// String head=data.getString("head");
+						// String
+						// businesslicence=data.getString("businesslicence");
+						skipUI();
+					} else {
+						try {
+							String error = obj.getString("error");
+							ToastUtils.showCrouton(
+									ImageGridPickerActivity.this, error + ":"
+											+ obj.getInt("resultCode"));
+						} catch (Exception e) {
+							ToastUtils.showCrouton(
+									ImageGridPickerActivity.this,
+									ImageGridPickerActivity.this
+											.getString(R.string.error)
+											+ obj.getInt("resultCode"));
+						}
+
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					ToastUtils.showCrouton(ImageGridPickerActivity.this,
+							ImageGridPickerActivity.this
+									.getString(R.string.exception));
+				}
+
+			}
+		}, ImageGridPickerActivity.this).execute(Urls.REGEDIT);
+
 	}
 
 	/**
@@ -301,7 +327,7 @@ public class ImageGridPickerActivity extends ThemeActivity {
 				// 获取图片的路径
 				String path = mCursor.getString(mCursor
 						.getColumnIndex(MediaStore.Images.Media.DATA));
-				mData.addItem("Federico", "file:///" + path);
+				urlList.add("file:///" + path);
 			}
 			mCursor.close();
 
@@ -310,10 +336,54 @@ public class ImageGridPickerActivity extends ThemeActivity {
 
 		@Override
 		protected void onPostExecute(String result) {
-			mGrid.setAdapter(ImageLocalData.generateAdapter(
-					ImageGridPickerActivity.this, mData,
-					R.layout.grid_item, mCache, 64, 64));
+			mGrid.setAdapter(new ImageAdapter());
 
 		}
+	}
+
+	public class ImageAdapter extends BaseAdapter {
+
+		private LayoutInflater inflater;
+
+		ImageAdapter() {
+			inflater = LayoutInflater.from(ImageGridPickerActivity.this);
+		}
+
+		@Override
+		public int getCount() {
+			return urlList.size();
+		}
+
+		@Override
+		public Object getItem(int position) {
+			return null;
+		}
+
+		@Override
+		public long getItemId(int position) {
+			return position;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			final ViewHolder holder;
+			View view = convertView;
+			if (view == null) {
+				view = inflater.inflate(R.layout.grid_item, parent, false);
+				holder = new ViewHolder();
+				holder.imageView = (ImageView) view.findViewById(R.id.thumb);
+				view.setTag(holder);
+			} else {
+				holder = (ViewHolder) view.getTag();
+			}
+			ImageLoaderAdmin.getInstance().displayImage(urlList.get(position),
+					holder.imageView);
+
+			return view;
+		}
+	}
+
+	static class ViewHolder {
+		ImageView imageView;
 	}
 }

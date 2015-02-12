@@ -11,7 +11,10 @@
         android:id="@+id/me_details_icon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:icon_left_background="@drawable/logo" />
+        app:icon_padding="5dp"
+        app:icon_left_width="50dp"
+        app:icon_left_height="50dp"
+         />
 
     <View
         android:layout_width="match_parent"

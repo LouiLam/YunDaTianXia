@@ -18,7 +18,7 @@
         android:id="@+id/cur_locationing"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:left_text="@string/register_details_default" />
+        app:left_text="@string/complete_enterprise_info_default" />
 
     <com.tlz.shipper.ui.widget.TextViewBarIcon
         android:id="@+id/cur_location_detailed"

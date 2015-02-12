@@ -21,7 +21,6 @@ import com.tlz.shipper.ui.widget.EditTextBarIconTitleClearText;
 import com.tlz.shipper.ui.widget.EditTextBarIconTitleClearTextAndRemark;
 import com.tlz.shipper.ui.widget.EditTextBarIconTitleClearTextAndRemark.TBOnPhotographClickListener;
 import com.tlz.shipper.ui.widget.ViewBar.TBBarOnClickListener;
-import com.tlz.utils.Flog;
 import com.tlz.utils.ResIdentifier;
 import com.tlz.utils.ToastUtils;
 
@@ -241,8 +240,7 @@ public class ActivityCreate extends ThemeActivity {
 				&& resultCode == RESULT_OK) {
 			date_arrive.setTBRightText(data.getStringExtra("content"));
 		} else if (requestCode == REQUEST_CODE_GOODS && resultCode == RESULT_OK) {
-			Myself.Goods = data.getStringExtra("goods");
-			goods_type.setTBRightText(Myself.Goods);
+			goods_type.setTBRightText(getCurGoodsString());
 		} else if (requestCode == REQUEST_CODE_IMAGE_SELECT_TOP
 				&& resultCode == RESULT_OK) {
 			waybill_create_image_bar_top.setVisibility(View.VISIBLE);

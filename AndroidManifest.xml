@@ -56,11 +56,11 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.tlz.shipper.ui.register_login.RegisterDetailsActivity"
+            android:name="com.tlz.shipper.ui.common.CompleteEnterpriseInfoActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.tlz.shipper.ui.register_login.RegisterDetailsItemActivity"
+            android:name="com.tlz.shipper.ui.common.CompleteEnterpriseInfoItemActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity

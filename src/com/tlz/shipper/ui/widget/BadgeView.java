@@ -1,5 +1,7 @@
 package com.tlz.shipper.ui.widget;
 
+import com.tlz.utils.MeasureUtils;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -110,7 +112,7 @@ public class BadgeView extends TextView {
 		
 		// apply defaults
 		badgePosition = DEFAULT_POSITION;
-		badgeMarginH = dipToPixels(DEFAULT_MARGIN_DIP);
+		badgeMarginH = MeasureUtils.dipToPixels(DEFAULT_MARGIN_DIP,getResources());
 		badgeMarginV = badgeMarginH;
 		badgeColor = DEFAULT_BADGE_COLOR;
 		setGravity(Gravity.CENTER);
@@ -143,7 +145,7 @@ public class BadgeView extends TextView {
 		ViewParent parent = target.getParent();
 		FrameLayout container = new FrameLayout(context);
 		FrameLayout.LayoutParams ss=new  FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		ss.setMargins(0, dipToPixels(12)/2, dipToPixels(12)/2, 0);
+		ss.setMargins(0, MeasureUtils.dipToPixels((12)/2,getResources()), MeasureUtils.dipToPixels((12)/2,getResources()), 0);
 		if (target instanceof TabWidget) {
 			
 			// set target to the relevant tab child container
@@ -322,7 +324,7 @@ public class BadgeView extends TextView {
 	
 	private ShapeDrawable  getDefaultBackground() {
 		
-		int r = dipToPixels(DEFAULT_CORNER_RADIUS_DIP);
+		int r = MeasureUtils.dipToPixels(DEFAULT_CORNER_RADIUS_DIP,getResources());
 		float[] outerR = new float[] {r, r, r, r, r, r, r, r};
         
 		RoundRectShape rr = new RoundRectShape(outerR, null, null);
@@ -458,10 +460,5 @@ public class BadgeView extends TextView {
 		badgeBg = getDefaultBackground();
 	}
 	
-	private int dipToPixels(int dip) {
-		Resources r = getResources();
-		float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, r.getDisplayMetrics());
-		return (int) px;
-	}
 
 }

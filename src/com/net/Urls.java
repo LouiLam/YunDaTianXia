@@ -3,11 +3,12 @@ package com.net;
 public class Urls {
 
 	
-	public static final String HOST= "http://192.168.1.25:8080";//全的服务器
-	public static final String ProjectName="/quickload";//全的项目名称
+//	public static final String HOST= "http://192.168.1.25:8080";//全的服务器
+//	public static final String ProjectName="/quickload";//全的项目名称
 //	public static final String HOST= "http://120.24.234.129:8080";
 //	public static final String ProjectName="/ql";
-	
+	public static final String HOST= "http://192.168.1.223:80";//公司内网服务器
+	public static final String ProjectName="/ql";//公司内网的项目名称
 	
 	public static final String UPLOAD="http://120.24.234.112/service/image/sync";
 	public static final String REGEDIT=HOST+ProjectName+"/md/saapi";

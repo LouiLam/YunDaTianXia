@@ -31,8 +31,7 @@
     <attr name="icon_margin" format="dimension" />
     <attr name="phoneNumber" format="boolean" />
     <attr name="title_gone" format="boolean" />
-     <attr name="unit_right_text" format="string"/>
-    
+    <attr name="unit_right_text" format="string" />
     <attr name="icon_left_background" format="reference" />
     <attr name="icon_right_background" format="reference" />
 
@@ -47,7 +46,7 @@
         <attr name="unit_right_text" />
         <attr name="icon_right_background" />
     </declare-styleable>
-        <declare-styleable name="EditTextBarIconTitleClearTextAndRemark">
+    <declare-styleable name="EditTextBarIconTitleClearTextAndRemark">
         <attr name="right_text" />
         <attr name="right_hint" />
         <attr name="right_maxLength" />
@@ -69,6 +68,10 @@
         <attr name="padding" />
         <attr name="icon_left_background" />
         <attr name="icon_right_background" />
+        <attr name="icon_left_width" format="dimension" />
+        <attr name="icon_left_height" format="dimension" />
+        <attr name="icon_right_width" format="dimension" />
+        <attr name="icon_right_height" format="dimension" />
         <attr name="icon_padding" />
     </declare-styleable>
     <declare-styleable name="TextViewBarPure">

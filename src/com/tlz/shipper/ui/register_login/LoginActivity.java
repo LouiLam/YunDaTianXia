@@ -104,7 +104,7 @@ public class LoginActivity extends ThemeActivity {
 					@Override
 					public String handler(ShipperAccountApi api) {
 						return api.login(Myself.UserName, Myself.Password,
-								(byte) AppConfig.TYPE_ANDROID);
+								 AppConfig.TYPE_ANDROID);
 					}
 
 					@Override
@@ -135,14 +135,14 @@ public class LoginActivity extends ThemeActivity {
 								Myself.UserName = shipper
 										.getString("simpleName");
 								Myself.FullName = shipper.getString("fullName");
-								Myself.LocationDetail = shipper
+								Myself.DetailAddress = shipper
 										.getString("detailAddress");
 								Myself.ContactName = shipper
 										.getString("contact");
 								Myself.PhoneNumber = shipper.getString("phone");
 								Myself.Introduction = shipper
 										.getString("introduce");
-								Myself.Goods = shipper.getString("cargoType");
+								Myself.CargoType = (byte) shipper.getInt("cargoType");
 								Myself.QRUrl = shipper.getString("qrCode");
 								skipUI();
 							}
@@ -153,14 +153,14 @@ public class LoginActivity extends ThemeActivity {
 											error+":"+obj.getInt("resultCode"));
 								} catch (Exception e) {
 									ToastUtils.showCrouton(LoginActivity.this,
-											getString(R.string.login_error)+obj.getInt("resultCode"));
+											getString(R.string.error)+obj.getInt("resultCode"));
 								}
 							}
 						} catch (Exception e) {
 							e.printStackTrace();
 							ToastUtils.showCrouton(
 									LoginActivity.this,
-									getString(R.string.login_exception)
+									getString(R.string.exception)
 											+ e.getMessage());
 						}
 

@@ -9,20 +9,22 @@ import android.app.ActivityManager;
 import android.app.ActivityManager.RunningAppProcessInfo;
 import android.app.Application;
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 
 import com.baidu.mapapi.SDKInitializer;
+import com.tlz.admin.ImageLoaderAdmin;
+import com.tlz.model.Myself;
 import com.tlz.model.User;
+import com.tlz.shipper.R;
 import com.tlz.utils.CrashHandler;
 import com.tlz.utils.Flog;
 
 public class BaseApplication extends Application {
 
 	private static final boolean DEBUG = true;
-
-	public static BaseApplication mApplication;
 
 	private Stack<BaseActivity> mActivityStack = new Stack<BaseActivity>();
 
@@ -33,6 +35,7 @@ public class BaseApplication extends Application {
 	private JasonActivityLifecycleCallbacks mActivityLifecycleCallbacks;
 	private boolean mIsMonitorAppRunningBackground = false;
 	private boolean mIsAppRunningForground = false;
+	String goods[];
 
 	// public BDLocation mLocation;
 	private User mUser;
@@ -43,7 +46,18 @@ public class BaseApplication extends Application {
 		if (DEBUG)
 			Flog.e("BaseApplication onCreate");
 		init();
-		SDKInitializer.initialize(this);
+
+	}
+
+
+	public String[] getGoodsStringArray() {
+		return goods;
+	}
+
+	public String getCurGoodsString() {
+		if (Myself.CargoType > 0)
+			return goods[Myself.CargoType - 1];
+		return null;
 	}
 
 	@TargetApi(14)
@@ -54,12 +68,14 @@ public class BaseApplication extends Application {
 
 	@TargetApi(14)
 	private void init() {
+		Resources res = getResources();
+		goods = res.getStringArray(R.array.goods);
+		SDKInitializer.initialize(this);
 		mScreenWidth = getResources().getDisplayMetrics().widthPixels;
 		mScreenHeight = getResources().getDisplayMetrics().heightPixels;
 		mDensity = getResources().getDisplayMetrics().density;
 		mAndroidVersion = Build.VERSION.SDK_INT;
 
-		mApplication = this;
 		CrashHandler.startMonitor(getApplicationContext());
 
 		if (mAndroidVersion >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
@@ -68,7 +84,9 @@ public class BaseApplication extends Application {
 			}
 			registerActivityLifecycleCallbacks(mActivityLifecycleCallbacks);
 		}
+		ImageLoaderAdmin.getInstance().init(getApplicationContext());
 	}
+
 
 	public void addActivity(BaseActivity a) {
 		if (a == null)
@@ -103,11 +121,10 @@ public class BaseApplication extends Application {
 		}
 	}
 
-
 	private void closeAllActivities() {
 		if (mActivityStack.empty())
 			return;
-		BaseActivity s[]=mActivityStack.toArray(new BaseActivity[0]);
+		BaseActivity s[] = mActivityStack.toArray(new BaseActivity[0]);
 		for (BaseActivity a : s) {
 			if (a == null || a.isFinishing())
 				continue;
@@ -203,4 +220,7 @@ public class BaseApplication extends Application {
 	public void setUser(User user) {
 		mUser = user;
 	}
+
+
+
 }

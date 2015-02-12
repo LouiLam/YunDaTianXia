@@ -3,6 +3,7 @@ package com.tlz.utils;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Build;
@@ -123,6 +124,14 @@ public class MeasureUtils {
         FontPaint.setTextSize(Size);
         return FontPaint.measureText(text);
     }
-	
+	/**
+	 * DP转像素
+	 * @param dip
+	 * @return
+	 */
+	public static int dipToPixels(int dip,Resources r) {
+		float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, r.getDisplayMetrics());
+		return (int) px;
+	}
 	private MeasureUtils() {/*Do Not New Me!*/}
 }

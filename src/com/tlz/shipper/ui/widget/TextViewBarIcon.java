@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tlz.shipper.R;
+import com.tlz.utils.Flog;
 
 public class TextViewBarIcon extends ViewBar {
 	TextView tv;
@@ -42,6 +43,10 @@ public class TextViewBarIcon extends ViewBar {
 		final String strLeft = a.getString(R.styleable.TextViewBarIcon_left_text);
 		int padding = (int)a.getDimension(R.styleable.TextViewBarIcon_padding, default_padding0);
 		int icon_padding = (int)a.getDimension(R.styleable.TextViewBarIcon_icon_padding, default_drawable_padding0);
+		int icon_left_height = (int)a.getDimension(R.styleable.TextViewBarIcon_icon_left_height, LayoutParams.WRAP_CONTENT);
+		int icon_left_width = (int)a.getDimension(R.styleable.TextViewBarIcon_icon_left_width, LayoutParams.WRAP_CONTENT);
+		int icon_right_height = (int)a.getDimension(R.styleable.TextViewBarIcon_icon_right_height, LayoutParams.WRAP_CONTENT);
+		int icon_right_width = (int)a.getDimension(R.styleable.TextViewBarIcon_icon_right_width, LayoutParams.WRAP_CONTENT);
 		Drawable drawableLeft = a
 				.getDrawable(R.styleable.TextViewBarIcon_icon_left_background);
 		Drawable drawableRight = a
@@ -50,10 +55,27 @@ public class TextViewBarIcon extends ViewBar {
 		tv = (TextView)findViewById(R.id.tb_left); 
 		tv.setText(strLeft);
 		findViewById(R.id.tb_group).setPadding(padding, padding, padding, padding);
+		if(icon_left_height>0||icon_left_width>0)
+		{
+			iconLeft=(ImageView) findViewById(R.id.tb_icon_left);
+			iconLeft.getLayoutParams().height=icon_left_height;
+			iconLeft.getLayoutParams().width=icon_left_width;
+			setMargins(iconLeft, 0, 0, icon_padding, 0);
+		}
+		if(icon_right_height>0||icon_right_width>0)
+		{
+			iconRight=(ImageView) findViewById(R.id.tb_icon_right);
+			iconRight.getLayoutParams().height=icon_right_height;
+			iconRight.getLayoutParams().width=icon_right_width;
+			setMargins(iconRight, 0, 0, icon_padding, 0);
+		}
+		
 		if (drawableLeft != null) {
 			iconLeft=(ImageView) findViewById(R.id.tb_icon_left);
 			iconLeft.setBackgroundDrawable(drawableLeft);
-			setMargins(iconLeft, 0, 0, icon_padding, 0);
+		
+			
+			
 //			iconLeft.setPadding(0, 0, drawable_all, 0);
 //			drawableLeft.setBounds(0, 0, drawableLeft.getMinimumWidth(),
 //					drawableLeft.getMinimumHeight());
@@ -66,6 +88,7 @@ public class TextViewBarIcon extends ViewBar {
 			iconRight=(ImageView) findViewById(R.id.tb_icon_right);
 			iconRight.setBackgroundDrawable(drawableRight);
 			setMargins(iconRight, 0, 0, 0, 0);
+		
 		}
 	}
 	public void setTBTextOnClickListener(OnClickListener l)

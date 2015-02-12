@@ -190,10 +190,11 @@ public class RegisterActivity extends ThemeActivity {
 						Flog.e(json);
 						try {
 							JSONObject obj = new JSONObject(json);
+							JSONObject data=obj.getJSONObject("data");
 							if (obj.getInt("resultCode") == 1) {
-								Myself.Token = obj.getJSONObject("data")
+								Myself.Token = data
 										.getString("token");
-								Myself.MemberId=obj.getJSONObject("data")
+								Myself.MemberId=data
 										.getInt("memberId");
 								startActivity(new Intent(RegisterActivity.this,
 										RegisterPhoneNumberActivity.class));
@@ -204,14 +205,14 @@ public class RegisterActivity extends ThemeActivity {
 											error+":"+obj.getInt("resultCode"));
 								} catch (Exception e) {
 									ToastUtils.showCrouton(RegisterActivity.this,
-											getString(R.string.register_error)+obj.getInt("resultCode"));
+											getString(R.string.error)+obj.getInt("resultCode"));
 								}
 								
 							}
 						} catch (Exception e) {
 							e.printStackTrace();
 							ToastUtils.showCrouton(RegisterActivity.this,
-									getString(R.string.register_exception));
+									getString(R.string.exception));
 						}
 
 					}

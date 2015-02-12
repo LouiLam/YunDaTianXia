@@ -1,31 +1,37 @@
 package com.tlz.shipper.ui;
 
-import android.app.Application;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.tlz.model.User;
-import com.tlz.utils.Flog;
 
 public class ThemeActivity extends BaseActivity {
 
-	private static final boolean DEBUG = false;
-
-	private BaseApplication mApplication;
-
+	public String getCurGoodsString()
+	{
+		return mApplication.getCurGoodsString();
+	}
+	public String[] getGoodsStringArray()
+	{
+		return mApplication.getGoodsStringArray();
+	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		Application app = getApplication();
-		if (app instanceof BaseApplication) {
-			mApplication = (BaseApplication) app;
-		} else {
-			if (DEBUG)
-				Flog.e("Must extends KApplication or register in AndroidManifest.xml Application android:name!");
-		}
 
 		initDefaultActionBar();
 	}
