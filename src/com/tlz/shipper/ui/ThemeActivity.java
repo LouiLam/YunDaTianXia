@@ -1,32 +1,21 @@
 package com.tlz.shipper.ui;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-
 import android.app.PendingIntent;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.tlz.model.User;
 
 public class ThemeActivity extends BaseActivity {
 
-	public String getCurGoodsString()
+	public String getCurCargoTypeString()
 	{
-		return mApplication.getCurGoodsString();
+		return mApplication.getCurCargoTypeString();
 	}
-	public String[] getGoodsStringArray()
+	public String[] getCargoTypeStringArray()
 	{
-		return mApplication.getGoodsStringArray();
+		return mApplication.getCargoTypeStringArray();
 	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

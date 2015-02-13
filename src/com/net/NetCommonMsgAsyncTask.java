@@ -4,17 +4,18 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import com.caucho.hessian.client.HessianProxyFactory;
+import com.net.NetAsyncFactory.APIListener;
 import com.tlz.shipper.R;
 import com.tlz.shipper.ui.BaseLoadingDialog;
 import com.tlz.shipper.ui.BaseLoadingDialog.OnTimeoutListener;
 import com.tlz.utils.ToastUtils;
 
 public class NetCommonMsgAsyncTask extends AsyncTask<String, Integer, Integer> {
-	private APIListener listener;
+	private APIListener<CommonApi> listener;
 	BaseLoadingDialog dia;
 	private final Context context;
 	String json;
-	public NetCommonMsgAsyncTask(APIListener listener, Context context) {
+	public NetCommonMsgAsyncTask(APIListener<CommonApi> listener, Context context) {
 		this.listener = listener;
 		this.context = context;
 	}
@@ -49,15 +50,10 @@ public class NetCommonMsgAsyncTask extends AsyncTask<String, Integer, Integer> {
 					CommonApi.class, url);
 			if(listener==null)return -1;
 			json=listener.handler(api);
-			// api.regist(sid,"000000","123456")
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 
-	public static interface APIListener {
-		public String handler(CommonApi api);
-		public void finish(String json);
-	}
 }

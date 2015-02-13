@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             app:phoneNumber="true"
             app:right_hint="@string/register_phone_number_pn_hint"
-            app:icon_right_background="@drawable/icon_clear_text"
+            app:icon_right_drawable="@drawable/icon_clear_text"
             app:icon_margin="5dp"
             app:right_maxLength="@integer/user_phone_number"
             app:left_text="@string/register_phone_number_pn" />
@@ -31,7 +31,7 @@
             app:right_maxLength="@integer/user_verify_code"
             app:phoneNumber="true"
             app:right_hint="@string/register_phone_number_verify_code_hint"
-            app:icon_right_background="@drawable/icon_clear_text"
+            app:icon_right_drawable="@drawable/icon_clear_text"
             app:left_text="@string/register_phone_number_verify_code" />
 
       

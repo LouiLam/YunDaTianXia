@@ -30,7 +30,7 @@ import android.util.Log;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 import com.tlz.shipper.R;
-import com.tlz.shipper.ui.common.QRCodeScanningActivity;
+import com.tlz.shipper.ui.common.ActivityQRCodeScanning;
 import com.zxing.camera.CameraManager;
 import com.zxing.view.ViewfinderResultPointCallback;
 
@@ -41,7 +41,7 @@ public final class CaptureActivityHandler extends Handler {
 
   private static final String TAG = CaptureActivityHandler.class.getSimpleName();
 
-  private final QRCodeScanningActivity activity;
+  private final ActivityQRCodeScanning activity;
   private final DecodeThread decodeThread;
   private State state;
 
@@ -51,7 +51,7 @@ public final class CaptureActivityHandler extends Handler {
     DONE
   }
 
-  public CaptureActivityHandler(QRCodeScanningActivity activity, Vector<BarcodeFormat> decodeFormats,
+  public CaptureActivityHandler(ActivityQRCodeScanning activity, Vector<BarcodeFormat> decodeFormats,
       String characterSet) {
     this.activity = activity;
     decodeThread = new DecodeThread(activity, decodeFormats, characterSet,

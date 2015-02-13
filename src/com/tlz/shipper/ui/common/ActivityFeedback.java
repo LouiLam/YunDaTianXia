@@ -4,22 +4,15 @@ import java.util.Map;
 
 import android.os.Bundle;
 import android.support.v4.util.ArrayMap;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import com.net.Urls;
 import com.tlz.shipper.R;
 import com.tlz.shipper.ui.BaseLoadingDialog;
 import com.tlz.shipper.ui.ThemeActivity;
 import com.tlz.shipper.ui.widget.EditTextBarPureClearText;
-import com.tlz.utils.AndroidHttp;
-import com.tlz.utils.ToastUtils;
-import com.umeng.socialize.utils.Log;
 
-public class FeedbackActivity extends ThemeActivity {
+public class ActivityFeedback extends ThemeActivity {
 
 	EditTextBarPureClearText itemBar;
 	private BaseLoadingDialog mLoadingDialog;
@@ -27,7 +20,7 @@ public class FeedbackActivity extends ThemeActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_feedback);
+		setContentView(R.layout.activity_common_feedback);
 		mActionBar.setTitle(R.string.feedback_title);
 		itemBar = (EditTextBarPureClearText) findViewById(R.id.register_details_item);
 		itemBar.setTBTextTopHint(getString(R.string.feedback_hint_contact));

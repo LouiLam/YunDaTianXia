@@ -5,6 +5,7 @@ import java.io.File;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import com.net.NetAsyncFactory.APIListener;
 import com.tlz.shipper.R;
 import com.tlz.shipper.ui.BaseLoadingDialog;
 import com.tlz.shipper.ui.BaseLoadingDialog.OnTimeoutListener;
@@ -16,11 +17,11 @@ import com.tlz.utils.ToastUtils;
  *{"Code":"0000","Message":"执行成功","Body":"http://quickload.oss-cn-shenzhen.aliyuncs.com/5bfb071ebdd94481ae9aee1cb630c34e.png"}
  */
 public class NetUploadAsyncTask extends AsyncTask<File, Integer, Integer> {
-	private APIListener listener;
+	private APIListener<Object> listener;
 	BaseLoadingDialog dia;
 	private final Context context;
 	String json;
-	public NetUploadAsyncTask(APIListener listener, Context context) {
+	public NetUploadAsyncTask(APIListener<Object> listener,Context context) {
 		this.listener = listener;
 		this.context = context;
 	}
@@ -57,7 +58,4 @@ public class NetUploadAsyncTask extends AsyncTask<File, Integer, Integer> {
 		return null;
 	}
 
-	public static interface APIListener {
-		public void finish(String json);
-	}
 }

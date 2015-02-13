@@ -15,15 +15,15 @@
     <string name="dialog_2">企业信息验证</string>
     <string name="dialog_3">马上体验</string>
     <!-- 通信错误信息 -->
- 	<string name="error">注册失败</string>        
-    <string name="exception">注册异常</string>
+    <string name="error">通信失败</string>
+    <string name="exception">通信异常</string>
     <!-- 引导界面 -->
     <string name="guide_want_reg">我要注册</string>
     <!-- index界面 -->
     <string name="index_reg">注册</string>
     <string name="index_login">登录</string>
     <!-- 注册 -->
-  
+
     <string name="register_title">填写注册帐号</string>
     <string name="register_enterprise_simple_name">企业简称</string>
     <string name="register_enterprise_simple_name_hint">注册后不可修改</string>
@@ -36,16 +36,16 @@
     <string name="register_agree_protocol1">点击上面的注册按钮，即表示您同意</string>
     <string name="register_agree_protocol2">运达天下软件许可及服务协议</string>
     <!-- 注册->填写详细的企业信息->选择企业所在地 -->
-    <string name="register_area_title">选择企业所在地</string>
+    <string name="common_location_title">选择企业所在地</string>
     <string name="register_area_cur_location">当前位置</string>
     <string name="register_area_cur_location_detailed">全国省/市/镇/区县</string>
     <!-- 注册->填写详细的企业信息->选择货品类型 -->
-    <string name="register_goods_title">选择货品</string>
+    <string name="cargo_type_title">选择货品</string>
     <string name="register_goods_mygoods">我运输的货物</string>
     <string name="register_goods_common">常用货品类型</string>
     <!-- 注册 填写手机号 -->
-    <string name="verify_error">验证失败</string>     <!-- 验证错误信息 -->
-    <string name="verify_exception">验证异常</string>     <!-- 验证错误信息 -->
+    <string name="verify_error">验证失败</string> <!-- 验证错误信息 -->
+    <string name="verify_exception">验证异常</string> <!-- 验证错误信息 -->
     <string name="register_phone_number_title">填写手机号</string>
     <string name="register_phone_number_btn_verify">验证</string>
     <string name="register_phone_number_tip">请填写企业物流管理员的手机号，管理员将会通过此手机号码登录。</string>
@@ -54,6 +54,11 @@
     <string name="register_phone_number_verify_code">获取验证码</string>
     <string name="register_phone_number_verify_code_repeat">重新发送</string>
     <string name="register_phone_number_verify_code_hint">请填写手机收到的验证码</string>
+    <!-- 上传企业资质 -->
+    <string name="enterprise_qualifications_tip">请上传以下资质证件照片：</string>
+    <string name="enterprise_qualifications_businesslicence">营业执照</string>
+    <string name="enterprise_qualifications_organization">组织机构代码证</string>
+    <string name="enterprise_qualifications_taxregist">税务登记证</string>
     <!-- 完善详细的企业信息 -->
     <string name="complete_enterprise_info_title">企业信息</string>
     <string name="complete_enterprise_info_logo">头像（或企业LOGO）</string>
@@ -66,11 +71,11 @@
     <string name="complete_enterprise_info_location">企业所在地</string>
     <string name="complete_enterprise_info_detail_address">详细地址</string>
     <string name="complete_enterprise_info_qualifications">企业资质证件</string>
-    <string name="complete_enterprise_info_cargoType">主要运输货品</string>
+    <string name="complete_enterprise_info_cargo_type">主要运输货品</string>
     <string name="complete_enterprise_info_introduction">企业简介</string>
     <string name="complete_enterprise_info_default">未设置</string>
     <!-- 注册->填写详细的企业信息->头像选择 -->
-    <string name="register_details_image_grid_title">图片相册</string>
+    <string name="common_details_image_grid_title">图片相册</string>
 
     <!-- 注册->填写详细的企业信息->编辑相关信息item -->
     <string name="register_details_item_full_name_hint_top">填写企业全称</string>
@@ -82,7 +87,6 @@
     <string name="register_details_item_title_qualifications">上传企业资质证件</string>
     <string name="register_details_item_enterprise_introduction_hint_top">填写企业简介</string>
 
-  
     <!-- 注册多模块按钮 -->
     <string name="register_save">保存</string>
     <string name="upload_ok">上传成功</string>
@@ -160,11 +164,11 @@
     <string name="waybill_loading_search_hint">城市名称或拼音搜索，例如长沙或CS</string>
     <!-- 重量/体积/数量 控件 -->
     <string name="waybill_weight_title">重量/体积/件数</string>
-    <string name="waybill_weight">重量：吨</string>
+    <string name="waybill_weight">重量</string>
     <string name="waybill_weight_hint">请填写货物重量</string>
-    <string name="waybill_volume">体积：立方</string>
+    <string name="waybill_volume">体积</string>
     <string name="waybill_volume_hint">请填写货物体积</string>
-    <string name="waybill_quantity">件数：件</string>
+    <string name="waybill_quantity">件数</string>
     <string name="waybill_quantity_hint">请填写货物件数</string>
     <string name="waybill_weight_btn_save">保存</string>
 

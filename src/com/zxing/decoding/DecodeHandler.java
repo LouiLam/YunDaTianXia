@@ -31,7 +31,7 @@ import com.google.zxing.ReaderException;
 import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
 import com.tlz.shipper.R;
-import com.tlz.shipper.ui.common.QRCodeScanningActivity;
+import com.tlz.shipper.ui.common.ActivityQRCodeScanning;
 import com.zxing.camera.CameraManager;
 import com.zxing.camera.PlanarYUVLuminanceSource;
 
@@ -39,10 +39,10 @@ final class DecodeHandler extends Handler {
 
 	private static final String TAG = DecodeHandler.class.getSimpleName();
 
-	private final QRCodeScanningActivity activity;
+	private final ActivityQRCodeScanning activity;
 	private final MultiFormatReader multiFormatReader;
 
-	DecodeHandler(QRCodeScanningActivity activity,
+	DecodeHandler(ActivityQRCodeScanning activity,
 			Hashtable<DecodeHintType, Object> hints) {
 		multiFormatReader = new MultiFormatReader();
 		multiFormatReader.setHints(hints);

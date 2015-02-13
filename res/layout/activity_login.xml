@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         app:icon_margin="5dp"
-        app:icon_right_background="@drawable/icon_clear_text"
+        app:icon_right_drawable="@drawable/icon_clear_text"
         app:right_hint="@string/login_username_hint"
         app:right_maxLength="@integer/enterprise_simple_name"
         app:title_gone="true" />

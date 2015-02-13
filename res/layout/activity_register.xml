@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             app:right_hint="@string/register_enterprise_simple_name_hint"
-            app:icon_right_background="@drawable/icon_clear_text"
+            app:icon_right_drawable="@drawable/icon_clear_text"
             app:icon_margin="5dp"
             app:right_maxLength="@integer/enterprise_simple_name"
             app:left_text="@string/register_enterprise_simple_name" />
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             app:right_hint="@string/register_area_hint"
-            app:icon_right_background="@drawable/icon_arrow_down"
+            app:icon_right_drawable="@drawable/icon_arrow_down"
             app:left_text="@string/register_area" />
 
         <com.tlz.shipper.ui.widget.EditTextBarIconTitlePassword

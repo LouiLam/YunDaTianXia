@@ -43,6 +43,25 @@ public interface ShipperAccountApi {
 	 *            密码
 	 * @param ct
 	 *            客户端类型(0:pc,1:android,2:ios,3:winphone,4:其他)
+	 *            	 {
+					 	resultCode:1 :正确|-1:操作失败,0:用户名或密码有误
+					 		data:
+					 		{
+					 			 token:令牌
+								 memeber:
+								 { 
+								 memberId:12, phone:"会员手机号" loginName:"登陆名"
+								 creditGrad:(int)信誉等级 balance:(float)帐户余额 
+								 },
+								 shipper:
+								 { 
+								 shipperId:(int)主键 head:"头像url" auditStatus:(int)认证状态
+								 locationCode :"所在地CODE" simpleName:"企业简称" fullName:"企业全称"
+								 detailAddress:"详细地址" contact:"联系人" phone:"联系电话"
+								 introduce:"企业简介" cargoType:"主要运送货品" qrCode:"二维码明片url" 
+								 }
+					 		}
+					 }
 	 */
 	String login(String name, String pwd, byte ct);
 

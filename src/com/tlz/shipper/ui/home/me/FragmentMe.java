@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Intent;
@@ -21,9 +22,11 @@ import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.ImageView;
 
 import com.net.AppConfig;
+import com.net.NetAsyncFactory;
 import com.net.NetShipperMsgAsyncTask;
 import com.net.ShipperAccountApi;
 import com.net.Urls;
+import com.net.NetAsyncFactory.ResultCodeSucListener;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
@@ -36,10 +39,11 @@ import com.tlz.model.WaybillNews;
 import com.tlz.shipper.R;
 import com.tlz.shipper.ui.ThemeActivity;
 import com.tlz.shipper.ui.ThemeFragment;
-import com.tlz.shipper.ui.common.CompleteEnterpriseInfoActivity;
+import com.tlz.shipper.ui.common.ActivityCompleteEnterpriseInfo;
 import com.tlz.shipper.ui.home.ActivityHome;
 import com.tlz.shipper.ui.widget.TextViewBarIcon;
 import com.tlz.shipper.ui.widget.ViewBar.TBBarOnClickListener;
+import com.tlz.utils.AndroidTextUtils;
 import com.tlz.utils.CollectionUtils;
 import com.tlz.utils.Flog;
 import com.tlz.utils.ToastUtils;
@@ -51,10 +55,11 @@ public class FragmentMe extends ThemeFragment implements
 	private ExpandableListApapterMe adapter;
 	private ActivityHome homeActivity;
 	private ArrayList<WaybillNews> list;
-	
+
 	public static FragmentMe newInstance() {
 		return new FragmentMe();
 	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		homeActivity = (ActivityHome) mActivity;
@@ -86,73 +91,72 @@ public class FragmentMe extends ThemeFragment implements
 	}
 
 	private void initView(View v) {
-	
-		
-		TextViewBarIcon bar=(TextViewBarIcon) v.findViewById(R.id.me_details_icon);
+
+		TextViewBarIcon bar = (TextViewBarIcon) v
+				.findViewById(R.id.me_details_icon);
 		bar.setTBBarOnClickListener(new TBBarOnClickListener() {
-			
+
 			@Override
 			public void onTBClick(View v) {
-				if(AppConfig.DEBUG)
-				{
-					startActivity(new Intent(getActivity(), CompleteEnterpriseInfoActivity.class));
-				}
-				else
-				{new NetShipperMsgAsyncTask(new NetShipperMsgAsyncTask.APIListener() {
+				if (AppConfig.DEBUG) {
+					startActivity(new Intent(getActivity(),
+							ActivityCompleteEnterpriseInfo.class));
+				} else {
 
-					@Override
-					public String handler(ShipperAccountApi api) {
-						return api.getShipper(Myself.ShipperId);
+					NetAsyncFactory.createShipperTask(getActivity(),
+							new ResultCodeSucListener<ShipperAccountApi>() {
 
-					}
+								@Override
+								public void suc(JSONObject obj)
+										throws JSONException {
 
-					@Override
-					public void finish(String json) {
-						Flog.e(json);
-						try {
-							JSONObject obj = new JSONObject(json);
-						
-							if (obj.getInt("resultCode") == 1) {
-								JSONObject data=obj.getJSONObject("data");
-								String website = data
-										.getString("website"); //暂无用
-								String taxregistno=data
-										.getString("taxregistno");//营业执照URL
-								String introduce=data
-										.getString("introduce");//
-								String qrCode=data.getString("qrCode");
-								Myself.ContactName = data.getString("contact");
-								Myself.DetailAddress=data.getString("detailAddress");
-								Myself.Location=data.getString("locationCode");
-								int auditStatus=data.getInt("auditStatus");
-								int cargoType=data.getInt("cargoType");
-								int serialVersionUID=data.getInt("serialVersionUID");
-								Myself.FullName=data.getString("fullName");
-								String organizationno=data.getString("organizationno");//组织机构代码证的URL
-								String head=data.getString("head");
-								String businesslicence=data.getString("businesslicence");
-								startActivity(new Intent(getActivity(), CompleteEnterpriseInfoActivity.class));
-							} else {
-								try {
-									String error=obj.getString("error");
-									ToastUtils.showCrouton(getActivity(),
-											error+":"+obj.getInt("resultCode"));
-								} catch (Exception e) {
-									ToastUtils.showCrouton(getActivity(),
-											getString(R.string.error)+obj.getInt("resultCode"));
-								}
+									JSONObject data=obj.getJSONObject("data");
 								
-							}
-						} catch (Exception e) {
-							e.printStackTrace();
-							ToastUtils.showCrouton(getActivity(),
-									getString(R.string.exception));
-						}
+									Myself.Businesslicence=data.getString("businesslicence");
+									Myself.Organization=data.getString("organizationno");
+									Myself.Taxregist=data.getString("taxregistno");
+									Myself.ContactName = data.getString("contact");
+									if(!AndroidTextUtils.isEmpty(Myself.Businesslicence))
+									{
+										JSONObject Businesslicence=new JSONObject(Myself.Businesslicence);
+										Myself.Businesslicence=Businesslicence.getString("url");
+									}
+									if(!AndroidTextUtils.isEmpty(Myself.Organization))
+									{
+										JSONObject Organization=new JSONObject(Myself.Organization);
+										Myself.Organization=Organization.getString("url");
+									}
+									if(!AndroidTextUtils.isEmpty(Myself.Taxregist))
+									{
+										JSONObject Taxregist=new JSONObject(Myself.Taxregist);
+										Myself.Taxregist=Taxregist.getString("url");
+									}
+//									String website = data
+//									.getString("website"); //暂无用
+//									String introduce=data
+//											.getString("introduce");
+//									String qrCode=data.getString("qrCode");
+//									Myself.DetailAddress=data.getString("detailAddress");
+//									Myself.Location=data.getString("locationCode");
+//									int auditStatus=data.getInt("auditStatus");//激活状态
+//									Myself.CargoType=(byte) data.getInt("cargoType");
+//									int serialVersionUID=data.getInt("serialVersionUID");
+//									Myself.FullName=data.getString("fullName");
+//									Myself.HeadIconUrl=data.getString("head");
+									startActivity(new Intent(
+											getActivity(),
+											ActivityCompleteEnterpriseInfo.class));
 
-					}
-				}, getActivity()).execute(Urls.REGEDIT);}
-				
-				
+								}
+
+								@Override
+								public String handler(ShipperAccountApi api) {
+									return api.getShipper(Myself.ShipperId);
+								}
+							}).execute(Urls.REGEDIT);
+
+				}
+
 			}
 		});
 		bar.setTBLeftText(Myself.UserName);
@@ -163,7 +167,7 @@ public class FragmentMe extends ThemeFragment implements
 		listView.setOnGroupClickListener(this);
 		listView.setOnChildClickListener(this);
 		ImageLoaderAdmin.getInstance().displayImage(Myself.HeadIconUrl,
-				(ImageView)bar.findViewById(R.id.tb_icon_left));
+				(ImageView) bar.findViewById(R.id.tb_icon_left));
 	}
 
 	@Override
@@ -222,19 +226,19 @@ public class FragmentMe extends ThemeFragment implements
 	@Override
 	public boolean onGroupClick(ExpandableListView parent, View v,
 			int groupPosition, long id) {
-//		if(groupPosition==0)
-//		{skipUI();}
-//		if (listView.isGroupExpanded(groupPosition)) {
-//			listView.collapseGroup(groupPosition);
-//		} else {
-//			listView.expandGroup(groupPosition);
-//		}
+		// if(groupPosition==0)
+		// {skipUI();}
+		// if (listView.isGroupExpanded(groupPosition)) {
+		// listView.collapseGroup(groupPosition);
+		// } else {
+		// listView.expandGroup(groupPosition);
+		// }
 		return true;
 	}
-	private void skipUI()
-	{
-//		startActivity(new Intent(getActivity(),NewsActivity.class));
-		
+
+	private void skipUI() {
+		// startActivity(new Intent(getActivity(),NewsActivity.class));
+
 	}
-	
+
 }

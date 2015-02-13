@@ -1,4 +1,4 @@
-package com.tlz.shipper.ui.register_login;
+package com.tlz.shipper.ui.common;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,15 +19,14 @@ import com.tlz.shipper.ui.ThemeActivity;
 import com.tlz.shipper.ui.widget.TextViewBarIcon;
 import com.tlz.utils.DBHelper;
 import com.tlz.utils.HandlerMsg;
-import com.tlz.utils.ToastUtils;
 
-public class LocationActivity extends ThemeActivity {
+public class ActivityLocation extends ThemeActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_register_location);
-		mActionBar.setTitle(R.string.register_area_title);
+		setContentView(R.layout.activity_common_location);
+		mActionBar.setTitle(R.string.common_location_title);
 		initView();
 	}
 
@@ -56,7 +55,7 @@ public class LocationActivity extends ThemeActivity {
 			@Override
 			public void onClick(View v) {
 				iconTextBar.setTBLeftText(getString(R.string.locationing_error));
-				LocationActivity.this.initLocation();
+				ActivityLocation.this.initLocation();
 			}
 		});
 		final ListView listView = (ListView) findViewById(R.id.listView);
@@ -71,7 +70,7 @@ public class LocationActivity extends ThemeActivity {
 				{
 					curProvinces=allProvinces[position];
 					iconTextBar.setTBLeftText(curProvinces);
-					listView.setAdapter(new SimpleAdapter(LocationActivity.this, getAllCitysData(position), R.layout.list_item_location, new String[] { "content" }, new int[]{R.id.tb_left}));
+					listView.setAdapter(new SimpleAdapter(ActivityLocation.this, getAllCitysData(position), R.layout.list_item_location, new String[] { "content" }, new int[]{R.id.tb_left}));
 				}
 				else
 				{

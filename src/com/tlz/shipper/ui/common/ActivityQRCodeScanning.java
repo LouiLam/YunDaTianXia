@@ -36,7 +36,7 @@ import com.zxing.decoding.CaptureActivityHandler;
 import com.zxing.decoding.InactivityTimer;
 import com.zxing.decoding.RGBLuminanceSource;
 import com.zxing.view.ViewfinderView;
-public class QRCodeScanningActivity extends Activity implements Callback{
+public class ActivityQRCodeScanning extends Activity implements Callback{
 
 	private CaptureActivityHandler handler;
 	private ViewfinderView viewfinderView;
@@ -61,7 +61,7 @@ public class QRCodeScanningActivity extends Activity implements Callback{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_qrcode);
+		setContentView(R.layout.activity_common_qrcode);
 		//ViewUtil.addTopView(getApplicationContext(), this, R.string.scan_card);
 		CameraManager.init(getApplication());
 		viewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_view);
@@ -86,7 +86,7 @@ public class QRCodeScanningActivity extends Activity implements Callback{
 				onResultHandler((String)msg.obj, scanBitmap);
 				break;
 			case PARSE_BARCODE_FAIL:
-				Toast.makeText(QRCodeScanningActivity.this, (String)msg.obj, Toast.LENGTH_LONG).show();
+				Toast.makeText(ActivityQRCodeScanning.this, (String)msg.obj, Toast.LENGTH_LONG).show();
 				break;
 
 			}
@@ -108,7 +108,7 @@ public class QRCodeScanningActivity extends Activity implements Callback{
 				}
 				cursor.close();
 				
-				mProgress = new ProgressDialog(QRCodeScanningActivity.this);
+				mProgress = new ProgressDialog(ActivityQRCodeScanning.this);
 				mProgress.setMessage("正在扫描...");
 				mProgress.setCancelable(false);
 				mProgress.show();
@@ -233,7 +233,7 @@ public class QRCodeScanningActivity extends Activity implements Callback{
 		 */
 	private void onResultHandler(String resultString, Bitmap bitmap){
 		if(TextUtils.isEmpty(resultString)){
-			Toast.makeText(QRCodeScanningActivity.this, "Scan failed!", Toast.LENGTH_SHORT).show();
+			Toast.makeText(ActivityQRCodeScanning.this, "Scan failed!", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		Intent resultIntent = new Intent();
@@ -242,7 +242,7 @@ public class QRCodeScanningActivity extends Activity implements Callback{
 		bundle.putParcelable("bitmap", bitmap);
 		resultIntent.putExtras(bundle);
 		this.setResult(RESULT_OK, resultIntent);
-		QRCodeScanningActivity.this.finish();
+		ActivityQRCodeScanning.this.finish();
 	}
 	
 	private void initCamera(SurfaceHolder surfaceHolder) {

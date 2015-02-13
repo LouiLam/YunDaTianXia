@@ -8,12 +8,13 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.tlz.shipper.R;
 
 public class EditTextBarIconTitleBtn extends ViewBar {
 	EditText et_left,et_right;
-	View iconRight;
+	ImageView iconRight;
 
 	@SuppressWarnings("deprecation")
 	public EditTextBarIconTitleBtn(Context context, AttributeSet attrs) {
@@ -36,8 +37,8 @@ public class EditTextBarIconTitleBtn extends ViewBar {
 		int icon_margin = (int) a.getDimension(
 				R.styleable.EditTextBarIconTitleBtn_icon_margin,
 				default_icon_margin);
-		Drawable background = a
-				.getDrawable(R.styleable.EditTextBarIconTitleBtn_icon_right_background);
+		Drawable drawable = a
+				.getDrawable(R.styleable.EditTextBarIconTitleBtn_icon_right_drawable);
 		a.recycle();
 
 		et_left = (EditText) findViewById(R.id.tb_left);
@@ -55,9 +56,9 @@ public class EditTextBarIconTitleBtn extends ViewBar {
 				barListener.onTBClick(v);
 			}
 		});
-		if (background != null) {
-			iconRight = findViewById(R.id.tb_icon_right);
-			iconRight.setBackgroundDrawable(background);
+		if (drawable != null) {
+			iconRight = (ImageView) findViewById(R.id.tb_icon_right);
+			iconRight.setImageDrawable(drawable);
 			setMargins(iconRight, icon_margin, 0, icon_margin, 0);
 		}
 

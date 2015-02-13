@@ -22,6 +22,7 @@ public class TextViewBarIcon extends ViewBar {
 	@SuppressWarnings("deprecation")
 	public TextViewBarIcon(Context context, AttributeSet attrs) {
 		super(context, attrs);
+	
 		res=context.getResources();
 		TypedArray a = context.obtainStyledAttributes(attrs,
 				R.styleable.TextViewBarIcon, 0, 0);
@@ -41,17 +42,18 @@ public class TextViewBarIcon extends ViewBar {
 		final float default_padding0=getResources().getDimension(R.dimen.default_padding0);
 		final float default_drawable_padding0=getResources().getDimension(R.dimen.default_drawable_padding0);
 		final String strLeft = a.getString(R.styleable.TextViewBarIcon_left_text);
-		int padding = (int)a.getDimension(R.styleable.TextViewBarIcon_padding, default_padding0);
+		int padding = (int)a.getDimension(R.styleable.TextViewBarIcon_icon_padding, default_padding0);
 		int icon_padding = (int)a.getDimension(R.styleable.TextViewBarIcon_icon_padding, default_drawable_padding0);
 		int icon_left_height = (int)a.getDimension(R.styleable.TextViewBarIcon_icon_left_height, LayoutParams.WRAP_CONTENT);
 		int icon_left_width = (int)a.getDimension(R.styleable.TextViewBarIcon_icon_left_width, LayoutParams.WRAP_CONTENT);
 		int icon_right_height = (int)a.getDimension(R.styleable.TextViewBarIcon_icon_right_height, LayoutParams.WRAP_CONTENT);
 		int icon_right_width = (int)a.getDimension(R.styleable.TextViewBarIcon_icon_right_width, LayoutParams.WRAP_CONTENT);
 		Drawable drawableLeft = a
-				.getDrawable(R.styleable.TextViewBarIcon_icon_left_background);
+				.getDrawable(R.styleable.TextViewBarIcon_icon_left_drawable);
 		Drawable drawableRight = a
-				.getDrawable(R.styleable.TextViewBarIcon_icon_right_background);
+				.getDrawable(R.styleable.TextViewBarIcon_icon_right_drawable);
 		a.recycle();
+		if(isInEditMode()){return;}
 		tv = (TextView)findViewById(R.id.tb_left); 
 		tv.setText(strLeft);
 		findViewById(R.id.tb_group).setPadding(padding, padding, padding, padding);
@@ -72,7 +74,7 @@ public class TextViewBarIcon extends ViewBar {
 		
 		if (drawableLeft != null) {
 			iconLeft=(ImageView) findViewById(R.id.tb_icon_left);
-			iconLeft.setBackgroundDrawable(drawableLeft);
+			iconLeft.setImageDrawable(drawableLeft);
 		
 			
 			
@@ -86,7 +88,7 @@ public class TextViewBarIcon extends ViewBar {
 		}
 		if(drawableRight!=null){
 			iconRight=(ImageView) findViewById(R.id.tb_icon_right);
-			iconRight.setBackgroundDrawable(drawableRight);
+			iconRight.setImageDrawable(drawableRight);
 			setMargins(iconRight, 0, 0, 0, 0);
 		
 		}

@@ -12,13 +12,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.tlz.shipper.R;
 
 public class EditTextBarPureClearText extends ViewBar {
 	EditText bottom_et;
 	EditText top_et;
-	View iconRight;
+	ImageView iconRight;
 
 	@SuppressWarnings("deprecation")
 	public EditTextBarPureClearText(Context context, AttributeSet attrs) {
@@ -40,8 +41,8 @@ public class EditTextBarPureClearText extends ViewBar {
 				default_icon_margin);
 		boolean phone = a.getBoolean(
 				R.styleable.EditTextBarPureClearText_phoneNumber, false);
-		Drawable background = a
-				.getDrawable(R.styleable.EditTextBarPureClearText_icon_right_background);
+		Drawable drawable = a
+				.getDrawable(R.styleable.EditTextBarPureClearText_icon_right_drawable);
 		a.recycle();
 
 		top_et = (EditText) findViewById(R.id.tb_top);
@@ -53,9 +54,9 @@ public class EditTextBarPureClearText extends ViewBar {
 			top_et.setInputType(EditorInfo.TYPE_CLASS_PHONE);
 		}
 
-		if (background != null) {
-			iconRight = findViewById(R.id.tb_icon_right);
-			iconRight.setBackgroundDrawable(background);
+		if (drawable != null) {
+			iconRight = (ImageView) findViewById(R.id.tb_icon_right);
+			iconRight.setImageDrawable(drawable);
 			setMargins(iconRight, icon_margin, 0, icon_margin, 0);
 			iconRight.setVisibility(View.INVISIBLE);
 			top_et.removeTextChangedListener(watcher);

@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:icon_right_background="@drawable/icon_arrow_down"
+            app:icon_right_drawable="@drawable/icon_arrow_down"
             app:left_text="@string/waybill_create_loading"
             app:right_hint="@string/waybill_create_loading_hint" />
 
@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:icon_right_background="@drawable/icon_arrow_down"
+            app:icon_right_drawable="@drawable/icon_arrow_down"
             app:left_text="@string/waybill_create_unloading"
             app:right_hint="@string/waybill_create_unloading_hint" />
 
@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:icon_right_background="@drawable/icon_arrow_down"
+            app:icon_right_drawable="@drawable/icon_arrow_down"
             app:left_text="@string/waybill_create_weight"
             app:right_hint="@string/waybill_create_weight_hint" />
 
@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:icon_right_background="@drawable/icon_arrow_down"
+            app:icon_right_drawable="@drawable/icon_arrow_down"
             app:left_text="@string/waybill_create_date_send"
             app:right_hint="@string/waybill_create_date_send_hint" />
 
@@ -57,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:icon_right_background="@drawable/icon_arrow_down"
+            app:icon_right_drawable="@drawable/icon_arrow_down"
             app:left_text="@string/waybill_create_date_arrive"
             app:right_hint="@string/waybill_create_date_arrive_hint" />
 
@@ -75,7 +75,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:icon_right_background="@drawable/icon_clear_text"
+            app:icon_right_drawable="@drawable/icon_clear_text"
             app:right_hint="@string/waybill_create_remarks_hint" />
 
         <LinearLayout
@@ -125,7 +125,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:icon_right_background="@drawable/icon_arrow_down"
+            app:icon_right_drawable="@drawable/icon_arrow_down"
             app:left_text="@string/waybill_create_more_goods_type"
             app:right_hint="@string/waybill_create_more_goods_type_hint" />
 
@@ -143,7 +143,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:icon_right_background="@drawable/icon_clear_text"
+            app:icon_right_drawable="@drawable/icon_clear_text"
             app:left_text="@string/waybill_create_more_goods_receive"
             app:right_hint="@string/waybill_create_more_goods_receive_hint" />
 
@@ -208,7 +208,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:icon_right_background="@drawable/icon_clear_text"
+            app:icon_right_drawable="@drawable/icon_clear_text"
             app:left_text="@string/waybill_create_phone_number"
             app:right_hint="@string/waybill_create_phone_number_hint" />
 
@@ -217,7 +217,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:icon_right_background="@drawable/icon_clear_text"
+            app:icon_right_drawable="@drawable/icon_clear_text"
             app:left_text="@string/waybill_create_name"
             app:right_hint="@string/waybill_create_name_hint" />
 
@@ -226,7 +226,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:icon_right_background="@drawable/icon_clear_text"
+            app:icon_right_drawable="@drawable/icon_clear_text"
             app:left_text="@string/waybill_create_plate_number"
             app:right_hint="@string/waybill_create_plate_number_hint" />
 
@@ -235,7 +235,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:icon_right_background="@drawable/icon_photograph_grey"
+            app:icon_right_drawable="@drawable/icon_photograph_grey"
             app:right_hint="@string/waybill_create_remarks_hint" />
 
         <LinearLayout

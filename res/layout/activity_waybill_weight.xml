@@ -9,13 +9,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="@dimen/main_padding" >
-
+  
         <com.tlz.shipper.ui.widget.EditTextBarIconTitleClearText
             android:id="@+id/waybill_weight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:icon_right_background="@drawable/icon_clear_text"
+           app:unit_right_text="吨"
             app:left_text="@string/waybill_weight"
             app:right_hint="@string/waybill_weight_hint" />
 
@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:icon_right_background="@drawable/icon_clear_text"
+            app:unit_right_text="立方"
             app:left_text="@string/waybill_volume"
             app:right_hint="@string/waybill_volume_hint" />
 
@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:icon_right_background="@drawable/icon_clear_text"
+            app:unit_right_text="件"
             app:left_text="@string/waybill_quantity"
             app:right_hint="@string/waybill_quantity_hint" />
 

@@ -11,13 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.tlz.shipper.R;
-import com.tlz.shipper.ui.widget.ViewBar.TBFocusChangeVerifyListener;
 
 public class EditTextBarIconTitleClearTextAndRemark extends ViewBar {
 	EditText et_right;
-	View iconRight_clear,iconRight_photograph;
+	ImageView iconRight_clear,iconRight_photograph;
 
 	@SuppressWarnings("deprecation")
 	public EditTextBarIconTitleClearTextAndRemark(Context context, AttributeSet attrs) {
@@ -42,8 +42,8 @@ public class EditTextBarIconTitleClearTextAndRemark extends ViewBar {
 		boolean phone = a.getBoolean(
 				R.styleable.EditTextBarIconTitleClearTextAndRemark_phoneNumber,
 				false);
-		Drawable background = a
-				.getDrawable(R.styleable.EditTextBarIconTitleClearTextAndRemark_icon_right_background);
+		Drawable drawable = a
+				.getDrawable(R.styleable.EditTextBarIconTitleClearTextAndRemark_icon_right_drawable);
 		a.recycle();
 		
 		et_right = (EditText) findViewById(R.id.tb_right);
@@ -74,9 +74,9 @@ public class EditTextBarIconTitleClearTextAndRemark extends ViewBar {
 				}
 			}
 		});
-		if (background != null) {
-			iconRight_clear = findViewById(R.id.tb_icon_right_clear);
-			iconRight_clear.setBackgroundDrawable(background);
+		if (drawable != null) {
+			iconRight_clear = (ImageView) findViewById(R.id.tb_icon_right_clear);
+			iconRight_clear.setImageDrawable(drawable);
 			setMargins(iconRight_clear, icon_margin, 0, icon_margin, 0);
 			iconRight_clear.setVisibility(View.INVISIBLE);
 			et_right.removeTextChangedListener(watcher);
@@ -90,7 +90,7 @@ public class EditTextBarIconTitleClearTextAndRemark extends ViewBar {
 				}
 			});
 		}
-		iconRight_photograph= findViewById(R.id.tb_icon_right_photograph);
+		iconRight_photograph= (ImageView) findViewById(R.id.tb_icon_right_photograph);
 		iconRight_photograph.setOnClickListener(new OnClickListener() {
 			
 			@Override

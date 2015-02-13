@@ -1,5 +1,6 @@
 package com.tlz.shipper.ui.register_login;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Intent;
@@ -12,8 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.net.AppConfig;
-import com.net.NetShipperMsgAsyncTask;
-import com.net.NetShipperMsgAsyncTask.APIListener;
+import com.net.NetAsyncFactory;
+import com.net.NetAsyncFactory.ResultCodeSucListener;
 import com.net.ShipperAccountApi;
 import com.net.Urls;
 import com.tlz.model.Myself;
@@ -23,11 +24,9 @@ import com.tlz.shipper.ui.home.ActivityHome;
 import com.tlz.shipper.ui.widget.EditTextBarIconTitleClearText;
 import com.tlz.shipper.ui.widget.EditTextBarIconTitlePassword;
 import com.tlz.shipper.ui.widget.TextViewBarIcon;
-import com.tlz.utils.Flog;
-import com.tlz.utils.ToastUtils;
 import com.tlz.utils.VerifyUtils;
 
-public class LoginActivity extends ThemeActivity {
+public class ActivityLogin extends ThemeActivity {
 	EditText username, pwd;
 	View login_view_btn;
 	private TextView mErrorNetTips;
@@ -66,7 +65,7 @@ public class LoginActivity extends ThemeActivity {
 	}
 	private void skipUI()
 	{
-		Intent  intent=new Intent(LoginActivity.this,ActivityHome.class);
+		Intent  intent=new Intent(ActivityLogin.this,ActivityHome.class);
 		intent.putExtra("isComeFromReg", false);
 		startActivity(intent);
 	}
@@ -77,7 +76,7 @@ public class LoginActivity extends ThemeActivity {
 			skipUI();
 			break;
 		case R.id.login_tip_bottom:
-			startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+			startActivity(new Intent(ActivityLogin.this, ActivityRegister.class));
 			break;
 		case R.id.login_btn:
 			Myself.UserName = username.getText().toString();
@@ -85,87 +84,53 @@ public class LoginActivity extends ThemeActivity {
 			if (AppConfig.DEBUG) {
 				skipUI();
 			} else {
-				new NetShipperMsgAsyncTask(new APIListener() {
-					// {
-					// resultCode:1 :正确|-1:操作失败,0:用户名或密码有误
-					// data:
-					// {
-					// token:令牌
-					// memeber:
-					// { memberId:12, phone:"会员手机号" loginName:"登陆名"
-					// creditGrad:(int)信誉等级 balance:(float)帐户余额 },
-					// shipper:
-					// { shipperId:(int)主键 head:"头像url" auditStatus:(int)认证状态
-					// locationCode :"所在地CODE" simpleName:"企业简称" fullName:"企业全称"
-					// detailAddress:"详细地址" contact:"联系人" phone:"联系电话"
-					// introduce:"企业简介" cargoType:"主要运送货品" qrCode:"二维码明片url" }
-					// }
-					// }
+				NetAsyncFactory.createShipperTask(this, new ResultCodeSucListener<ShipperAccountApi>() {
+					
+					@Override
+					public void suc(JSONObject obj) throws JSONException {
+
+						JSONObject data = obj.getJSONObject("data");
+						Myself.Token = data.getString("token");
+						JSONObject memeber = data.getJSONObject("member");
+						JSONObject shipper = data
+								.getJSONObject("shipper");
+						Myself.MemberId = memeber.getInt("memberId");
+						Myself.PhoneNumber = memeber.getString("phone");
+						Myself.UserName = memeber
+								.getString("loginName");
+						Myself.CreditGrad = memeber
+								.getInt("creditGrad");
+						Myself.Balance = memeber.getDouble("balance");
+
+						Myself.ShipperId = shipper.getInt("shipperId");
+						Myself.HeadIconUrl = shipper.getString("head");
+						Myself.AuditStatus = shipper
+								.getInt("auditStatus");
+						Myself.Location = shipper
+								.getString("locationCode");
+						Myself.UserName = shipper
+								.getString("simpleName");
+						Myself.FullName = shipper.getString("fullName");
+						Myself.DetailAddress = shipper
+								.getString("detailAddress");
+						Myself.ContactName = shipper
+								.getString("contact");
+						Myself.PhoneNumber = shipper.getString("phone");
+						Myself.Introduction = shipper
+								.getString("introduce");
+						Myself.CargoType = (byte) shipper.getInt("cargoType");
+						Myself.QRUrl = shipper.getString("qrCode");
+						skipUI();
+					
+					}
+					
 					@Override
 					public String handler(ShipperAccountApi api) {
 						return api.login(Myself.UserName, Myself.Password,
 								 AppConfig.TYPE_ANDROID);
 					}
-
-					@Override
-					public void finish(String json) {
-						Flog.e(json);
-						try {
-							JSONObject obj = new JSONObject(json);
-							if (obj.getInt("resultCode") == 1) {
-								JSONObject data = obj.getJSONObject("data");
-								Myself.Token = data.getString("token");
-								JSONObject memeber = data.getJSONObject("member");
-								JSONObject shipper = data
-										.getJSONObject("shipper");
-								Myself.MemberId = memeber.getInt("memberId");
-								Myself.PhoneNumber = memeber.getString("phone");
-								Myself.UserName = memeber
-										.getString("loginName");
-								Myself.CreditGrad = memeber
-										.getInt("creditGrad");
-								Myself.Balance = memeber.getDouble("balance");
-
-								Myself.ShipperId = shipper.getInt("shipperId");
-								Myself.HeadIconUrl = shipper.getString("head");
-								Myself.AuditStatus = shipper
-										.getInt("auditStatus");
-								Myself.Location = shipper
-										.getString("locationCode");
-								Myself.UserName = shipper
-										.getString("simpleName");
-								Myself.FullName = shipper.getString("fullName");
-								Myself.DetailAddress = shipper
-										.getString("detailAddress");
-								Myself.ContactName = shipper
-										.getString("contact");
-								Myself.PhoneNumber = shipper.getString("phone");
-								Myself.Introduction = shipper
-										.getString("introduce");
-								Myself.CargoType = (byte) shipper.getInt("cargoType");
-								Myself.QRUrl = shipper.getString("qrCode");
-								skipUI();
-							}
-							else {
-								try {
-									String error=obj.getString("error");
-									ToastUtils.showCrouton(LoginActivity.this,
-											error+":"+obj.getInt("resultCode"));
-								} catch (Exception e) {
-									ToastUtils.showCrouton(LoginActivity.this,
-											getString(R.string.error)+obj.getInt("resultCode"));
-								}
-							}
-						} catch (Exception e) {
-							e.printStackTrace();
-							ToastUtils.showCrouton(
-									LoginActivity.this,
-									getString(R.string.exception)
-											+ e.getMessage());
-						}
-
-					}
-				}, this).execute(Urls.LOGIN);
+				}).execute(Urls.LOGIN);
+				
 			}
 
 			break;

@@ -11,13 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.tlz.shipper.R;
 
 public class EditTextBarTitleClearTextAndLeftClick extends ViewBar {
 
 	EditText et_right,et_left;
-	View iconRight;
+	ImageView iconRight;
 //	boolean mChecked;
 	@SuppressWarnings("deprecation")
 	public EditTextBarTitleClearTextAndLeftClick(Context context, AttributeSet attrs) {
@@ -43,8 +44,8 @@ public class EditTextBarTitleClearTextAndLeftClick extends ViewBar {
 		boolean phone = a.getBoolean(
 				R.styleable.EditTextBarTitleClearTextAndLeftClick_phoneNumber,
 				false);
-		Drawable iconBackground = a
-				.getDrawable(R.styleable.EditTextBarTitleClearTextAndLeftClick_icon_right_background);
+		Drawable drawable = a
+				.getDrawable(R.styleable.EditTextBarTitleClearTextAndLeftClick_icon_right_drawable);
 		a.recycle();
 
 		et_left = (EditText) findViewById(R.id.tb_left);
@@ -70,9 +71,9 @@ public class EditTextBarTitleClearTextAndLeftClick extends ViewBar {
 				clickListener.onClick();
 			}
 		});
-		if (iconBackground != null) {
-			iconRight = findViewById(R.id.tb_icon_right);
-			iconRight.setBackgroundDrawable(iconBackground);
+		if (drawable != null) {
+			iconRight = (ImageView) findViewById(R.id.tb_icon_right);
+			iconRight.setImageDrawable(drawable);
 			setMargins(iconRight, icon_margin, 0, icon_margin, 0);
 			iconRight.setVisibility(View.INVISIBLE);
 			et_right.removeTextChangedListener(watcher);

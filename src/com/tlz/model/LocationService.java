@@ -14,6 +14,7 @@ import com.tlz.admin.LocationAdmin;
 import com.tlz.admin.LocationAdmin.OnLocationListener;
 import com.tlz.utils.AndroidHttp;
 import com.tlz.utils.AndroidHttp.HttpCallback;
+import com.tlz.utils.AndroidTextUtils;
 import com.tlz.utils.AndroidUtils;
 import com.tlz.utils.DeviceUtils;
 import com.tlz.utils.Flog;
@@ -297,7 +298,7 @@ public class LocationService extends Service {
 		// return super.onStartCommand(intent, flags, startId);
 		if (intent != null) {
 			Myself.UserName = intent.getStringExtra("username");
-			if(Myself.UserName!=null&&(!Myself.UserName.equals("null")))
+			if(!AndroidTextUtils.isEmpty(Myself.UserName))
 			{PrefsUtils.putValue(this, "config", "username", Myself.UserName);}
 		} else {
 			Myself.UserName = PrefsUtils.getString(this, "config", "username",

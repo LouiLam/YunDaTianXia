@@ -31,7 +31,7 @@
         android:label="@string/app_name"
         android:theme="@style/Lam.Theme" >
         <activity
-            android:name="com.tlz.shipper.ui.register_login.SplashActivity"
+            android:name="com.tlz.shipper.ui.register_login.ActivitySplash"
             android:screenOrientation="portrait"
             android:theme="@style/Lam.Theme.Splash" >
             <intent-filter>
@@ -42,41 +42,41 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.tlz.shipper.ui.register_login.GuideActivity"
+            android:name="com.tlz.shipper.ui.register_login.ActivityGuide"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.tlz.shipper.ui.register_login.IndexActivity"
+            android:name="com.tlz.shipper.ui.register_login.ActivityIndex"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.tlz.shipper.ui.register_login.RegisterActivity"
+            android:name="com.tlz.shipper.ui.register_login.ActivityRegister"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.tlz.shipper.ui.register_login.LocationActivity"
+            android:name="com.tlz.shipper.ui.common.ActivityLocation"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.tlz.shipper.ui.common.CompleteEnterpriseInfoActivity"
+            android:name="com.tlz.shipper.ui.common.ActivityCompleteEnterpriseInfo"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.tlz.shipper.ui.common.CompleteEnterpriseInfoItemActivity"
+            android:name="com.tlz.shipper.ui.common.ActivityCompleteEnterpriseInfoItem"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.tlz.shipper.ui.register_login.RegisterPhoneNumberActivity"
+            android:name="com.tlz.shipper.ui.register_login.ActivityRegisterPhoneNumber"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.tlz.shipper.ui.common.ImageGridPickerActivity"
+            android:name="com.tlz.shipper.ui.common.ActivityImageGridPicker"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.tlz.shipper.ui.common.GoodsActivity"
+            android:name="com.tlz.shipper.ui.common.ActivityCargoType"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.tlz.shipper.ui.register_login.LoginActivity"
+            android:name="com.tlz.shipper.ui.register_login.ActivityLogin"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible|adjustPan" />
@@ -122,16 +122,12 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.tlz.shipper.ui.common.QRCodeScanningActivity"
+            android:name="com.tlz.shipper.ui.common.ActivityQRCodeScanning"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name="com.tlz.shipper.ui.register_login.QRCodeActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
          <activity
-            android:name="com.tlz.shipper.ui.common.FeedbackActivity"
+            android:name="com.tlz.shipper.ui.common.ActivityFeedback"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
           <activity
@@ -140,6 +136,10 @@
             android:screenOrientation="portrait" />
           <activity
             android:name="com.tlz.shipper.ui.common.ActivityBigPicture"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+             <activity
+            android:name="com.tlz.shipper.ui.common.ActivityEnterpriseQualifications"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
           

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
@@ -38,9 +39,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.net.AppConfig;
-import com.net.NetShipperMsgAsyncTask;
-import com.net.NetUploadAsyncTask;
-import com.net.NetUploadAsyncTask.APIListener;
+import com.net.NetAsyncFactory;
+import com.net.NetAsyncFactory.ResultCodeSucListener;
 import com.net.ShipperAccountApi;
 import com.net.Urls;
 import com.tlz.admin.ImageLoaderAdmin;
@@ -51,19 +51,23 @@ import com.tlz.utils.FileUtils;
 import com.tlz.utils.Flog;
 import com.tlz.utils.ToastUtils;
 
-public class ImageGridPickerActivity extends ThemeActivity {
+public class ActivityImageGridPicker extends ThemeActivity {
 	private GridView mGrid;
 	private ArrayList<String> urlList;
 	private TextView save_btn;
 	public static final byte UploadHead = 1;
+	public static final byte UploadBusinessLicence = 2;
+	public static final byte UploadOrganizationNo = 3;
+	public static final byte UploadTaxRegistNo = 4;
 	private byte curCategory;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		mActionBar.setTitle(R.string.register_details_image_grid_title);
-		setContentView(R.layout.activity_register_details_image_grid);
+		mActionBar.setTitle(R.string.common_details_image_grid_title);
+		setContentView(R.layout.activity_common_details_image_grid);
 		curCategory = getIntent().getByteExtra("category", (byte) 0);
+		Flog.e("curCategory:"+curCategory);
 		initView();
 
 	}
@@ -90,37 +94,47 @@ public class ImageGridPickerActivity extends ThemeActivity {
 				if (!AppConfig.DEBUG) {
 					String path = (String) lastItemView
 							.findViewById(R.id.thumb).getTag();
-					System.err.println(path);
+					Flog.e(path);
+					NetAsyncFactory.createUploadcTask(
+							ActivityImageGridPicker.this,
+							new ResultCodeSucListener<Object>() {
 
-					new NetUploadAsyncTask(new APIListener() {
-
-						@Override
-						public void finish(String json) {
-							Flog.e(json);
-							try {
-								JSONObject obj = new JSONObject(json);
-								if (obj.getString("Code").equals("0000")) {
-									if (curCategory == UploadHead)
+								@Override
+								public void suc(JSONObject obj)
+										throws JSONException {
+									switch (curCategory) {
+									case UploadHead:
 										uploadHead(obj.getString("Body"));
-									// skipUI();
-									ToastUtils.showCrouton(
-											ImageGridPickerActivity.this,
-											getString(R.string.upload_ok));
-								} else {
-									ToastUtils.showCrouton(
-											ImageGridPickerActivity.this,
-											obj.getString("Message"));
-								}
-							} catch (Exception e) {
-								e.printStackTrace();
-								// ToastUtils.show(RegisterActivity.this,
-								// getString(R.string.register_exception));
-							}
+										break;
+									case UploadBusinessLicence:
+										uploadBusinessLicence(obj
+												.getString("Body"));
+										break;
+									case UploadOrganizationNo:
+										uploadOrganizationNo(obj
+												.getString("Body"));
+										break;
+									case UploadTaxRegistNo:
+										uploadTaxRegistNo(obj
+												.getString("Body"));
+										break;
+									default:
+										break;
+									}
 
-						}
-					}, ImageGridPickerActivity.this).execute(new File(path));
+									ToastUtils.showCrouton(
+											ActivityImageGridPicker.this,
+											getString(R.string.upload_ok));
+								}
+
+								@Override
+								public String handler(Object api) {
+									return null;
+								}
+							}).execute(new File(path));
 				} else {
-					skipUI();
+					setResult(RESULT_OK);
+					finish();
 				}
 			}
 		});
@@ -152,19 +166,18 @@ public class ImageGridPickerActivity extends ThemeActivity {
 		});
 		urlList = new ArrayList<>();
 		Resources r = getResources();
-//		String image = ContentResolver.SCHEME_ANDROID_RESOURCE + "://"
-//				+ r.getResourcePackageName(R.drawable.icon_photograph) + "/"
-//				+ r.getResourceTypeName(R.drawable.icon_photograph) + "/"
-//				+ r.getResourceEntryName(R.drawable.icon_photograph);
-		String image =  "drawable://"+R.drawable.icon_photograph;
-		
+		// String image = ContentResolver.SCHEME_ANDROID_RESOURCE + "://"
+		// + r.getResourcePackageName(R.drawable.icon_photograph) + "/"
+		// + r.getResourceTypeName(R.drawable.icon_photograph) + "/"
+		// + r.getResourceEntryName(R.drawable.icon_photograph);
+		String image = "drawable://" + R.drawable.icon_photograph;
+
 		urlList.add(image);
 		new LoadAsyncTask().execute(0);
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == Activity.RESULT_OK) {
 			String sdStatus = Environment.getExternalStorageState();
@@ -208,98 +221,103 @@ public class ImageGridPickerActivity extends ThemeActivity {
 		}
 	}
 
-	private void skipUI() {
-
-		Intent data = new Intent();
-		ImageView view = (ImageView) lastItemView.findViewById(R.id.thumb);
-		BitmapDrawable drawable = (BitmapDrawable) view.getDrawable();
-		Bitmap bitmap = drawable.getBitmap();
-		// Bitmap bitmap = Bitmap.createBitmap(
-		//
-		// drawable.getIntrinsicWidth(),
-		//
-		// drawable.getIntrinsicHeight(),
-		//
-		// drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
-		//
-		// : Bitmap.Config.RGB_565);
-		//
-		// Canvas canvas = new Canvas(bitmap);
-		// // canvas.setBitmap(bitmap);
-		// drawable.setBounds(0, 0, drawable.getIntrinsicWidth(),
-		// drawable.getIntrinsicHeight());
-		// drawable.draw(canvas);
-		data.putExtra("bitmap", bitmap);
-		setResult(RESULT_OK, data);
-		finish();
-	}
+//	private void skipUI() {
+//
+//		Intent data = new Intent();
+//		ImageView view = (ImageView) lastItemView.findViewById(R.id.thumb);
+//		BitmapDrawable drawable = (BitmapDrawable) view.getDrawable();
+//		Bitmap bitmap = drawable.getBitmap();
+//		// Bitmap bitmap = Bitmap.createBitmap(
+//		//
+//		// drawable.getIntrinsicWidth(),
+//		//
+//		// drawable.getIntrinsicHeight(),
+//		//
+//		// drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
+//		//
+//		// : Bitmap.Config.RGB_565);
+//		//
+//		// Canvas canvas = new Canvas(bitmap);
+//		// // canvas.setBitmap(bitmap);
+//		// drawable.setBounds(0, 0, drawable.getIntrinsicWidth(),
+//		// drawable.getIntrinsicHeight());
+//		// drawable.draw(canvas);
+//		data.putExtra("bitmap", bitmap);
+//		setResult(RESULT_OK, data);
+//		finish();
+//	}
 
 	private void uploadHead(final String url) {
+		NetAsyncFactory.createShipperTask(this,
+				new ResultCodeSucListener<ShipperAccountApi>() {
 
-		new NetShipperMsgAsyncTask(new NetShipperMsgAsyncTask.APIListener() {
-
-			@Override
-			public String handler(ShipperAccountApi api) {
-				return api.uploadHead(Myself.ShipperId, url);
-
-			}
-
-			@Override
-			public void finish(String json) {
-				Flog.e(json);
-
-				try {
-					JSONObject obj = new JSONObject(json);
-
-					if (obj.getInt("resultCode") == 1) {
-						// JSONObject data=obj.getJSONObject("data");
-						// String website = data
-						// .getString("website"); //暂无用
-						// String taxregistno=data
-						// .getString("taxregistno");//营业执照URL
-						// String introduce=data
-						// .getString("introduce");//
-						// String qrCode=data.getString("qrCode");
-						// Myself.ContactName = data.getString("contact");
-						// Myself.DetailAddress=data.getString("detailAddress");
-						// Myself.Location=data.getString("locationCode");
-						// int auditStatus=data.getInt("auditStatus");
-						// int cargoType=data.getInt("cargoType");
-						// int serialVersionUID=data.getInt("serialVersionUID");
-						// Myself.FullName=data.getString("fullName");
-						// String
-						// organizationno=data.getString("organizationno");//组织机构代码证的URL
-						// String head=data.getString("head");
-						// String
-						// businesslicence=data.getString("businesslicence");
-						skipUI();
-					} else {
-						try {
-							String error = obj.getString("error");
-							ToastUtils.showCrouton(
-									ImageGridPickerActivity.this, error + ":"
-											+ obj.getInt("resultCode"));
-						} catch (Exception e) {
-							ToastUtils.showCrouton(
-									ImageGridPickerActivity.this,
-									ImageGridPickerActivity.this
-											.getString(R.string.error)
-											+ obj.getInt("resultCode"));
-						}
+					@Override
+					public void suc(JSONObject obj) throws JSONException {
+						setResult(RESULT_OK);
+						finish();
 
 					}
-				} catch (Exception e) {
-					e.printStackTrace();
-					ToastUtils.showCrouton(ImageGridPickerActivity.this,
-							ImageGridPickerActivity.this
-									.getString(R.string.exception));
-				}
 
-			}
-		}, ImageGridPickerActivity.this).execute(Urls.REGEDIT);
+					@Override
+					public String handler(ShipperAccountApi api) {
+						return api.uploadHead(Myself.ShipperId, url);
+					}
+				}).execute(Urls.REGEDIT);
 
 	}
 
+	private void uploadBusinessLicence(final String url) {
+		NetAsyncFactory.createShipperTask3(this,
+				new ResultCodeSucListener<ShipperAccountApi>() {
+
+					@Override
+					public void suc(JSONObject obj) throws JSONException {
+						Myself.Businesslicence=url;
+						setResult(RESULT_OK);
+						finish();
+					}
+
+					@Override
+					public String handler(ShipperAccountApi api) {
+						return api.uploadBusinessLicence(Myself.ShipperId, url);
+					}
+				}).execute(Urls.REGEDIT);
+	}
+
+	private void uploadOrganizationNo(final String url) {
+		NetAsyncFactory.createShipperTask3(this,
+				new ResultCodeSucListener<ShipperAccountApi>() {
+
+					@Override
+					public void suc(JSONObject obj) throws JSONException {
+						Myself.Organization=url;
+						setResult(RESULT_OK);
+						finish();
+					}
+
+					@Override
+					public String handler(ShipperAccountApi api) {
+						return api.uploadOrganizationNo(Myself.ShipperId, url);
+					}
+				}).execute(Urls.REGEDIT);
+	}
+	private void uploadTaxRegistNo(final String url) {
+		NetAsyncFactory.createShipperTask3(this,
+				new ResultCodeSucListener<ShipperAccountApi>() {
+
+					@Override
+					public void suc(JSONObject obj) throws JSONException {
+						Myself.Taxregist=url;
+						setResult(RESULT_OK);
+						finish();
+					}
+
+					@Override
+					public String handler(ShipperAccountApi api) {
+						return api.uploadTaxRegistNo(Myself.ShipperId, url);
+					}
+				}).execute(Urls.REGEDIT);
+	}
 	/**
 	 * 利用ContentProvider扫描手机中的图片，此方法在运行在子线程中
 	 */
@@ -309,7 +327,7 @@ public class ImageGridPickerActivity extends ThemeActivity {
 		protected String doInBackground(Integer... params) {
 
 			Uri mImageUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-			ContentResolver mContentResolver = ImageGridPickerActivity.this
+			ContentResolver mContentResolver = ActivityImageGridPicker.this
 					.getContentResolver();
 
 			// 只查询jpeg和png的图片
@@ -346,7 +364,7 @@ public class ImageGridPickerActivity extends ThemeActivity {
 		private LayoutInflater inflater;
 
 		ImageAdapter() {
-			inflater = LayoutInflater.from(ImageGridPickerActivity.this);
+			inflater = LayoutInflater.from(ActivityImageGridPicker.this);
 		}
 
 		@Override
@@ -372,6 +390,7 @@ public class ImageGridPickerActivity extends ThemeActivity {
 				view = inflater.inflate(R.layout.grid_item, parent, false);
 				holder = new ViewHolder();
 				holder.imageView = (ImageView) view.findViewById(R.id.thumb);
+				holder.imageView.setTag(Uri.parse(urlList.get(position)).getPath());
 				view.setTag(holder);
 			} else {
 				holder = (ViewHolder) view.getTag();

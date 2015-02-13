@@ -16,7 +16,7 @@ import com.tlz.shipper.R;
 import com.tlz.shipper.ui.ThemeActivity;
 import com.viewpagerindicator.CirclePageIndicator;
 
-public class GuideActivity extends ThemeActivity {
+public class ActivityGuide extends ThemeActivity {
 
 	
 	private JasonPagerAdapter mPagerAdapter;
@@ -71,7 +71,7 @@ public class GuideActivity extends ThemeActivity {
 			case R.id.btn_skip1:
 			case R.id.btn_skip2:
 			case R.id.guide_btn_want_reg:
-				startActivity(new Intent(this, RegisterActivity.class));
+				startActivity(new Intent(this, ActivityRegister.class));
 				finish();
 				break;
 		}

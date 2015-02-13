@@ -12,9 +12,9 @@ import com.tlz.model.Myself;
 import com.tlz.shipper.R;
 import com.tlz.shipper.ui.ThemeActivity;
 import com.tlz.shipper.ui.common.ActivityBigPicture;
-import com.tlz.shipper.ui.common.GoodsActivity;
-import com.tlz.shipper.ui.common.ImageGridPickerActivity;
-import com.tlz.shipper.ui.common.QRCodeScanningActivity;
+import com.tlz.shipper.ui.common.ActivityCargoType;
+import com.tlz.shipper.ui.common.ActivityImageGridPicker;
+import com.tlz.shipper.ui.common.ActivityQRCodeScanning;
 import com.tlz.shipper.ui.home.waybill.my_waybill.ActivityMyWaybill;
 import com.tlz.shipper.ui.widget.EditTextBarIconTitleBtn;
 import com.tlz.shipper.ui.widget.EditTextBarIconTitleClearText;
@@ -132,7 +132,7 @@ public class ActivityCreate extends ThemeActivity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(ActivityCreate.this,
-						GoodsActivity.class);
+						ActivityCargoType.class);
 				startActivityForResult(intent, REQUEST_CODE_GOODS);
 			}
 		});
@@ -145,7 +145,7 @@ public class ActivityCreate extends ThemeActivity {
 				if (countBottom > 4)
 					return;
 				Intent intent = new Intent(ActivityCreate.this,
-						ImageGridPickerActivity.class);
+						ActivityImageGridPicker.class);
 				startActivityForResult(intent, REQUEST_CODE_IMAGE_SELECT_BOTTOM);
 
 			}
@@ -157,7 +157,7 @@ public class ActivityCreate extends ThemeActivity {
 				if (countTop > 4)
 					return;
 				Intent intent = new Intent(ActivityCreate.this,
-						ImageGridPickerActivity.class);
+						ActivityImageGridPicker.class);
 				startActivityForResult(intent, REQUEST_CODE_IMAGE_SELECT_TOP);
 
 			}
@@ -184,7 +184,7 @@ public class ActivityCreate extends ThemeActivity {
 		switch (viewId) {
 		case R.id.tb_qr:
 			Intent intent = new Intent();
-			intent.setClass(ActivityCreate.this, QRCodeScanningActivity.class);
+			intent.setClass(ActivityCreate.this, ActivityQRCodeScanning.class);
 			startActivityForResult(intent, REQUEST_CODE_QR_CODE);
 			break;
 		case R.id.waybill_create_more:
@@ -240,9 +240,10 @@ public class ActivityCreate extends ThemeActivity {
 				&& resultCode == RESULT_OK) {
 			date_arrive.setTBRightText(data.getStringExtra("content"));
 		} else if (requestCode == REQUEST_CODE_GOODS && resultCode == RESULT_OK) {
-			goods_type.setTBRightText(getCurGoodsString());
+			goods_type.setTBRightText(getCurCargoTypeString());
 		} else if (requestCode == REQUEST_CODE_IMAGE_SELECT_TOP
 				&& resultCode == RESULT_OK) {
+			//TODO 这里会报告异常 等调创建运单接口时处理
 			waybill_create_image_bar_top.setVisibility(View.VISIBLE);
 			final Bitmap bm = data.getParcelableExtra("bitmap");
 			imgsTop[countTop].setImageBitmap(bm);
@@ -271,6 +272,7 @@ public class ActivityCreate extends ThemeActivity {
 		} else if (requestCode == REQUEST_CODE_IMAGE_SELECT_BOTTOM
 				&& resultCode == RESULT_OK) {
 			waybill_create_image_bar_bottom.setVisibility(View.VISIBLE);
+			//TODO 这里会报告异常 等调创建运单接口时处理
 			final Bitmap bm = data.getParcelableExtra("bitmap");
 			imgsBottom[countBottom].setImageBitmap(bm);
 			bmBottom[countBottom]=bm;

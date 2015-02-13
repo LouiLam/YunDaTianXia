@@ -50,7 +50,7 @@ public class ImageLoaderAdmin {
 		ImageLoader.getInstance().displayImage(url,
 				view, options,animateFirstListener);
 	}
-	public ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
+	private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
 	 static class AnimateFirstDisplayListener extends SimpleImageLoadingListener {
 
 		static final List<String> displayedImages = Collections.synchronizedList(new LinkedList<String>());

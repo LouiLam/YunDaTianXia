@@ -16,7 +16,7 @@ public class ActivityBigPicture extends ThemeActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_big_picture);
+		setContentView(R.layout.activity_common_big_picture);
 		mActionBar.setTitle(R.string.big_picture_title);
 		initView();
 	}

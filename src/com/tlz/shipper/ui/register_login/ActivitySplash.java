@@ -11,7 +11,7 @@ import com.tlz.utils.Flog;
 import com.tlz.utils.ManifestUtils;
 import com.tlz.utils.PrefsUtils;
 
-public class SplashActivity extends ThemeActivity {
+public class ActivitySplash extends ThemeActivity {
 
 	 private static final boolean DEBUG = true;
 
@@ -90,7 +90,7 @@ class SplashAsyncTask extends AsyncTask<Integer, Integer, String> {
 	protected void onPostExecute(String result) {
 		if (isFirstRun()) {
 
-			act.startActivity(new Intent(act, GuideActivity.class));
+			act.startActivity(new Intent(act, ActivityGuide.class));
 			act.overridePendingTransition(android.R.anim.fade_in,
 					android.R.anim.fade_out);
 
@@ -100,7 +100,7 @@ class SplashAsyncTask extends AsyncTask<Integer, Integer, String> {
 			act.finish();
 
 		} else {
-			act.startActivity(new Intent(act, IndexActivity.class));
+			act.startActivity(new Intent(act, ActivityIndex.class));
 			act.finish();
 		}
 	}

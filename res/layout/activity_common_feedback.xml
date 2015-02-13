@@ -23,7 +23,7 @@
                 android:id="@+id/input_contact"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:icon_right_background="@drawable/icon_clear_text" />
+                app:icon_right_drawable="@drawable/icon_clear_text" />
         </LinearLayout>
 
         <LinearLayout

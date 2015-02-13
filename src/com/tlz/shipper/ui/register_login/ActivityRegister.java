@@ -1,5 +1,6 @@
 package com.tlz.shipper.ui.register_login;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Intent;
@@ -15,27 +16,26 @@ import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
 import com.net.AppConfig;
-import com.net.NetShipperMsgAsyncTask;
-import com.net.NetShipperMsgAsyncTask.APIListener;
+import com.net.NetAsyncFactory;
+import com.net.NetAsyncFactory.ResultCodeSucListener;
 import com.net.ShipperAccountApi;
 import com.net.Urls;
 import com.tlz.model.Myself;
 import com.tlz.shipper.R;
 import com.tlz.shipper.ui.ThemeActivity;
 import com.tlz.shipper.ui.WebContentActivity;
+import com.tlz.shipper.ui.common.ActivityLocation;
 import com.tlz.shipper.ui.widget.EditTextBarIconTitleBtn;
 import com.tlz.shipper.ui.widget.EditTextBarIconTitleClearText;
 import com.tlz.shipper.ui.widget.EditTextBarIconTitlePassword;
 import com.tlz.shipper.ui.widget.ViewBar.TBBarOnClickListener;
 import com.tlz.shipper.ui.widget.ViewBar.TBFocusChangeVerifyListener;
-import com.tlz.utils.Flog;
 import com.tlz.utils.HandlerMsg;
 import com.tlz.utils.IntentUtils;
 import com.tlz.utils.PhoneUtils;
-import com.tlz.utils.ToastUtils;
 import com.tlz.utils.VerifyUtils;
 
-public class RegisterActivity extends ThemeActivity {
+public class ActivityRegister extends ThemeActivity {
 
 	private TextView mErrorNetTips;
 	private CountDownTimer mCheckNetTimer;
@@ -78,8 +78,8 @@ public class RegisterActivity extends ThemeActivity {
 
 			@Override
 			public void onTBClick(View v) {
-				Intent intent = new Intent(RegisterActivity.this,
-						LocationActivity.class);
+				Intent intent = new Intent(ActivityRegister.this,
+						ActivityLocation.class);
 				intent.putExtra("myLocation", location_et.getText().toString());
 				startActivityForResult(intent, 0);
 
@@ -161,7 +161,7 @@ public class RegisterActivity extends ThemeActivity {
 			IntentUtils.startMainActivity(this, "com.android.settings");
 			break;
 		case R.id.register_btn_agree_protocol:
-			Intent intent = new Intent(RegisterActivity.this,
+			Intent intent = new Intent(ActivityRegister.this,
 					WebContentActivity.class);
 			intent.putExtra("title",
 					getString(R.string.register_agree_protocol2));
@@ -173,52 +173,31 @@ public class RegisterActivity extends ThemeActivity {
 			Myself.Location = location_et.getText().toString();
 			Myself.Password = pwd_et.getText().toString();
 			if (AppConfig.DEBUG) {
-				startActivity(new Intent(RegisterActivity.this,
-						RegisterPhoneNumberActivity.class));
+				startActivity(new Intent(ActivityRegister.this,
+						ActivityRegisterPhoneNumber.class));
 			} else {
-				new NetShipperMsgAsyncTask(new APIListener() {
+				NetAsyncFactory.createShipperTask(this,
+						new ResultCodeSucListener<ShipperAccountApi>() {
 
-					@Override
-					public String handler(ShipperAccountApi api) {
-						return api.regist(Myself.UserName, Myself.Location,
-								Myself.Password);
+							@Override
+							public void suc(JSONObject obj)
+									throws JSONException {
 
-					}
+								JSONObject data = obj.getJSONObject("data");
+								Myself.Token = data.getString("token");
+								Myself.MemberId = data.getInt("memberId");
+								startActivity(new Intent(ActivityRegister.this,
+										ActivityRegisterPhoneNumber.class));
 
-					@Override
-					public void finish(String json) {
-						Flog.e(json);
-						try {
-							JSONObject obj = new JSONObject(json);
-							JSONObject data=obj.getJSONObject("data");
-							if (obj.getInt("resultCode") == 1) {
-								Myself.Token = data
-										.getString("token");
-								Myself.MemberId=data
-										.getInt("memberId");
-								startActivity(new Intent(RegisterActivity.this,
-										RegisterPhoneNumberActivity.class));
-							} else {
-								try {
-									String error=obj.getString("error");
-									ToastUtils.showCrouton(RegisterActivity.this,
-											error+":"+obj.getInt("resultCode"));
-								} catch (Exception e) {
-									ToastUtils.showCrouton(RegisterActivity.this,
-											getString(R.string.error)+obj.getInt("resultCode"));
-								}
-								
 							}
-						} catch (Exception e) {
-							e.printStackTrace();
-							ToastUtils.showCrouton(RegisterActivity.this,
-									getString(R.string.exception));
-						}
 
-					}
-				}, this).execute(Urls.REGEDIT);
+							@Override
+							public String handler(ShipperAccountApi api) {
+								return api.regist(Myself.UserName,
+										Myself.Location, Myself.Password);
+							}
+						}).execute(Urls.REGEDIT);
 
-			
 			}
 
 			break;
@@ -259,7 +238,7 @@ public class RegisterActivity extends ThemeActivity {
 				if (mErrorNetTips.getVisibility() == View.GONE) {
 					cancelCheckNetTimer();
 				}
-				if (PhoneUtils.isNetworkAvailable(RegisterActivity.this)) {
+				if (PhoneUtils.isNetworkAvailable(ActivityRegister.this)) {
 					mErrorNetTips.setVisibility(View.GONE);
 				} else {
 					startCheckNetTimer();

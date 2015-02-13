@@ -17,6 +17,21 @@ public class Myself {
 	 * 主要运输货物类型
 	 */
 	public static byte  CargoType;
+	/**
+	 * 营业执照
+	 */
+	public static String Businesslicence;
+	/**
+	 * 组织结构代码证
+	 */
+	public static String Organization;
+	/**
+	 * 税务登记证
+	 */
+	public static String Taxregist;
+	/**
+	 * 头像
+	 */
 	public static String  HeadIconUrl;
 	/**
 	 * 二维码URL
@@ -69,4 +84,6 @@ public class Myself {
 	 */
 	public static Date Send,Arrive;
 	public static String SendString,ArriveString;
+	
+	
 }

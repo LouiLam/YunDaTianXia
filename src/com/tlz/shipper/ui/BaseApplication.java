@@ -35,7 +35,7 @@ public class BaseApplication extends Application {
 	private JasonActivityLifecycleCallbacks mActivityLifecycleCallbacks;
 	private boolean mIsMonitorAppRunningBackground = false;
 	private boolean mIsAppRunningForground = false;
-	String goods[];
+	String cargoTypes[];
 
 	// public BDLocation mLocation;
 	private User mUser;
@@ -50,13 +50,13 @@ public class BaseApplication extends Application {
 	}
 
 
-	public String[] getGoodsStringArray() {
-		return goods;
+	public String[] getCargoTypeStringArray() {
+		return cargoTypes;
 	}
 
-	public String getCurGoodsString() {
+	public String getCurCargoTypeString() {
 		if (Myself.CargoType > 0)
-			return goods[Myself.CargoType - 1];
+			return cargoTypes[Myself.CargoType - 1];
 		return null;
 	}
 
@@ -69,7 +69,7 @@ public class BaseApplication extends Application {
 	@TargetApi(14)
 	private void init() {
 		Resources res = getResources();
-		goods = res.getStringArray(R.array.goods);
+		cargoTypes = res.getStringArray(R.array.goods);
 		SDKInitializer.initialize(this);
 		mScreenWidth = getResources().getDisplayMetrics().widthPixels;
 		mScreenHeight = getResources().getDisplayMetrics().heightPixels;
