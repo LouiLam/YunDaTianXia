@@ -164,7 +164,9 @@ public class ActivityCreate extends ThemeActivity {
 		});
 		goods_insurance = (EditTextBarIconTitleClearText) findViewById(R.id.waybill_create_more_goods_insurance);
 		goods_receive = (EditTextBarIconTitleClearText) findViewById(R.id.waybill_create_more_goods_receive);
-		moreGoodsInfo(View.GONE);
+		goods_type.setVisibility(View.GONE);
+		goods_insurance.setVisibility(View.GONE);
+		goods_receive.setVisibility(View.GONE);
 		findViewById(R.id.waybill_btn_save).setOnClickListener(
 				new OnClickListener() {
 
@@ -188,7 +190,7 @@ public class ActivityCreate extends ThemeActivity {
 			startActivityForResult(intent, REQUEST_CODE_QR_CODE);
 			break;
 		case R.id.waybill_create_more:
-			moreGoodsInfo(View.VISIBLE);
+			toogle();
 			break;
 
 		default:
@@ -196,10 +198,19 @@ public class ActivityCreate extends ThemeActivity {
 		}
 	}
 
-	private void moreGoodsInfo(int visibility) {
-		goods_type.setVisibility(visibility);
-		goods_insurance.setVisibility(visibility);
-		goods_receive.setVisibility(visibility);
+	private void toogle() {
+		if(goods_type.getVisibility()==View.VISIBLE)
+			goods_type.setVisibility(View.GONE);
+		else
+			goods_type.setVisibility(View.VISIBLE);
+		if(goods_insurance.getVisibility()==View.VISIBLE)
+			goods_insurance.setVisibility(View.GONE);
+		else
+			goods_insurance.setVisibility(View.VISIBLE);
+		if(goods_receive.getVisibility()==View.VISIBLE)
+			goods_receive.setVisibility(View.GONE);
+		else
+			goods_receive.setVisibility(View.VISIBLE);
 	}
 
 	private void notNullValue() {

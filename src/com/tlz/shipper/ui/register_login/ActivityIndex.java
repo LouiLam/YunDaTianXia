@@ -3,6 +3,7 @@ package com.tlz.shipper.ui.register_login;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.tlz.part0.other.AcitivityLocationDemo;
 import com.tlz.shipper.R;
 import com.tlz.shipper.ui.ThemeActivity;
 import com.tlz.utils.Flog;
@@ -42,7 +43,7 @@ public class ActivityIndex extends ThemeActivity {
 		switch (viewId) {
 		case R.id.index_btn_reg:
 			startActivity(new Intent(this, ActivityRegister.class));
-//			startActivity(new Intent(this, NewsActivity.class));
+//			startActivity(new Intent(this, AcitivityLocationDemo.class));
 //			startActivity(new Intent(this, ActivityWalbillDetails.class));
 			
 			break;

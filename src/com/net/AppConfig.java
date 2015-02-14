@@ -12,5 +12,5 @@ public class AppConfig {
 	public static final byte STATUS_ACTIVED = 1;
 	/** 锁定 */
 	public static final byte STATUS_LOCKED = 2;
-	public static boolean DEBUG = false;// test
+	public static boolean DEBUG = true;// test
 }

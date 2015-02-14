@@ -125,7 +125,7 @@ public class ExpandableListApapterMgrTruck extends BaseExpandableListAdapter {
 		TextView title = (TextView) view.findViewById(R.id.title);
 		String titles[]=mContext.getResources().getStringArray(R.array.mrg_truck_titles);
 		title.setText(titles[groupPosition]);
-		icon.setBackgroundResource(ResIdentifier.getDrawbleIDByName(mContext, "icon_home_yundan_"+groupPosition));
+		icon.setBackgroundResource(ResIdentifier.getDrawbleIDByName(mContext, "icon_home_guanche_"+groupPosition));
     	
 		return view;
 		

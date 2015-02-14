@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/ban_transparent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/main_padding" >
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp" >
+
+        <TextView
+           android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="高精度定位模式：这种定位模式下，会同时使用网络定位和GPS定位，优先返回最高精度的定位结果\n低功耗定位模式：这种定位模式下，不会使用GPS，只会使用网络定位（Wi-Fi和基站定位）\n仅用设备定位模式：这种定位模式下，不需要连接网络，只使用GPS进行定位，这种模式下不支持室内环境的定位
+	 "
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/message"
+            style="@style/MTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:hint="设置定位间隔时间(秒)"
+            android:textColor="@android:color/white"
+            android:padding="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+           >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:layout_gravity="center_vertical"
+                android:gravity="left"
+                android:singleLine="false"
+                android:text="定位模式" />
+
+            <Spinner
+                
+                android:id="@+id/spinner1"
+                android:layout_width="0dp"
+                  android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:layout_weight="5" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@android:id/text1"
+        style="@style/MTextViewBtn"
+        android:layout_width="match_parent"
+        android:layout_marginTop="30dp"
+        android:text="保存" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+</LinearLayout>

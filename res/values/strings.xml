@@ -6,7 +6,7 @@
     <string name="action_menu_more">更多</string>
     <string name="action_bar_new_yundan">新建运单</string>
     <string name="action_bar_add_driver">添加司机</string>
-    <string name="action_bar_scan">扫一扫</string> <!-- 扫一扫 -->
+    <string name="action_bar_scan">开始定位</string> <!-- 扫一扫 -->
     <string name="action_bar_feedback">意见反馈</string> <!-- 意见反馈 -->
     <string name="action_menu_search">搜索</string>
     <!-- 首次注册成功 全屏对话框 -->

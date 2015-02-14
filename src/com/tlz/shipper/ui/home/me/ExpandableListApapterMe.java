@@ -125,7 +125,7 @@ public class ExpandableListApapterMe extends BaseExpandableListAdapter {
 		TextView title = (TextView) view.findViewById(R.id.title);
 		String titles[]=mContext.getResources().getStringArray(R.array.me_titles);
 		title.setText(titles[groupPosition]);
-		icon.setBackgroundResource(ResIdentifier.getDrawbleIDByName(mContext, "icon_home_yundan_"+groupPosition));
+		icon.setBackgroundResource(ResIdentifier.getDrawbleIDByName(mContext, "icon_home_me_"+groupPosition));
     	
 		return view;
 		

@@ -12,15 +12,12 @@ import android.view.View;
 import com.net.AppConfig;
 import com.net.NetAsyncFactory;
 import com.net.NetAsyncFactory.ResultCodeSucListener;
-import com.net.NetShipperMsgAsyncTask;
 import com.net.ShipperAccountApi;
 import com.net.Urls;
 import com.tlz.model.Myself;
 import com.tlz.shipper.R;
 import com.tlz.shipper.ui.common.ActivityCompleteEnterpriseInfo;
 import com.tlz.utils.AndroidTextUtils;
-import com.tlz.utils.Flog;
-import com.tlz.utils.ToastUtils;
 
 
 public class FullScreenDialog extends Dialog {

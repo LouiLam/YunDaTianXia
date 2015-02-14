@@ -30,11 +30,11 @@ public class FragmentPagerAdapterToHome extends FragmentPagerAdapter {
 			return FragmentWaybill.newInstance();
 		case 1:
 			return FragmentMgrTruck.newInstance();
+//		case 2:
+//			return CargoFragment.newInstance();
 		case 2:
-			return CargoFragment.newInstance();
-		case 3:
 			return FragmentApply.newInstance();
-		case 4:
+		case 3:
 			return FragmentMe.newInstance();
 		}
 		return FragmentWaybill.newInstance();
@@ -42,7 +42,7 @@ public class FragmentPagerAdapterToHome extends FragmentPagerAdapter {
 
 	@Override
 	public int getCount() {
-		return 5;
+		return 4;
 	}
 
 	public Fragment getFragmentByTag(int tag) {

@@ -48,4 +48,9 @@
         <item>保险</item>
     </string-array>
 
+        <string-array name="test">
+        <item>高精度</item>
+        <item>低功耗</item>
+        <item>仅用设备</item>
+    </string-array>
 </resources>

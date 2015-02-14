@@ -34,12 +34,11 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
-import com.tlz.model.LocationService;
-import com.tlz.model.Myself;
 import com.tlz.model.User;
 import com.tlz.shipper.R;
 import com.tlz.shipper.ui.BaseLoadingDialog;
 import com.tlz.shipper.ui.FullScreenDialog;
+import com.tlz.shipper.ui.LocationFullScreenDialog;
 import com.tlz.shipper.ui.ThemeActivity;
 import com.tlz.shipper.ui.ViewVisibleListener;
 import com.tlz.shipper.ui.home.waybill.create.ActivityCreate;
@@ -158,13 +157,13 @@ public class ActivityHome extends ThemeActivity implements OnClickListener,
 							tabIndex = 1;
 							break;
 						case R.id.rdi_fahuo:
-							tabIndex = 2;
+//							tabIndex = 2;
 							break;
 						case R.id.rdi_yingyong:
-							tabIndex = 3;
+							tabIndex = 2;
 							break;
 						case R.id.rdi_wo:
-							tabIndex = 4;
+							tabIndex = 3;
 							break;
 						default:
 							break;
@@ -231,12 +230,12 @@ public class ActivityHome extends ThemeActivity implements OnClickListener,
 
 			@Override
 			public void onPageSelected(int arg0) {
-				// if (arg0 != MAIN_TAB)
-				// barTitleVisible(false);
-				// if (arg0 == MAIN_TAB)
-				// currTab = arg0;
-				((RadioButton) rGroup_Controls.getChildAt(arg0))
+				if(arg0>1)
+				((RadioButton) rGroup_Controls.getChildAt(arg0+1))
 						.setChecked(true);
+				else
+					((RadioButton) rGroup_Controls.getChildAt(arg0))
+					.setChecked(true);
 			}
 
 			@Override
@@ -416,6 +415,8 @@ public class ActivityHome extends ThemeActivity implements OnClickListener,
 			// startActivity(new Intent(this, FeedbackActivity.class));
 			break;
 		case R.id.action_scan:
+			LocationFullScreenDialog.show(this);
+
 			// count = 0;
 			// stopTimer();
 			// Intent intent = new Intent();
