@@ -1,6 +1,8 @@
 package com.tlz.shipper.ui.home.waybill;
 
-import java.util.ArrayList;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +15,15 @@ import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ExpandableListView.OnGroupCollapseListener;
 import android.widget.ExpandableListView.OnGroupExpandListener;
 
+import com.net.AppConfig;
+import com.net.MessageApi;
+import com.net.NetAsyncFactory;
+import com.net.NetAsyncFactory.ResultCodeSucListener;
+import com.net.Urls;
+import com.tlz.model.Myself;
 import com.tlz.model.WaybillNews;
+import com.tlz.model.WaybillNewsGroup;
+import com.tlz.model.WaybillNewsWarp;
 import com.tlz.shipper.R;
 import com.tlz.shipper.ui.ThemeFragment;
 import com.tlz.shipper.ui.home.ActivityHome;
@@ -21,7 +31,6 @@ import com.tlz.shipper.ui.home.waybill.create.ActivityCreate;
 import com.tlz.shipper.ui.home.waybill.mgr_ontheway.ActivityMgrOTW;
 import com.tlz.shipper.ui.home.waybill.my_waybill.ActivityMyWaybill;
 import com.tlz.shipper.ui.home.waybill.news.ActivityNewMsg;
-import com.tlz.utils.CollectionUtils;
 import com.tlz.utils.ToastUtils;
 
 public class FragmentWaybill extends ThemeFragment implements
@@ -30,8 +39,7 @@ public class FragmentWaybill extends ThemeFragment implements
 	private ExpandableListView listView = null;
 	private ExpandableListApapterWaybill adapter;
 	private ActivityHome homeActivity;
-	private ArrayList<WaybillNews> list;
-
+	WaybillNewsWarp warp;
 	public static FragmentWaybill newInstance() {
 		return new FragmentWaybill();
 	}
@@ -39,10 +47,48 @@ public class FragmentWaybill extends ThemeFragment implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		homeActivity = (ActivityHome) mActivity;
-		list = new ArrayList<WaybillNews>();
-		list.add(new WaybillNews());
-		list.add(new WaybillNews());
-		adapter = new ExpandableListApapterWaybill(homeActivity, list);
+		if(!AppConfig.DEBUG)
+		{
+			
+			NetAsyncFactory.createMsgTask(getActivity(), new ResultCodeSucListener<MessageApi>() {
+
+			@Override
+			public String handler(MessageApi api) {
+				return api.getMyUnreadCountBySender(1, 10);
+			}
+
+			@Override
+			public void suc(JSONObject obj) throws JSONException {
+				JSONArray array=obj.getJSONArray("data");
+				//最后一条记录是特殊的格式，来读取数量
+				int totalCount=array.getJSONObject(array.length()-1).getInt("totalCount");
+				warp=new WaybillNewsWarp();
+				if(totalCount>0)
+				{
+					//最后一条记录不读，因为前面已读过了
+					for (int i = 0; i < array.length()-1; i++) {
+						JSONObject msg=array.getJSONObject(i);
+						int messageCreatorId=msg.getInt("messageCreatorId");
+						String description=msg.getString("description");
+						String name=msg.getString("name");
+						String head=msg.getString("head");
+						int unreadCount=msg.getInt("unreadCount");
+						warp.totalCount+=unreadCount;
+						WaybillNewsGroup group=new WaybillNewsGroup();
+						if(messageCreatorId==-1)
+						{group.name=name;group.count=unreadCount;group.type=WaybillNews.TYPE_SYS;}
+						else
+						{group.name=name;group.head=head;group.description=description;group.count=unreadCount;}
+						warp.list.add(group);
+					}
+					adapter.setWarp(warp);
+					refreshList();
+				}
+				
+				
+			}
+		}).execute(Urls.MSGAPI+";jsessionid="+Myself.Token+"?");}
+		adapter = new ExpandableListApapterWaybill(homeActivity, new WaybillNewsWarp());
 		super.onCreate(savedInstanceState);
 	}
 
@@ -55,15 +101,9 @@ public class FragmentWaybill extends ThemeFragment implements
 	}
 
 	public void refreshList() {
-		if (adapter == null || list == null)
+		if (adapter == null || warp == null)
 			return;
-		adapter.update(list);
-		if (CollectionUtils.isEmpty(list)) {
-
-		} else {
-
-		}
-
+		adapter.update(warp.list);
 	}
 
 	private void initView(View v) {

@@ -10,12 +10,12 @@ import com.tlz.shipper.ui.BaseLoadingDialog;
 import com.tlz.shipper.ui.BaseLoadingDialog.OnTimeoutListener;
 import com.tlz.utils.ToastUtils;
 
-public class NetShipperMsgAsyncTask extends AsyncTask<String, Integer, Integer> {
+public class NetShipperAsyncTask extends AsyncTask<String, Integer, Integer> {
 	private APIListener<ShipperAccountApi> listener;
 	BaseLoadingDialog dia;
 	private final Context context;
 	String json;
-	public NetShipperMsgAsyncTask(APIListener<ShipperAccountApi> listener, Context context) {
+	public NetShipperAsyncTask(APIListener<ShipperAccountApi> listener, Context context) {
 		this.listener = listener;
 		this.context = context;
 	}

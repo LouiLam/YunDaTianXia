@@ -27,11 +27,11 @@ public class NetAsyncFactory {
 	 * @param resultCodeListener
 	 * @return
 	 */
-	public static NetShipperMsgAsyncTask createShipperTask(final Context context,final ResultCodeSucListener<ShipperAccountApi> resultCodeListener)
+	public static NetShipperAsyncTask createShipperTask(final Context context,final ResultCodeSucListener<ShipperAccountApi> resultCodeListener)
 	{
 		
 		
-		return new NetShipperMsgAsyncTask(new APIListener<ShipperAccountApi>() {
+		return new NetShipperAsyncTask(new APIListener<ShipperAccountApi>() {
 
 			@Override
 			public String handler(ShipperAccountApi api) {
@@ -68,17 +68,17 @@ public class NetAsyncFactory {
 		}, context);
 	}
 	/**
-	 * 创建ShipperAccountApi中三证首次上传的相关接口，这个太特殊了 
+	 * 创建ShipperAccountApi中三证首次上传的相关接口，这个返回值比较特殊 
 	 * 创建完后 需要调用execute()来执行  参数为Url
 	 * @param context
 	 * @param resultCodeListener
 	 * @return
 	 */
-	public static NetShipperMsgAsyncTask createShipperTask3(final Context context,final ResultCodeSucListener<ShipperAccountApi> resultCodeListener)
+	public static NetShipperAsyncTask createShipperTask3(final Context context,final ResultCodeSucListener<ShipperAccountApi> resultCodeListener)
 	{
 		
 		
-		return new NetShipperMsgAsyncTask(new APIListener<ShipperAccountApi>() {
+		return new NetShipperAsyncTask(new APIListener<ShipperAccountApi>() {
 
 			@Override
 			public String handler(ShipperAccountApi api) {
@@ -114,16 +114,64 @@ public class NetAsyncFactory {
 		}, context);
 	}
 	/**
+	 * 消息服务的调用，比如运单->新消息
 	 * 创建完后 需要调用execute()来执行  里面参数名为Url
 	 * @param context
 	 * @param resultCodeListener
 	 * @return
 	 */
-	public static NetCommonMsgAsyncTask createCommonTask(final Context context,final ResultCodeSucListener<CommonApi> resultCodeListener)
+	public static NetMsgAsyncTask createMsgTask(final Context context,final ResultCodeSucListener<MessageApi> resultCodeListener)
 	{
 		
 		
-		return new NetCommonMsgAsyncTask(new APIListener<CommonApi>() {
+		return new NetMsgAsyncTask(new APIListener<MessageApi>() {
+
+			@Override
+			public String handler(MessageApi api) {
+				return resultCodeListener.handler(api);
+
+			}
+
+			@Override
+			public void finish(String json) {
+				Flog.e(json);
+		
+				try {
+					JSONObject obj = new JSONObject(json);
+					if (obj.getInt("resultCode") == 1) {
+						resultCodeListener.suc(obj);
+					} else {
+						try {
+							String error=obj.getString("error");
+							ToastUtils.showCrouton(context,
+									error+":"+obj.getInt("resultCode"));
+						} catch (Exception e) {
+							ToastUtils.showCrouton(context,
+									context.getString(R.string.error)+obj.getInt("resultCode"));
+						}
+						
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					ToastUtils.showCrouton(context,
+							context.getString(R.string.exception));
+				}
+
+			}
+		}, context);
+	}
+	/**
+	 * 基础服务的调用，比如手机验证码
+	 * 创建完后 需要调用execute()来执行  里面参数名为Url
+	 * @param context
+	 * @param resultCodeListener
+	 * @return
+	 */
+	public static NetCommonAsyncTask createCommonTask(final Context context,final ResultCodeSucListener<CommonApi> resultCodeListener)
+	{
+		
+		
+		return new NetCommonAsyncTask(new APIListener<CommonApi>() {
 
 			@Override
 			public String handler(CommonApi api) {
@@ -165,7 +213,7 @@ public class NetAsyncFactory {
 	 * @param resultCodeListener
 	 * @return
 	 */
-	public static NetUploadAsyncTask createUploadcTask(final Context context,final ResultCodeSucListener<Object> resultCodeListener)
+	public static NetUploadAsyncTask createUploadTask(final Context context,final ResultCodeSucListener<Object> resultCodeListener)
 	{
 		
 		return new NetUploadAsyncTask(new APIListener<Object>() {

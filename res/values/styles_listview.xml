@@ -9,8 +9,7 @@
 
     <style name="MNewsListView" parent="android:Widget.ListView">
         <item name="android:cacheColorHint">@null</item>
-         <item name="android:divider">@color/light_grey</item>
-        <item name="android:dividerHeight">2dp</item>
+         <item name="android:divider">@null</item>
         <item name="android:scrollbars">none</item>
     </style>
     

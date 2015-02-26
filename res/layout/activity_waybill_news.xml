@@ -8,8 +8,6 @@
 
     <com.tlz.shipper.ui.widget.SwipeListView
         android:id="@id/listView"
-        
-        style="@style/MNewsListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

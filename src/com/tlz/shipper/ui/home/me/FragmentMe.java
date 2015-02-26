@@ -23,7 +23,7 @@ import android.widget.ImageView;
 
 import com.net.AppConfig;
 import com.net.NetAsyncFactory;
-import com.net.NetShipperMsgAsyncTask;
+import com.net.NetShipperAsyncTask;
 import com.net.ShipperAccountApi;
 import com.net.Urls;
 import com.net.NetAsyncFactory.ResultCodeSucListener;

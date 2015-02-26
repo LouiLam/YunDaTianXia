@@ -14,7 +14,7 @@ public class Urls {
 	public static final String REGEDIT=HOST+ProjectName+"/md/saapi";
 	public static final String LOGIN=HOST+ProjectName+"/md/saapi?login";
 	public static final String COMMON=HOST+ProjectName+"/md/common";
-	
+	public static final String MSGAPI=HOST+ProjectName+"/md/message";
 	
 	public static final String USER_SERVICE_PROTOCOL_URL = "http://www.baidu.com";
 	

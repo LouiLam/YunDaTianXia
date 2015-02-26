@@ -6,13 +6,14 @@ import android.support.v4.os.ParcelableCompat;
 import android.support.v4.os.ParcelableCompatCreatorCallbacks;
 
 public class WaybillNews implements Parcelable {
-
+	public static final int TYPE_SYS=-1;
+	public static final int TYPE_USER=0;
 	/**
-	 * 司机名字
+	 * 名字
 	 */
 	public String name="王尼玛";
 	/**
-	 * 司机头像
+	 * 头像
 	 */
 	public String icon;
 	
@@ -30,6 +31,10 @@ public class WaybillNews implements Parcelable {
 	 * 开往
 	 */
 	public String target="往：长沙";
+	/**
+	 * 消息类型
+	 */
+	public int type=0;
 	@Override
 	public int describeContents() {
 		return 0;

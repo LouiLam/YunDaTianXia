@@ -95,7 +95,7 @@ public class ActivityImageGridPicker extends ThemeActivity {
 					String path = (String) lastItemView
 							.findViewById(R.id.thumb).getTag();
 					Flog.e(path);
-					NetAsyncFactory.createUploadcTask(
+					NetAsyncFactory.createUploadTask(
 							ActivityImageGridPicker.this,
 							new ResultCodeSucListener<Object>() {
 

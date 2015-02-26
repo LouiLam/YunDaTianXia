@@ -17,8 +17,8 @@
 
         <ImageView
             android:id="@id/icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:background="@drawable/logo"
             android:contentDescription="@null" />
 
@@ -62,11 +62,11 @@
 
     <RelativeLayout
         android:id="@+id/item_right"
-        android:layout_width="wrap_content"
+        android:layout_width="36dp"
         android:layout_height="match_parent"
         android:background="@color/waybill_red"
         android:gravity="center_vertical"
-        android:paddingLeft="20dp"
+        android:paddingLeft="10dp"
         >
 
         <ImageView

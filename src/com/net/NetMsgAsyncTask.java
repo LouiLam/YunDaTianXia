@@ -10,12 +10,12 @@ import com.tlz.shipper.ui.BaseLoadingDialog;
 import com.tlz.shipper.ui.BaseLoadingDialog.OnTimeoutListener;
 import com.tlz.utils.ToastUtils;
 
-public class NetCommonMsgAsyncTask extends AsyncTask<String, Integer, Integer> {
-	private APIListener<CommonApi> listener;
+public class NetMsgAsyncTask extends AsyncTask<String, Integer, Integer> {
+	private APIListener<MessageApi> listener;
 	BaseLoadingDialog dia;
 	private final Context context;
 	String json;
-	public NetCommonMsgAsyncTask(APIListener<CommonApi> listener, Context context) {
+	public NetMsgAsyncTask(APIListener<MessageApi> listener, Context context) {
 		this.listener = listener;
 		this.context = context;
 	}
@@ -46,8 +46,8 @@ public class NetCommonMsgAsyncTask extends AsyncTask<String, Integer, Integer> {
 		try {
 			
 			HessianProxyFactory factory = new HessianProxyFactory();
-			CommonApi api = (CommonApi) factory.create(
-					CommonApi.class, url);
+			MessageApi api = (MessageApi) factory.create(
+					MessageApi.class, url);
 			if(listener==null)return -1;
 			json=listener.handler(api);
 		} catch (Exception e) {

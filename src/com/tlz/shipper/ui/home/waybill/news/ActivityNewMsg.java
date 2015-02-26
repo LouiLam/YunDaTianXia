@@ -27,7 +27,7 @@ public class ActivityNewMsg extends ThemeActivity {
 	@Override
 	protected void initView() {
 		super.initView();
-		ArrayList list = new ArrayList<WaybillNews>();
+		ArrayList<WaybillNews> list = new ArrayList<WaybillNews>();
 		list.add(new WaybillNews());
 		list.add(new WaybillNews());
         mListView = (SwipeListView)findViewById(R.id.listView);
@@ -35,13 +35,12 @@ public class ActivityNewMsg extends ThemeActivity {
                 new AdapterSwipe.IOnItemRightClickListener() {
                     @Override
                     public void onRightClick(View v, int position) {
-                        // TODO Auto-generated method stub
                         Toast.makeText(ActivityNewMsg.this, "right onclick " + position,
                                 Toast.LENGTH_SHORT).show();
                     }
                 },list);
         mListView.setAdapter(adapter);
-        mListView.setRightViewWidth((int)(mScreenWidth-getResources().getDimension(R.dimen.main_padding)*2)/5);
+        mListView.setRightViewWidth((int)getResources().getDimension(R.dimen.custom_actionbar_icon_height));
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

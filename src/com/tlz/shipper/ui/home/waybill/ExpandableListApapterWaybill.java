@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tlz.model.WaybillNews;
+import com.tlz.model.WaybillNewsGroup;
+import com.tlz.model.WaybillNewsWarp;
 import com.tlz.shipper.R;
 import com.tlz.shipper.ui.home.ActivityHome;
 import com.tlz.shipper.ui.widget.BadgeView;
@@ -24,23 +26,27 @@ import com.tlz.utils.ResIdentifier;
 public class ExpandableListApapterWaybill extends BaseExpandableListAdapter {
 
 	private ActivityHome mContext;
-	private List<WaybillNews> mChildData1 = new ArrayList<WaybillNews>();
+	private List<WaybillNewsGroup> mChildData1 = new ArrayList<WaybillNewsGroup>();
+	WaybillNewsWarp warp;
 
-
-	public ExpandableListApapterWaybill(ActivityHome context, List<WaybillNews> datas) {
+	public ExpandableListApapterWaybill(ActivityHome context,WaybillNewsWarp warp) {
 		mContext = context;
-		splitData(datas, true);
+		this.warp=warp;
+		splitData(warp.list, true);
 	
 	}
+	public void setWarp(WaybillNewsWarp warp)
+	{
+		this.warp=warp;
+	}
 
-
-	private void splitData(List<WaybillNews> data, boolean isClear) {
-		if (CollectionUtils.isEmpty(data))
+	private void splitData(List<WaybillNewsGroup> list, boolean isClear) {
+		if (CollectionUtils.isEmpty(list))
 			return;
 		if (isClear) {
 			mChildData1.clear();
 		}
-		for (WaybillNews result : data) {
+		for (WaybillNewsGroup result : list) {
 			mChildData1.add(result);
 		}
 	}
@@ -50,24 +56,10 @@ public class ExpandableListApapterWaybill extends BaseExpandableListAdapter {
 	}
 
 
-	public void update(List<WaybillNews> datas) {
+	public void update(List<WaybillNewsGroup> datas) {
 		splitData(datas, true);
 		notifyDataSetChanged();
 	}
-
-	// public void addItem(YunDanNews item) {
-	// if (item.isKsWifi) {
-	// mChildData1.add(item);
-	// } else {
-	// mChildData2.add(item);
-	// }
-	// notifyDataSetChanged();
-	// }
-	//
-	// public void addItems(List<YunDanNews> items) {
-	// splitData(items, false);
-	// notifyDataSetChanged();
-	// }
 
 	@Override
 	public int getGroupCount() {
@@ -79,9 +71,6 @@ public class ExpandableListApapterWaybill extends BaseExpandableListAdapter {
 		if (groupPosition == 0) {
 			return mChildData1.size();
 		}
-		// else if (groupPosition == 1) {
-		// return mChildData2.size();
-		// }
 		else {
 			return 0;
 		}
@@ -93,13 +82,7 @@ public class ExpandableListApapterWaybill extends BaseExpandableListAdapter {
 	}
 
 	@Override
-	public WaybillNews getChild(int groupPosition, int childPosition) {
-//		if (groupPosition == 0) {
-//			return mChildData1.get(childPosition);
-//		}
-		// else if (groupPosition == 1) {
-		// return mChildData2.get(childPosition);
-		// }
+	public WaybillNewsGroup getChild(int groupPosition, int childPosition) {
 		return mChildData1.get(childPosition);
 	}
 
@@ -132,7 +115,7 @@ public class ExpandableListApapterWaybill extends BaseExpandableListAdapter {
 		if(groupPosition==0)
 		{BadgeView badge = new BadgeView(mContext, icon);
 		//大与两位数只显示原点，不显示文字
-		badge.setText("10");
+		badge.setText(warp.totalCount+"");
 		badge.setTextSize(TypedValue.COMPLEX_UNIT_SP, 8);
 		badge.setBackgroundResource(R.drawable.icon_circle);
     	badge.setBadgeMargin(0, 0);
@@ -160,16 +143,30 @@ public class ExpandableListApapterWaybill extends BaseExpandableListAdapter {
 					.findViewById(R.id.time);
 			viewHolder.target = (TextView) convertView
 					.findViewById(R.id.target);
+			viewHolder.icon= (ImageView) convertView
+					.findViewById(R.id.icon);
+			viewHolder.badge=new BadgeView(mContext, viewHolder.icon);
 			convertView.setTag(viewHolder);
 
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
-		WaybillNews ksScanResult = getChild(groupPosition, childPosition);
-		viewHolder.name.setText(ksScanResult.name);
-		viewHolder.content.setText(ksScanResult.content);
-		viewHolder.time.setText(ksScanResult.time);
-		viewHolder.target.setText(ksScanResult.target);
+		WaybillNewsGroup group = getChild(groupPosition, childPosition);
+		viewHolder.name.setText(group.name);
+		viewHolder.content.setText(group.description);
+		viewHolder.time.setText("");
+		viewHolder.target.setText("");
+		if(group.type==WaybillNews.TYPE_SYS)
+		viewHolder.icon.setBackgroundResource(R.drawable.icon_sys_msg);
+		
+		//大与两位数只显示原点，不显示文字
+		viewHolder.badge.setText(group.count+"");
+		viewHolder.badge.setTextSize(TypedValue.COMPLEX_UNIT_SP, 8);
+		viewHolder.badge.setBackgroundResource(R.drawable.icon_circle);
+		viewHolder.badge.setBadgeMargin(0, 0);
+		viewHolder.badge.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
+		viewHolder.badge.toggle(true);
+	
 		return convertView;
 	}
 
@@ -179,10 +176,12 @@ public class ExpandableListApapterWaybill extends BaseExpandableListAdapter {
 	}
 
 	static class ViewHolder {
+		public BadgeView badge;
 		TextView name;
 		TextView content;
 		TextView time;
 		TextView target;
+		ImageView icon;
 	}
 
 }

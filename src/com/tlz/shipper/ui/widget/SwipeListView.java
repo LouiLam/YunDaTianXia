@@ -45,9 +45,9 @@ public class SwipeListView extends ListView {
         super(context, attrs);
     }
 
-    public SwipeListView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-    }
+//    public SwipeListView(Context context, AttributeSet attrs, int defStyle) {
+//        super(context, attrs, defStyle);
+//    }
 
     /**
      * return true, deliver to listView. return false, deliver to child. if
@@ -180,6 +180,7 @@ public class SwipeListView extends ListView {
                 break;
 
             case MotionEvent.ACTION_MOVE:
+            	if(mCurrentItemView==null) break;
                 float dx = lastX - mFirstX;
                 float dy = lastY - mFirstY;
                 // confirm is scroll direction
@@ -230,6 +231,7 @@ public class SwipeListView extends ListView {
 
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
+            	if(mCurrentItemView==null) break;
                 clearPressedState();
                 if (mIsShown) {
                     /**
@@ -284,7 +286,7 @@ public class SwipeListView extends ListView {
     }
 
     private void hiddenRight(View view) {
-        if (mCurrentItemView == null) {
+        if (mCurrentItemView == null||view==null) {
             return;
         }
         Message msg = new MoveHandler().obtainMessage();//

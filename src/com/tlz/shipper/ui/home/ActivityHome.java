@@ -34,6 +34,11 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
+import com.net.MessageApi;
+import com.net.NetAsyncFactory;
+import com.net.Urls;
+import com.net.NetAsyncFactory.ResultCodeSucListener;
+import com.tlz.model.Myself;
 import com.tlz.model.User;
 import com.tlz.shipper.R;
 import com.tlz.shipper.ui.BaseLoadingDialog;
@@ -43,6 +48,7 @@ import com.tlz.shipper.ui.ThemeActivity;
 import com.tlz.shipper.ui.ViewVisibleListener;
 import com.tlz.shipper.ui.home.waybill.create.ActivityCreate;
 import com.tlz.utils.FaceImageUtils.FaceImageChangeListener;
+import com.tlz.utils.Flog;
 import com.tlz.utils.ToastUtils;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.bean.SocializeEntity;
@@ -424,7 +430,20 @@ public class ActivityHome extends ThemeActivity implements OnClickListener,
 			// startActivityForResult(intent, REQUEST_CODE_QR_CODE);
 			break;
 		case R.id.action_add_driver:
+			NetAsyncFactory.createMsgTask(this, new ResultCodeSucListener<MessageApi>() {
 
+				@Override
+				public String handler(MessageApi api) {
+					Flog.e(Myself.ShipperId+"");
+					return api.sendSystemMessageToShipper("测试123123", Myself.ShipperId+"");
+				}
+
+				@Override
+				public void suc(JSONObject obj) throws JSONException {
+					
+					
+				}
+			}).execute(Urls.MSGAPI);
 			break;
 
 		// case R.id.action_login:

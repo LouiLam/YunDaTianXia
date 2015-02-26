@@ -139,4 +139,48 @@ public interface MessageApi {
 	 * @return {resultCode:1,发送成功,-1:服务器发生异常}
 	 */
 	String sendCargoMessageToDriver(int cargoId, String driverIds);
+
+	/**
+	 * 分页读取当前登录会员按发送方分组的未读消息数量集合
+	 * @param page 当前页码
+	 * @param size 页数据长度
+	 * @return
+	 * {
+    *   resultCode:1 :正确| 0:会话超时 | -1:操作失败,
+    * 	data:[
+    *		{
+    *			messageCreatorId: 发送方会员ID,
+    *			name: 发送方名称,
+    *			head: 头像url,
+    *			description: 说明(描述),
+    *			unreadCount: 未读消息总数
+    * 		}
+    * 		,...
+    * 	]
+    * }
+	 */
+	String getMyUnreadCountBySender(int page, int size);
+
+	/**
+	 * 返回当前登录会员接收到的指定的会员发送的全部未读消息, 同时置该批消息为已读
+	 * @param senderId
+	 * @return
+	 * {
+    *   resultCode:1 :正确| 0:会话超时 | -1:操作失败,
+    * 	data:[
+    *		{
+    *			messageId: 消息ID,
+    *			messageContent: 消息内容
+    *			messageTitle: 消息标题
+    *			messageTime: 发送时间
+    *			messageType: 消息类型
+    *			messageCreator: 发送会员ID
+    *			name: 发送会员名称,
+    *			head: 发送会员头像url
+    * 		}
+    * 		,...
+    * 	]
+    * }
+	 */
+	String getAllUnreadMessageBySender(int senderId);
 }

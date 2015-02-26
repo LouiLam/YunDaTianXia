@@ -139,6 +139,7 @@ public class LocationService extends Service {
 				@Override
 				public void onTick(long millisUntilFinished) {
 					mRemainderTime--;
+					//界面广播回调，如果不需要界面显示 可以注释屌下面代码
 					Intent intent = new Intent("ticker.broadcast");
 					intent.putExtra("mRemainderTime", mRemainderTime);
 					intent.putExtra("count", count);
@@ -193,7 +194,7 @@ public class LocationService extends Service {
 	// },
 	// ]
 	// }
-	private String jsonInstall() {
+	private String jsonWrap() {
 		try {
 			JSONObject obj = new JSONObject();
 			JSONArray array = new JSONArray();
@@ -222,13 +223,14 @@ public class LocationService extends Service {
 	private void postData() {
 		String result =null;
 		if(Longitude!=0||Latitude!=0) 
-		{result = jsonInstall();
+		{result = jsonWrap();
 		//发送数据前 判断是否有缓存内容，如果有就取出缓存内容，没缓存则为null
 		String temp=writeCache(true);
 		if(temp!=null) //有缓存内容
 			result=temp;
 		}
 		Flog.e(result);
+		//自己封装的Http Post请求
 		AndroidHttp.getInstance().doRequest(
 				"http://120.24.234.112/service/gps/batch", result,
 				new HttpCallback() {

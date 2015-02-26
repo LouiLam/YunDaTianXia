@@ -25,22 +25,6 @@ public class LocationAdmin implements BDLocationListener {
 		return mInstance;
 	}
 
-	// public String getCurrentLocation() {
-	// Criteria c = new Criteria();
-	// c.setAccuracy(Criteria.ACCURACY_FINE);
-	// c.setBearingRequired(false);
-	// c.setAltitudeRequired(false);
-	// c.setCostAllowed(true);
-	// c.setPowerRequirement(Criteria.POWER_LOW);
-	//
-	// String provider = mLocationManager.getBestProvider(c, true);
-	// Location location = mLocationManager.getLastKnownLocation(provider);
-	// if (location == null) {
-	// return "无法获取当前位置!";
-	// } else {
-	// return location.getLatitude() + "," + location.getLongitude();
-	// }
-	// }
 
 	public void startLocation(OnLocationListener listener) {
 		mOnLocationListener = listener;

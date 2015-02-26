@@ -11,18 +11,17 @@
 
     <ImageView
         android:id="@id/icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:background="@drawable/logo"
         android:contentDescription="@null" />
 
     <TextView
+        android:layout_marginLeft="60dp"
         android:id="@id/name"
         style="@style/MTextView"
-        android:layout_marginLeft="15dp"
-        android:layout_toRightOf="@id/icon"
         android:text="安满师傅"
-        android:textSize="15sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@id/target"
@@ -37,8 +36,7 @@
         android:id="@id/content"
         style="@style/MTextView"
         android:layout_alignBottom="@id/icon"
-        android:layout_marginLeft="15dp"
-        android:layout_toRightOf="@id/icon"
+         android:layout_marginLeft="60dp"
         android:text="已离开湖南，跑的不晓得哪里去了"
         android:textColor="@color/text_hint"
         android:textSize="13sp" />
